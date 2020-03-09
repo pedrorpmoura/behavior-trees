@@ -1,4 +1,4 @@
-from models.node import ControlFlowNode
+from models.control_flow_node import ControlFlowNode
 
 class Selector(ControlFlowNode):
     """
