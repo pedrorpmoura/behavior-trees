@@ -1,0 +1,115 @@
+
+%----------------------------------------------------------------------------------------
+%   REQUIRED PACKAGES
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{tikz}
+\RequirePackage{forest}
+\RequirePackage{amssymb}
+
+%----------------------------------------------------------------------------------------
+%   COMMANDS
+%----------------------------------------------------------------------------------------
+
+
+\newcommand{\nodestyle}{
+    regular polygon,
+    regular polygon sides=4,
+    draw,
+    minimum size=10mm,
+    inner sep=0pt
+}
+
+\newcommand{\controlflownodestyle}{
+    \nodestyle,
+    fill=lightgray
+}
+
+
+\newcommand{\rootnode}{
+    $\varnothing$,\nodestyle,fill=green!20
+}
+
+% CONTROL FLOW NODES
+\newcommand{\selector}{
+    ?,\controlflownodestyle
+}
+
+\newcommand{\probselector}{
+    $?_{P}$, 
+    \controlflownodestyle,
+    for children = {edge={->,decorate,decoration={snake,amplitude=.4mm,segment length=2mm,post length=1mm}}},
+}
+
+\newcommand{\sequence}{
+    $\rightarrow$,
+    \controlflownodestyle
+}
+
+\renewcommand{\parallel}{
+    $\rightrightarrows$,
+    \controlflownodestyle
+}
+
+% EXECUTION NODES
+\newcommand{\action}[1] {
+    #1,
+    rectangle,
+    draw,
+    inner sep=7pt
+}
+
+\newcommand{\condition}[1] {
+    #1,
+    rounded rectangle,
+    draw,
+    inner sep=7pt
+}
+
+
+%----------------------------------------------------------------------------------------
+%   ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+\newenvironment{behavior}{
+    \bracketset{action character = @}
+    \forestset{
+        default preamble = {
+            for tree = {l = 15mm, edge = {->}, s sep = 8mm}
+        }
+    }
+    \forest
+    @+
+}{
+    \endforest
+}
+
+
+%----------------------------------------------------------------------------------------
+%   EXAMPLE
+%----------------------------------------------------------------------------------------
+%\begin{behavior}
+%    [\rootnode
+%        [\selector
+%            [\probselector
+%                [\action{Freeze}]
+%                [\sequence
+%                    [\condition{Can move?}]
+%                    [\condition{Path free?}]
+%                    [\action{Move}]
+%                ]
+%            ] 
+%            [\parallel
+%                [\action{First}]
+%                [\action{Second}]
+%                [\action{Third}]
+%            ]
+%        ]
+%    ]
+%\end{behavior}
+
+
+
+\endinput
+%%
+%% End of file `mypackage.sty'.

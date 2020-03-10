@@ -8,6 +8,31 @@
 
 \section{O que são BT?}
 
-\begin{tikzpicture}
-    
-\end{tikzpicture}
+
+\begin{figure}[h]
+\centering
+\begin{behavior}
+    [\sequence
+        [\action{Walk to door}]
+        [\selector
+            [\action{Open door}]
+            [\sequence
+                [\action{Unlock door}]
+                [\action{Open door}]
+            ]
+            [\action{Smash door}]
+        ]
+        [\action{Walk through door}]
+        [\action{Close door}]
+    ]
+\end{behavior}
+\caption{Exemplo de uma BT}
+\label{fig:M1}
+\end{figure}
+
+
+
+
+
+
+
