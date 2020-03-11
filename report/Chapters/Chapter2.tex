@@ -6,33 +6,192 @@
 
 
 
-\section{O que são BT?}
+\section{O que são \textit{Behavior Trees}?}
+\textit{Behavior Trees}, ou BT, são estruturas que controlam a execução de um conjunto ações por parte de um agente autónomo, de forma a descreverem o seu comportamento.
+Este tipo de estrutura começou por ser utilizado especialmente em videojogos (para simular o comportamento de NPCs), mas com o passar do tempo áreas como a Robótica ou a Inteligência Artificial também o começaram a usar, devido à sua capacidade modular e reativa.
 
+Formalmente, uma BT é uma árvore com raiz onde os nodos internos são chamados \textit{control flow nodes} e as folhas são chamadas de \textit{execution nodes}. Para cada nodo conetado usamos a terminologia de \textit{parent} (pai) e \textit{child} (filho).
+A raiz é o único nodo que não tem pais, todos os outros nodos têm exatamente um pai.
+Os \textit{control flow nodes} têm pelo menos um filho, já os \textit{execution nodes} não têm nenhum.
 
-\begin{figure}[h]
+A figura \ref{fig:2.1} mostra um exemplo de uma BT, onde o nodo a verde é a raiz, os nodos a cinzento são \textit{control flow nodes} e os restantes são \textit{execution nodes}.
+
+\begin{figure}[H]
 \centering
 \begin{behavior}
-    [\sequence
-        [\action{Walk to door}]
-        [\selector
-            [\action{Open door}]
-            [\sequence
-                [\action{Unlock door}]
+    [\rootnode
+        [\sequence
+            [\action{Walk to door}]
+            [\selector
                 [\action{Open door}]
+                [\sequence
+                    [\action{Unlock door}]
+                    [\action{Open door}]
+                ]
+                [\action{Smash door}]
             ]
-            [\action{Smash door}]
+            [\action{Walk through door}]
+            [\action{Close door}]
         ]
-        [\action{Walk through door}]
-        [\action{Close door}]
     ]
 \end{behavior}
-\caption{Exemplo de uma BT}
-\label{fig:M1}
+\caption{Exemplo de uma BT.}
+\label{fig:2.1}
 \end{figure}
 
+\section{Execução}
+Uma BT começa a sua execução pelo nodo raiz que gera sinais chamados \textit{ticks} com uma determinada frequência, que são enviados para os seus filhos.
+Estes sinais permitem a execução dos nodos.
+
+Qualquer nodo, não importa o tipo, ao ser executado retorna um de três estados: 
+\begin{itemize}
+    \item \textit{Success} - foi executado com sucesso;
+    \item \textit{Failure} - não conseguiu ser executado;
+    \item \textit{Running} - ainda está a executar.
+\end{itemize}
 
 
 
 
+\section{Nodos}
+
+\subsection{Control Flow Nodes}
+\textit{Control flow nodes} são nodos estruturais, que não têm qualquer impacto no estado global do sistema.
+Na formulação clássica, existem 4 categorias deste tipo de nodo: \textit{Sequence}, \textit{Selector (ou Fallback)}, \textit{Parallel} e \textit{Decorator}.
+
+\paragraph{Sequence}{
+    Um nodo \textit{Sequence} visita (envia \textit{ticks}) todos os filhos por ordem, começando pelo primeiro, e se este retornar \textit{Success}, chama o segundo, e por aí em diante.
+    Caso um filho falhe, o nodo \textit{Sequence} retorna \textit{Failure} imediatamente.
+    Caso todos os filhos sucedam, o nodo retorna \textit{Success}.
+    Caso um filho retorne \textit{Running}, o nodo retorna também \textit{Running}.
+
+    \begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\sequence
+            [\action{Child 1}]
+            [\action{Child 2}]
+            [{\textbf{. . .}}, inner sep=10pt]
+            [\action{Child N}]
+        ]
+    \end{behavior}
+    \caption{Estrutura de um nodo \textit{Sequence}.}
+    \label{fig:2.2}
+    \end{figure}
+}
+
+\paragraph{Selector}{
+    Tal como o \textit{Sequence}, o nodo \textit{Selector} visita todos os filhos por ordem, mas só avança para o próximo se o filho que está a ser executado retorne \textit{Failure}.
+    Caso um filho suceda, o nodo \textit{Sequence} retorna \textit{Sucess} imediatamente.
+    Caso todos os filhos falhem, retorna \textit{Failure}.
+    Caso um filho retorne \textit{Running}, o nodo retorna também \textit{Running}.
+
+    \begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\selector
+            [\action{Child 1}]
+            [\action{Child 2}]
+            [{\textbf{. . .}}, inner sep=10pt]
+            [\action{Child N}]
+        ]
+    \end{behavior}
+    \caption{Estrutura de um nodo \textit{Selector}.}
+    \label{fig:2.3}
+    \end{figure}
+}
+
+\paragraph{Parallel}{
+    Um nodo \textit{Parallel}, como o nome indica, visita todos os filhos paralelamente.
+    Para $M \leq N$, retorna \textit{Success} caso $M$ filhos sucedam, e retorna \textit{Failure} caso $N - M + 1$ filhos retornem \textit{Failure}.
+    Caso contrário, retorna \textit{Running}.
+
+    \begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\parallel{M}
+            [\action{Child 1}]
+            [\action{Child 2}]
+            [{\textbf{. . .}}, inner sep=10pt]
+            [\action{Child N}]
+        ]
+    \end{behavior}
+    \caption{Estrutura de um nodo \textit{Parallel} com taxa de sucesso $M$.}
+    \label{fig:2.4}
+    \end{figure}
+}
+
+\paragraph{Decorator}
+POR FAZER
+
+
+\subsection{Execution Nodes}
+\textit{Execution nodes} são os nodos mais simples, porém os mais poderosos, pois contêm os testes ou ações que serão implementados pelo sistema.
+Existem 2 categorias para este tipo de nodos: \textit{Action} e \textit{Condition}.
+
+\paragraph{Action}{
+    Quando recebe \textit{ticks}, um nodo \textit{Action} executa um ou mais comandos.
+    Retorna \textit{Success} se a ação foi corretamente completada ou \textit{Failure} se a ação falhou.
+    Enquanto está a ser executado, retorna \textit{Running}.
+
+    \begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\action{Action}]
+    \end{behavior}
+    \caption{Estrutura de um nodo \textit{Action}.}
+    \label{fig:2.5}
+    \end{figure}
+}
+
+\paragraph{Condition}{
+    Quando recebe \textit{ticks}, um nodo \textit{Condition} verifica uma proposição.
+    Retorna \textit{Success} ou \textit{Failure} dependendo se a proposição é válida ou não.
+    De notar que um nodo \textit{Condition} nunca retorna um estado \textit{Running}.
+
+    \begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\condition{Condition}]
+    \end{behavior}
+    \caption{Estrutura de um nodo \textit{Condition}.}
+    \label{fig:2.6}
+    \end{figure}
+
+    \hr
+    \paragraph{\textit{NOTA:}}{
+        \textit{
+        Quando juntamos o nodo Condition com os nodos Sequence e Selector podemos criar uma expressão condicional (if-then-else). Vejamos o seguinte exemplo:
+        }
+        \begin{figure}[H]
+        \centering
+        \begin{behavior}
+            [\selector
+                [\sequence
+                    [\condition{Shop is open}]
+                    [\action{Go shopping}]
+                ]
+                [\action{Go home}]
+            ]
+        \end{behavior}
+        \caption{\textit{Exemplo de uma expressão condicional numa BT.}}
+        \label{fig:2.7}
+        \end{figure}
+
+        \textit{
+        Como podemos ver, a escolha da ação a executar alterna entre ir às compras ou ir embora consoante a loja esteja aberta ou não. Ou seja,
+        }
+
+        \begin{center}
+            \textit{
+            \underline{\textbf{if}} Shop is open \underline{\textbf{then}} Go shopping \underline{\textbf{else}} Go home
+            }
+        \end{center}
+    }
+    \hr
+}
+
+
+\section{Exemplo - \textit{PACMAN}}
 
 

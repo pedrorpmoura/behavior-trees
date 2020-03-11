@@ -49,6 +49,8 @@ headsepline, % Uncomment to get a line under the header
 \usepackage{tikz}
 \usepackage{forest}
 \usepackage{behaviortrees}
+\usepackage{bm}
+\usepackage{float}
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{decorations.pathmorphing}
 
@@ -58,6 +60,7 @@ headsepline, % Uncomment to get a line under the header
 
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
 
+\newcommand{\hr}{\noindent\rule{\textwidth}{0.3pt}}
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
 %----------------------------------------------------------------------------------------
@@ -76,7 +79,7 @@ headsepline, % Uncomment to get a line under the header
 %	THESIS INFORMATION
 %----------------------------------------------------------------------------------------
 
-\thesistitle{Árvores de Comportamento} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\thesistitle{DSL para Árvores de Comportamento (Behavior Trees)} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
 \supervisors{
     \href{http://www4.di.uminho.pt/~prh/}{Pedro Rangel Henriques}\\
     \href{https://natura.di.uminho.pt/~jj/}{José João Almeida}

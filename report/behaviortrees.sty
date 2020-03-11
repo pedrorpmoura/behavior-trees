@@ -5,8 +5,7 @@
 
 \RequirePackage{tikz}
 \RequirePackage{forest}
-\RequirePackage{amssymb}
-
+\RequirePackage{amsmath,amssymb,amsthm}
 %----------------------------------------------------------------------------------------
 %   COMMANDS
 %----------------------------------------------------------------------------------------
@@ -16,7 +15,7 @@
     regular polygon,
     regular polygon sides=4,
     draw,
-    minimum size=10mm,
+    minimum size=12mm,
     inner sep=0pt
 }
 
@@ -46,8 +45,8 @@
     \controlflownodestyle
 }
 
-\renewcommand{\parallel}{
-    $\rightrightarrows$,
+\renewcommand{\parallel}[1] {
+    $\rightrightarrows_{\scalebox{0.5}{$#1$}}$,
     \controlflownodestyle
 }
 
@@ -65,8 +64,6 @@
     draw,
     inner sep=7pt
 }
-
-
 %----------------------------------------------------------------------------------------
 %   ENVIRONMENT
 %----------------------------------------------------------------------------------------
