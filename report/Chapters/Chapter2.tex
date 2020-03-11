@@ -7,7 +7,7 @@
 
 
 \section{O que são \textit{Behavior Trees}?}
-\textit{Behavior Trees}, ou BT, são estruturas que controlam a execução de um conjunto ações por parte de um agente autónomo, de forma a descreverem o seu comportamento.
+\textit{Behavior Trees}, ou BT, são estruturas que controlam a execução de um conjunto de ações por parte de um agente autónomo, de forma a descreverem o seu comportamento.
 Este tipo de estrutura começou por ser utilizado especialmente em videojogos (para simular o comportamento de NPCs), mas com o passar do tempo áreas como a Robótica ou a Inteligência Artificial também o começaram a usar, devido à sua capacidade modular e reativa.
 
 Formalmente, uma BT é uma árvore com raiz onde os nodos internos são chamados \textit{control flow nodes} e as folhas são chamadas de \textit{execution nodes}. Para cada nodo conetado usamos a terminologia de \textit{parent} (pai) e \textit{child} (filho).
@@ -60,7 +60,7 @@ Qualquer nodo, não importa o tipo, ao ser executado retorna um de três estados
 Na formulação clássica, existem 4 categorias deste tipo de nodo: \textit{Sequence}, \textit{Selector (ou Fallback)}, \textit{Parallel} e \textit{Decorator}.
 
 \paragraph{Sequence}{
-    Um nodo \textit{Sequence} visita (envia \textit{ticks}) todos os filhos por ordem, começando pelo primeiro, e se este retornar \textit{Success}, chama o segundo, e por aí em diante.
+    Um nodo \textit{Sequence} visita (envia \textit{ticks}) a todos os filhos por ordem, começando pelo primeiro, e se este retornar \textit{Success}, chama o segundo, e por aí em diante.
     Caso um filho falhe, o nodo \textit{Sequence} retorna \textit{Failure} imediatamente.
     Caso todos os filhos sucedam, o nodo retorna \textit{Success}.
     Caso um filho retorne \textit{Running}, o nodo retorna também \textit{Running}.
@@ -122,7 +122,9 @@ Na formulação clássica, existem 4 categorias deste tipo de nodo: \textit{Sequ
 }
 
 \paragraph{Decorator}
-POR FAZER
+    Um nodo do tipo \textit{Decorator}, é um nodo com um unico filho, este manipula o estado de retorno consoante as regras definidas pelo utilizador.
+    Um exemplo da utilização deste tipo de nodos seria usar um nodo \textit{Decorator}, dizendo que o seu filho só pode correr n vezes, caso não corra retorna que \textit{Failure}, caso contrário retorna \textit{Sucess}.
+    Outro exemplo seria dizer que o filho só poderia correr durante x segundos, se após esses x segundos o filho ainda esteja a correr, retorna \textit{Failure}, caso contrário retorna \textit{Sucess}.
 
 
 \subsection{\textit{Control Flow Nodes} - Novos}
