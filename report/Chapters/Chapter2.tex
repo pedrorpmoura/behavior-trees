@@ -60,7 +60,7 @@ Qualquer nodo, não importa o tipo, ao ser executado retorna um de três estados
 Na formulação clássica, existem 4 categorias deste tipo de nodo: \textit{Sequence}, \textit{Selector (ou Fallback)}, \textit{Parallel} e \textit{Decorator}.
 
 \paragraph{Sequence}{
-    Um nodo \textit{Sequence} visita (envia \textit{ticks}) a todos os filhos por ordem, começando pelo primeiro, e se este retornar \textit{Success}, chama o segundo, e por aí em diante.
+    Um nodo \textit{Sequence} visita (envia \textit{ticks}) todos os filhos por ordem, começando pelo primeiro, e se este retornar \textit{Success}, chama o segundo, e por aí em diante.
     Caso um filho falhe, o nodo \textit{Sequence} retorna \textit{Failure} imediatamente.
     Caso todos os filhos sucedam, o nodo retorna \textit{Success}.
     Caso um filho retorne \textit{Running}, o nodo retorna também \textit{Running}.
