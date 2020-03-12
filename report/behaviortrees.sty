@@ -53,8 +53,21 @@
 
 \newcommand{\decoratorstyle} {
     diamond,
-    draw
-} 
+    draw,
+    fill=lightgray,
+    minimum size = 12mm
+}
+
+
+\newcommand{\decorator}[1]{
+    #1, \decoratorstyle
+}
+
+% pre-defined decorators
+\newcommand{\inverter}{
+    I, \decoratorstyle
+}
+
 
 % EXECUTION NODES
 \newcommand{\action}[1] {

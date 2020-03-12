@@ -122,10 +122,29 @@ Na formulação clássica, existem 4 categorias deste tipo de nodo: \textit{Sequ
 }
 
 \paragraph{Decorator}
-    Um nodo do tipo \textit{Decorator}, é um nodo com um unico filho, este manipula o estado de retorno consoante as regras definidas pelo utilizador.
-    Um exemplo da utilização deste tipo de nodos seria usar um nodo \textit{Decorator}, dizendo que o seu filho só pode correr n vezes, caso não corra retorna que \textit{Failure}, caso contrário retorna \textit{Sucess}.
-    Outro exemplo seria dizer que o filho só poderia correr durante x segundos, se após esses x segundos o filho ainda esteja a correr, retorna \textit{Failure}, caso contrário retorna \textit{Sucess}.
+    Um nodo \textit{Decorator} tem um único filho, e utiliza uma política (conjunto de regras) definida pelo utilizador para manipular o estado de retorno desse filho ou controlar a sua execução.
 
+    \begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\decorator{$\delta$},
+            [\action{Child}]
+        ]
+    \end{behavior}
+    \caption{Estrutura de um nodo \textit{Decorator} com uma política $\delta$.}
+    \label{fig:2.5}
+    \end{figure}
+
+    \paragraph{}{
+
+    }
+    
+    Exemplos de nodos \textit{Decorator}:
+    \begin{itemize}
+        \item \textit{inverter} - inverte o estado \textit{Success/Failure} retornado pelo filho;
+        \item \textit{max-$N$-tries} - o filho só pode falhar $N$ vezes, depois retorna sempre \textit{Failure} sem enviar \textit{ticks} para o filho.
+        \item \textit{max-$T$-seconds} - deixa o filho correr durante $T$ segundos. Se depois disto o filho retornar \textit{Running}, o nodo retorna \textit{Failure} sem correr o filho.
+    \end{itemize}
 
 \subsection{\textit{Control Flow Nodes} - Novos}
 POR FAZER
@@ -146,7 +165,7 @@ Existem 2 categorias para este tipo de nodos: \textit{Action} e \textit{Conditio
         [\action{Action}]
     \end{behavior}
     \caption{Estrutura de um nodo \textit{Action}.}
-    \label{fig:2.5}
+    \label{fig:2.6}
     \end{figure}
 }
 
@@ -161,7 +180,7 @@ Existem 2 categorias para este tipo de nodos: \textit{Action} e \textit{Conditio
         [\condition{Condition}]
     \end{behavior}
     \caption{Estrutura de um nodo \textit{Condition}.}
-    \label{fig:2.6}
+    \label{fig:2.7}
     \end{figure}
 
     \hr
@@ -181,7 +200,7 @@ Existem 2 categorias para este tipo de nodos: \textit{Action} e \textit{Conditio
             ]
         \end{behavior}
         \caption{Exemplo de uma expressão condicional numa BT.}
-        \label{fig:2.7}
+        \label{fig:2.8}
         \end{figure}
 
         \textit{
@@ -196,6 +215,9 @@ Existem 2 categorias para este tipo de nodos: \textit{Action} e \textit{Conditio
     }
     \hr
 }
+
+
+
 
 
 
