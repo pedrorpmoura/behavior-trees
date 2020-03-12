@@ -11,8 +11,7 @@
 \contentsline {paragraph}{Selector}{3}{section*.16}% 
 \contentsline {paragraph}{Parallel}{3}{section*.18}% 
 \contentsline {paragraph}{Decorator}{4}{section*.20}% 
-\contentsline {paragraph}{}{4}{section*.22}% 
-\contentsline {subsection}{\numberline {2.3.2}\textit {Control Flow Nodes} - Novos}{4}{subsection.23}% 
+\contentsline {subsection}{\numberline {2.3.2}\textit {Control Flow Nodes} - Novos}{4}{subsection.22}% 
 \contentsline {subsection}{\numberline {2.3.3}\textit {Execution Nodes}}{4}{subsection.24}% 
 \contentsline {paragraph}{Action}{4}{section*.25}% 
 \contentsline {paragraph}{Condition}{4}{section*.27}% 

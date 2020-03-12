@@ -16,7 +16,8 @@
     regular polygon sides=4,
     draw,
     minimum size=12mm,
-    inner sep=0pt
+    inner sep=0pt,
+    thick
 }
 
 \newcommand{\controlflownodestyle}{
@@ -37,7 +38,7 @@
 \newcommand{\probselector}{
     $?_{P}$, 
     \controlflownodestyle,
-    for children = {edge={->,decorate,decoration={snake,amplitude=.4mm,segment length=2mm,post length=1mm}}},
+    for children = {edge={decorate,decoration={snake,amplitude=.4mm,segment length=2mm,post length=1mm}}},
 }
 
 \newcommand{\sequence}{
@@ -55,7 +56,8 @@
     diamond,
     draw,
     fill=lightgray,
-    minimum size = 12mm
+    minimum size = 12mm,
+    thick
 }
 
 
@@ -91,7 +93,7 @@
     \bracketset{action character = @}
     \forestset{
         default preamble = {
-            for tree = {l = 15mm, edge = {->}, s sep = 8mm}
+            for tree = {l = 15mm, s sep = 8mm, parent anchor=south, child anchor=north}
         }
     }
     \forest
