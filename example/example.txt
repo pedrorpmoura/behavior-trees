@@ -3,17 +3,17 @@ behavior {
     sequence: $SEQUENCE_NAME;
 }
 
-sequence SEQUENCE_NAME {
+sequence SEQUENCE_NAME [
     action: $ACTION_1,
-    action: $ACTION_2,
-}
+    action: $ACTION_2
+]
 
 action ACTION_1 {
     print("Hello World")
 }
 
 action ACTION_2 {
-    print("Ola Mundo");
+    print("Ola Mundo")
 }
 
 
