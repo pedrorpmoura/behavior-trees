@@ -4,9 +4,29 @@ behavior {
 }
 
 sequence SEQUENCE_NAME [
-    action: $ACTION_1,
+    condition: $CONDITION_1,
+    action: $ACTION_1
+]
+
+
+selector SELECTOR_NAME [
     action: $ACTION_2
 ]
+
+
+prob_selector PROB_SELECTOR_NAME [
+    { expression1 } -> sequence: $SEQUENCE_NAME,
+    $EXPRESSION_2 -> action: $ACTION_1
+]
+
+expression EXPRESSION_2 {
+    intelligence / 10
+}
+
+
+condition CONDITION_1 {
+    x == y
+}
 
 action ACTION_1 {
     print("Hello World")

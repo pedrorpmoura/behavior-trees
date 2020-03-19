@@ -5,11 +5,12 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Exemplo de uma BT.\relax }}{2}{figure.caption.10}% 
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Estrutura de um nodo \textit {Sequence}.\relax }}{3}{figure.caption.15}% 
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Estrutura de um nodo \textit {Selector}.\relax }}{3}{figure.caption.17}% 
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Estrutura de um nodo \textit {Parallel} com taxa de sucesso $M$.\relax }}{3}{figure.caption.19}% 
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Estrutura de um nodo \textit {Parallel} com taxa de sucesso $M$.\relax }}{4}{figure.caption.19}% 
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Estrutura de um nodo \textit {Decorator} com uma pol\IeC {\'\i }tica $\delta $.\relax }}{4}{figure.caption.21}% 
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Estrutura de um nodo \textit {Action}.\relax }}{4}{figure.caption.26}% 
-\contentsline {figure}{\numberline {2.7}{\ignorespaces Estrutura de um nodo \textit {Condition}.\relax }}{4}{figure.caption.28}% 
-\contentsline {figure}{\numberline {2.8}{\ignorespaces Exemplo de uma express\IeC {\~a}o condicional numa BT.\relax }}{5}{figure.caption.30}% 
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Estrutura de um nodo \textit {Probability Selector}.\relax }}{5}{figure.caption.24}% 
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Estrutura de um nodo \textit {Action}.\relax }}{5}{figure.caption.27}% 
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Estrutura de um nodo \textit {Condition}.\relax }}{5}{figure.caption.29}% 
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Exemplo de uma express\IeC {\~a}o condicional numa BT.\relax }}{5}{figure.caption.31}% 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -38,7 +38,7 @@
 \newcommand{\probselector}{
     $?_{P}$, 
     \controlflownodestyle,
-    for children = {edge={decorate,decoration={snake,amplitude=.4mm,segment length=2mm,post length=1mm}}},
+    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}},
 }
 
 \newcommand{\sequence}{
@@ -93,7 +93,7 @@
     \bracketset{action character = @}
     \forestset{
         default preamble = {
-            for tree = {l = 15mm, s sep = 8mm, parent anchor=south, child anchor=north}
+            for tree = {edge = {->}, l = 20mm, s sep = 8mm, parent anchor=south, child anchor=north}
         }
     }
     \forest

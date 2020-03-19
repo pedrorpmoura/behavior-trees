@@ -142,16 +142,55 @@ Na formulação clássica, existem 4 categorias deste tipo de nodo: \textit{Sequ
         \item \textit{max-$T$-seconds} - deixa o filho correr durante $T$ segundos. Se depois disto o filho retornar \textit{Running}, o nodo retorna \textit{Failure} sem correr o filho.
     \end{itemize}
 
+
+
+
 \subsection{\textit{Control Flow Nodes} - Novos}
-\begin{figure}[H]
-\centering
-\begin{behavior}
-    [\probselector
-        [\action{Child 1}]
-        [\action{Child 2}]
-    ]
-\end{behavior}
-\end{figure}
+Para além dos \textit{control flow nodes} existentes na formulação clássica das BTs, podemos ter outras categorias de nodos, de forma a proporcionar uma melhoria a tanto a nível de AI, como a nível de imprevisibilidade, ou até mesmo apenas algo que facilite a implementação de certos comportamentos por parte do programador.
+Visto isto, decidimos introduzir um novo nodo: \textit{Probability Selector}.
+
+\paragraph{Probability Selector}{
+    
+    Um nodo \textit{Probability Selector} pode ser visto como uma ``extensão'' ao nodo \textit{Selector}. 
+    A única diferença é que, enquanto o \textit{Selector} clássico visita os filhos por ordem, este novo nodo executa-os de uma forma aleatória tendo em conta que cada filho tem uma certa probabilidade, definida pelo utilizador, de ser escolhido.
+
+    \begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\probselector
+            [\action{Child 1}, edge label = {node [above, sloped] {$P_1$}}],
+            [\action{Child 2}, edge label = {node [above, sloped] {$P_2$}}],
+            [{\textbf{. . .}}, inner sep=10pt],
+            [\action{Child N}, edge label = {node [above, sloped] {$P_N$}}]
+        ]
+    \end{behavior}
+    \caption{Estrutura de um nodo \textit{Probability Selector}.}
+    \label{fig:2.6}
+    \end{figure}
+
+    \hr
+    \paragraph{\textit{NOTA:}}{
+        \textit{
+        Com este novo nodo, atingimos um novo nível de AI, pois permite-nos construir comportamentos não só mais imprevisíveis, como também influenciados por fatores externos.
+        Vejamos o seguinte exemplo:
+        
+        \begin{figure}
+        \centering
+        \begin{behavior}
+
+        \end{behavior}
+        \end{figure}
+        }
+    }
+    \hr
+}
+
+
+
+
+
+
+
 
 
 \subsection{\textit{Execution Nodes}}
@@ -169,7 +208,7 @@ Existem 2 categorias para este tipo de nodos: \textit{Action} e \textit{Conditio
         [\action{Action}]
     \end{behavior}
     \caption{Estrutura de um nodo \textit{Action}.}
-    \label{fig:2.6}
+    \label{fig:2.7}
     \end{figure}
 }
 
@@ -184,7 +223,7 @@ Existem 2 categorias para este tipo de nodos: \textit{Action} e \textit{Conditio
         [\condition{Condition}]
     \end{behavior}
     \caption{Estrutura de um nodo \textit{Condition}.}
-    \label{fig:2.7}
+    \label{fig:2.8}
     \end{figure}
 
     \hr
@@ -204,7 +243,7 @@ Existem 2 categorias para este tipo de nodos: \textit{Action} e \textit{Conditio
             ]
         \end{behavior}
         \caption{Exemplo de uma expressão condicional numa BT.}
-        \label{fig:2.8}
+        \label{fig:2.9}
         \end{figure}
 
         \textit{
