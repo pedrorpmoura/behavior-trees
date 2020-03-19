@@ -145,52 +145,6 @@ Na formulação clássica, existem 4 categorias deste tipo de nodo: \textit{Sequ
 
 
 
-\subsection{\textit{Control Flow Nodes} - Novos}
-Para além dos \textit{control flow nodes} existentes na formulação clássica das BTs, podemos ter outras categorias de nodos, de forma a proporcionar uma melhoria a tanto a nível de AI, como a nível de imprevisibilidade, ou até mesmo apenas algo que facilite a implementação de certos comportamentos por parte do programador.
-Visto isto, decidimos introduzir um novo nodo: \textit{Probability Selector}.
-
-\paragraph{Probability Selector}{
-    
-    Um nodo \textit{Probability Selector} pode ser visto como uma ``extensão'' ao nodo \textit{Selector}. 
-    A única diferença é que, enquanto o \textit{Selector} clássico visita os filhos por ordem, este novo nodo executa-os de uma forma aleatória tendo em conta que cada filho tem uma certa probabilidade, definida pelo utilizador, de ser escolhido.
-
-    \begin{figure}[H]
-    \centering
-    \begin{behavior}
-        [\probselector
-            [\action{Child 1}, edge label = {node [above, sloped] {$P_1$}}],
-            [\action{Child 2}, edge label = {node [above, sloped] {$P_2$}}],
-            [{\textbf{. . .}}, inner sep=10pt],
-            [\action{Child N}, edge label = {node [above, sloped] {$P_N$}}]
-        ]
-    \end{behavior}
-    \caption{Estrutura de um nodo \textit{Probability Selector}.}
-    \label{fig:2.6}
-    \end{figure}
-
-    \hr
-    \paragraph{\textit{NOTA:}}{
-        \textit{
-        Com este novo nodo, atingimos um novo nível de AI, pois permite-nos construir comportamentos não só mais imprevisíveis, como também influenciados por fatores externos.
-        Vejamos o seguinte exemplo:
-        
-        \begin{figure}
-        \centering
-        \begin{behavior}
-
-        \end{behavior}
-        \end{figure}
-        }
-    }
-    \hr
-}
-
-
-
-
-
-
-
 
 
 \subsection{\textit{Execution Nodes}}
@@ -258,6 +212,85 @@ Existem 2 categorias para este tipo de nodos: \textit{Action} e \textit{Conditio
     }
     \hr
 }
+
+
+
+\subsection{\textit{Control Flow Nodes} - Novos}
+Para além dos \textit{control flow nodes} existentes na formulação clássica das BTs, podemos ter outras categorias de nodos, de forma a proporcionar uma melhoria a tanto a nível de AI, como a nível de imprevisibilidade, ou até mesmo apenas algo que facilite a implementação de certos comportamentos por parte do programador.
+Visto isto, decidimos introduzir um novo nodo: \textit{Probability Selector}.
+
+\paragraph{Probability Selector}{
+    
+    Um nodo \textit{Probability Selector} pode ser visto como uma ``extensão'' ao nodo \textit{Selector}. 
+    A única diferença é que, enquanto o \textit{Selector} clássico visita os filhos por ordem, este novo nodo executa-os de uma forma aleatória tendo em conta que cada filho tem uma certa probabilidade, definida pelo utilizador, de ser escolhido.
+
+    \begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\probselector
+            [\action{Child 1}, edge label = {node [above, sloped] {$P_1$}}],
+            [\action{Child 2}, edge label = {node [above, sloped] {$P_2$}}],
+            [{\textbf{. . .}}, inner sep=10pt],
+            [\action{Child N}, edge label = {node [above, sloped] {$P_N$}}]
+        ]
+    \end{behavior}
+    \caption{Estrutura de um nodo \textit{Probability Selector}.}
+    \label{fig:2.6}
+    \end{figure}
+
+    Com este novo nodo, conseguimos atingir um novo nível de AI, pois permite-nos construir comportamentos não só mais imprevisíveis, como também influenciados por fatores externos.
+    Analisemos a seguinte situação:
+    \\
+
+    \textit{
+        Num videojogo, o nosso herói quer convidar um certo NPC para o acompanhar numa missão muito perigosa.
+        No entanto há um problema... o NPC é pouco corajoso.
+    }
+    \\
+
+    Se olharmos para esta situação de forma racional, é óbvio que ele irá rejeitar este convite.
+    Mas não existirá na mesma a possibilidade de ele por acaso aceitar?
+    Vejamos o seguinte:
+    \\
+
+    \textit{
+        Mas por obra do acaso o dia até está a correr bem ao NPC, e naquele momento ele sente-se confiante e, contra todas as espetativas, decide aceitar o convite.
+    }
+    \\
+
+    Ok, temos aqui novas informações acerca do comportamento do NPC, mas nada demais.
+    Construindo um \textit{if-then-else} com a nossa BT conseguimos resolver este problema.
+    Se o NPC estiver confiante aceita, senão rejeita.
+
+    Mas e se mesmo que esteja confiante, o medo leva a melhor e ele decide rejeitar?
+    No mundo real, não conseguimos prever com 100\% de certeza o comportamento de uma certa pessoa.
+    Existe aqui um nível de imprevisibilidade que não é atingível utilizando apenas os nodos clássicos das BT.
+
+    Posto isto, vamos adicionar esta subárvore com o nosso novo nodo ao comportamento do NPC:
+
+    \begin{figure}[H]
+    \centering
+        \begin{behavior}
+            [\probselector
+                [\action{Accept}, edge label = {node [midway, above, sloped] {$P_1$}}],
+                [\action{Reject}, edge label = {node [midway, above, sloped] {$P_2$}}]
+            ]
+        \end{behavior}
+
+        \begin{align*}
+            P_1 &= \frac{C}{10} \\
+            P_2 &= 1 - \frac{C}{10}
+        \end{align*}
+        onde $C \in [0,10]$ é um valor que representa o nível de coragem do NPC.
+    \end{figure}
+    
+    O que esta subárvore diz é que, mesmo que seja muito pouco provável (porque tem um $C$ reduzido), existe a possibilidade do NPC aceitar o convite, quer seja por estar confiante, ou por outra razão qualquer que não diz respeito ao jogador.
+
+    Mesmo não sendo muito correto (porque não sabemos que fatores levam à existência desta possibilidade), é uma aproximação interessante à tal imprevisibilidade que existe na vida real, que permite a criação de comportamentos ainda mais complexos, utilizando variáveis como o $C$, que são criadas pelo próprio programador.
+
+}
+
+
 
 
 
