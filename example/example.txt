@@ -1,7 +1,11 @@
 
+
+
 behavior {
     sequence: $SEQUENCE_NAME;
 }
+
+
 
 sequence SEQUENCE_NAME [
     condition: $CONDITION_1,
@@ -28,9 +32,11 @@ condition CONDITION_1 {
     x == y
 }
 
+
 action ACTION_1 {
     print("Hello World")
 }
+
 
 action ACTION_2 {
     print("Ola Mundo")
