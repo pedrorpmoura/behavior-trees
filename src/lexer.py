@@ -13,6 +13,7 @@ tokens = (
     'RSQUAREBRACKET',
     'COLON',
     'COMMA',
+    'RIGHTARROW',
     'DOLLAR',
     'DOUBLEPERCENTAGE',
     
@@ -26,13 +27,15 @@ tokens = (
     'CONDITION',
     'ACTION',
     'EXPRESSION',
+    'INVERTER',
+    'MAXTRIES',
+    'MAXSECONDS',
 
     # variables
     'INT',
-    'CODE',
-    'NODENAME'
+    'NODENAME',
+    'CODE'
 )
-
 
 t_ignore = ' \n\t'
 
@@ -50,7 +53,7 @@ def t_LCURLYBRACKET(t):
     return t
 
 def t_RCURLYBRACKET(t):
-    r'\('
+    r'\}'
     return t
 
 def t_LSQUAREBRACKET(t):
@@ -69,6 +72,10 @@ def t_COMMA(t):
     r'\,'
     return t
 
+def t_RIGHTARROW(t):
+    r'\-\>'
+    return t
+
 def t_DOLLAR(t):
     r'\$'
     return t
@@ -80,39 +87,51 @@ def t_DOUBLEPERCENTAGE(t):
 
 
 def t_BEHAVIOR(t):
-    r'behavior'
+    r'\b(behavior)\b'
     return t
 
 def t_SEQUENCE(t):
-    r'sequence'
+    r'\b(sequence)\b'
     return t
 
 def t_SELECTOR(t):
-    r'selector'
+    r'\b(selector)\b'
     return t
 
 def t_PROBSELECTOR(t):
-    r'prob_selector'
+    r'\b(prob_selector)\b'
     return t
 
 def t_PARALLEL(t):
-    r'parallel'
+    r'\b(parallel)\b'
     return t
 
 def t_DECORATOR(t):
-    r'decorator'
+    r'\b(decorator)\b'
     return t
 
 def t_CONDITION(t):
-    r'condition'
+    r'\b(condition)\b'
     return t
 
 def t_ACTION(t):
-    r'action'
+    r'\b(action)\b'
     return t
 
 def t_EXPRESSION(t):
-    r'expression'
+    r'\b(expression)\b'
+    return t
+
+def t_INVERTER(t):
+    r'\b(INVERTER)\b'
+    return t
+
+def t_MAXTRIES(t):
+    r'\b(MAXTRIES)\b'
+    return t
+
+def t_MAXSECONDS(t):
+    r'\b(MAXSECONDS)\b'
     return t
 
 
@@ -123,14 +142,15 @@ def t_INT(t):
     return t
 
 def t_NODENAME(t):
-    r'[a-zA-Z][a-zA-Z0-9]*'
+    r'\w[\w\d]*'
     t.type = 'NODENAME'
     return t
 
 def t_CODE(t):
-     r'.+'
-     t.type = 'CODE'
-     return t
+    r'    (.|\n)+'
+    t.type = 'CODE'
+    return t
+
 
 def t_error(t):
     print("Illegal characters!")
@@ -139,6 +159,21 @@ def t_error(t):
 
 
 lexer = lex.lex()
+
+lexer.input(
+    """
+    condition CONDITION : {
+        x == y
+    }
+    """
+)
+
+while True:
+    tok = lexer.token()
+    if not tok:
+        break
+    print(tok)
+'''
 lexer.input("""
     behavior: {
 
@@ -159,9 +194,4 @@ lexer.input("""
         x == y
     }
 """)
-
-while True:
-    tok = lexer.token()
-    if not tok:
-        break
-    print(tok)
+'''

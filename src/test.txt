@@ -1,0 +1,27 @@
+behavior {
+    sequence : [
+        action : $action1,
+        prob_selector : [
+            $EXPRESSION1 -> action: $action1,
+            $EXPRESSION2 -> sequence : [
+                condition: $condition1,
+                decorator: INVERTER [
+                    action: $action2
+                ]
+            ]
+        ]
+    ]
+}
+
+
+condition condition1 : {
+    z == y
+}
+
+action action1 : {
+    x = 2
+}
+
+action action2 : {
+    print("Hello World")
+}
