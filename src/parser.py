@@ -1,11 +1,35 @@
 import ply.yacc as yacc
 import sys
+from lexer import *
 
 
+def p_root(p):
+    '''
+    Root : Behavior DOUBLEPERCENTAGE CODE
+    '''
+    print(p[1])
+
+
+def p_behavior(p):
+    '''
+    Behavior : BEHAVIOR LCURLYBRACKET RCURLYBRACKET
+    '''
+    p[0] = p[1]
+
+
+parser = yacc.yacc()
+
+
+while True:
+    try:
+        s = input('')
+    except EOFError:
+        break
+    parser.parse(s)
 """   
 
 Root : Behaviour Defs DOUBLEPERCENTAGE Code 
-    | Defs Behavior DOUBLEPERCENTAGE Code
+     | Defs Behavior DOUBLEPERCENTAGE Code
 
 Behaviour : BEHAVIOUR LEFTBRACKET Node RIGHTBRACKET
 
@@ -17,6 +41,22 @@ Node: Sequence,
       Condition,
       Action
 
+Sequence : SEQUENCE COLON LSQBRACKET Nodes RSQRBRACKET
+         | SEQUENCE COLON VarName
+
+Selector : SELECTOR COLON LSQBRACKET Nodes RSQRBRACKET
+         | SELECTOR COLON VarName
+
+ProbSelector : PROB_SELECTOR COLON LSQBRACKET ProbNodes RSQRBRACKET
+             | PROB_SELECTOR COLON VarName
+            
+Parallel : PARALLEL COLON LSQBRACKET Nodes RSQRBRACKET
+         | PARALLEL COLON VarName
+
+Decorator : DECORATOR COLON LSQBRACKET PolicyNode RSQRBRACKET
+          | DECORATOR COLON VarName
+
+Parallel : PARALLEL COLON
 
 Nodes : Nodes COMMA Node
       | Node
@@ -34,22 +74,7 @@ ExecutionNode : Action
               | Condition
 
 
-Sequence : SEQUENCE COLON LSQBRACKET Nodes RSQRBRACKET
-         | SEQUENCE COLON VarName
 
-Selector : SELECTOR COLON LSQBRACKET Nodes RSQRBRACKET
-         | SELECTOR COLON VarName
-
-ProbSelector : PROB_SELECTOR COLON LSQBRACKET ProbNodes RSQRBRACKET
-             | PROB_SELECTOR COLON VarName
-            
-Parallel : PARALLEL COLON LSQBRACKET Nodes RSQRBRACKET
-         | PARALLEL COLON VarName
-
-Decorator : DECORATOR COLON LSQBRACKET PolicyNode RSQRBRACKET
-          | DECORATOR COLON VarName
-
-Parallel : PARALLEL 
 
 ProbNodes : ProbNodes COMMA ProbNode
           | ProbNode

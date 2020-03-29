@@ -2,13 +2,13 @@
 
 
 behavior {
-    sequence: $SEQUENCE_NAME;
+    sequence: $SEQUENCE_NAME
 }
 
 behavior2 {
 
     sequence : [
-        decorator: d_INVERTER [
+        decorator: INVERTER [
             NODE
         ],
         condition: $CONDITION,

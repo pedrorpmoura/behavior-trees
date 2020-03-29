@@ -1,0 +1,119 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ACTION
+    COLON
+    COMMA
+    CONDITION
+    DECORATOR
+    DOLLAR
+    EXPRESSION
+    INT
+    LBRACKET
+    LSQUAREBRACKET
+    NODENAME
+    PARALLEL
+    PROBSELECTOR
+    RBRACKET
+    RSQUAREBRACKET
+    SELECTOR
+    SEQUENCE
+
+Grammar
+
+Rule 0     S' -> Root
+Rule 1     Root -> Behavior DOUBLEPERCENTAGE CODE
+Rule 2     Behavior -> BEHAVIOR LCURLYBRACKET RCURLYBRACKET
+
+Terminals, with rules where they appear
+
+ACTION               : 
+BEHAVIOR             : 2
+CODE                 : 1
+COLON                : 
+COMMA                : 
+CONDITION            : 
+DECORATOR            : 
+DOLLAR               : 
+DOUBLEPERCENTAGE     : 1
+EXPRESSION           : 
+INT                  : 
+LBRACKET             : 
+LCURLYBRACKET        : 2
+LSQUAREBRACKET       : 
+NODENAME             : 
+PARALLEL             : 
+PROBSELECTOR         : 
+RBRACKET             : 
+RCURLYBRACKET        : 2
+RSQUAREBRACKET       : 
+SELECTOR             : 
+SEQUENCE             : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+Behavior             : 1
+Root                 : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Root
+    (1) Root -> . Behavior DOUBLEPERCENTAGE CODE
+    (2) Behavior -> . BEHAVIOR LCURLYBRACKET RCURLYBRACKET
+
+    BEHAVIOR        shift and go to state 3
+
+    Root                           shift and go to state 1
+    Behavior                       shift and go to state 2
+
+state 1
+
+    (0) S' -> Root .
+
+
+
+state 2
+
+    (1) Root -> Behavior . DOUBLEPERCENTAGE CODE
+
+    DOUBLEPERCENTAGE shift and go to state 4
+
+
+state 3
+
+    (2) Behavior -> BEHAVIOR . LCURLYBRACKET RCURLYBRACKET
+
+    LCURLYBRACKET   shift and go to state 5
+
+
+state 4
+
+    (1) Root -> Behavior DOUBLEPERCENTAGE . CODE
+
+    CODE            shift and go to state 6
+
+
+state 5
+
+    (2) Behavior -> BEHAVIOR LCURLYBRACKET . RCURLYBRACKET
+
+    RCURLYBRACKET   shift and go to state 7
+
+
+state 6
+
+    (1) Root -> Behavior DOUBLEPERCENTAGE CODE .
+
+    $end            reduce using rule 1 (Root -> Behavior DOUBLEPERCENTAGE CODE .)
+
+
+state 7
+
+    (2) Behavior -> BEHAVIOR LCURLYBRACKET RCURLYBRACKET .
+
+    DOUBLEPERCENTAGE reduce using rule 2 (Behavior -> BEHAVIOR LCURLYBRACKET RCURLYBRACKET .)
+
