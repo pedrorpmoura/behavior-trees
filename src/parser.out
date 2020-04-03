@@ -11,7 +11,7 @@ Grammar
 Rule 0     S' -> root
 Rule 1     root -> behavior definitions
 Rule 2     root -> definitions behavior
-Rule 3     behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET
+Rule 3     behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET
 Rule 4     node -> sequence
 Rule 5     node -> selector
 Rule 6     node -> prob_selector
@@ -50,9 +50,9 @@ Rule 38    selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREB
 Rule 39    prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
 Rule 40    parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
 Rule 41    decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-Rule 42    condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-Rule 43    action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-Rule 44    expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+Rule 42    condition_def -> CONDITION NODENAME COLON CODE
+Rule 43    action_def -> ACTION NODENAME COLON CODE
+Rule 44    expression_def -> EXPRESSION NODENAME COLON CODE
 
 Terminals, with rules where they appear
 
@@ -69,17 +69,15 @@ EXPRESSION           : 44
 INT                  : 14 40
 INVERTER             : 21
 LBRACKET             : 
-LCURLYBRACKET        : 3 42 43 44
-LSQUAREBRACKET       : 11 12 13 14 15 37 38 39 40 41
+LSQUAREBRACKET       : 3 11 12 13 14 15 37 38 39 40 41
 MAXSECONDS           : 23
 MAXTRIES             : 22
 NODENAME             : 26 37 38 39 40 41 42 43 44
 PARALLEL             : 14 40
 PROBSELECTOR         : 13 39
 RBRACKET             : 
-RCURLYBRACKET        : 3 42 43 44
 RIGHTARROW           : 20
-RSQUAREBRACKET       : 11 12 13 14 15 37 38 39 40 41
+RSQUAREBRACKET       : 3 11 12 13 14 15 37 38 39 40 41
 SELECTOR             : 12 38
 SEQUENCE             : 11 37
 error                : 
@@ -119,7 +117,7 @@ state 0
     (0) S' -> . root
     (1) root -> . behavior definitions
     (2) root -> . definitions behavior
-    (3) behavior -> . BEHAVIOR LCURLYBRACKET node RCURLYBRACKET
+    (3) behavior -> . BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET
     (27) definitions -> . definitions definition
     (28) definitions -> . definition
     (29) definition -> . sequence_def
@@ -135,9 +133,9 @@ state 0
     (39) prob_selector_def -> . PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
     (40) parallel_def -> . PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
     (41) decorator_def -> . DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-    (43) action_def -> . ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-    (42) condition_def -> . CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-    (44) expression_def -> . EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (43) action_def -> . ACTION NODENAME COLON CODE
+    (42) condition_def -> . CONDITION NODENAME COLON CODE
+    (44) expression_def -> . EXPRESSION NODENAME COLON CODE
 
     BEHAVIOR        shift and go to state 4
     SEQUENCE        shift and go to state 14
@@ -186,9 +184,9 @@ state 2
     (39) prob_selector_def -> . PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
     (40) parallel_def -> . PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
     (41) decorator_def -> . DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-    (43) action_def -> . ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-    (42) condition_def -> . CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-    (44) expression_def -> . EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (43) action_def -> . ACTION NODENAME COLON CODE
+    (42) condition_def -> . CONDITION NODENAME COLON CODE
+    (44) expression_def -> . EXPRESSION NODENAME COLON CODE
 
     SEQUENCE        shift and go to state 14
     SELECTOR        shift and go to state 15
@@ -214,7 +212,7 @@ state 3
 
     (2) root -> definitions . behavior
     (27) definitions -> definitions . definition
-    (3) behavior -> . BEHAVIOR LCURLYBRACKET node RCURLYBRACKET
+    (3) behavior -> . BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET
     (29) definition -> . sequence_def
     (30) definition -> . selector_def
     (31) definition -> . prob_selector_def
@@ -228,9 +226,9 @@ state 3
     (39) prob_selector_def -> . PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
     (40) parallel_def -> . PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
     (41) decorator_def -> . DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-    (43) action_def -> . ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-    (42) condition_def -> . CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-    (44) expression_def -> . EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (43) action_def -> . ACTION NODENAME COLON CODE
+    (42) condition_def -> . CONDITION NODENAME COLON CODE
+    (44) expression_def -> . EXPRESSION NODENAME COLON CODE
 
     BEHAVIOR        shift and go to state 4
     SEQUENCE        shift and go to state 14
@@ -255,9 +253,9 @@ state 3
 
 state 4
 
-    (3) behavior -> BEHAVIOR . LCURLYBRACKET node RCURLYBRACKET
+    (3) behavior -> BEHAVIOR . LSQUAREBRACKET node RSQUAREBRACKET
 
-    LCURLYBRACKET   shift and go to state 25
+    LSQUAREBRACKET  shift and go to state 25
 
 
 state 5
@@ -441,21 +439,21 @@ state 18
 
 state 19
 
-    (43) action_def -> ACTION . NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (43) action_def -> ACTION . NODENAME COLON CODE
 
     NODENAME        shift and go to state 31
 
 
 state 20
 
-    (42) condition_def -> CONDITION . NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (42) condition_def -> CONDITION . NODENAME COLON CODE
 
     NODENAME        shift and go to state 32
 
 
 state 21
 
-    (44) expression_def -> EXPRESSION . NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (44) expression_def -> EXPRESSION . NODENAME COLON CODE
 
     NODENAME        shift and go to state 33
 
@@ -477,9 +475,9 @@ state 22
     (39) prob_selector_def -> . PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
     (40) parallel_def -> . PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
     (41) decorator_def -> . DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-    (43) action_def -> . ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-    (42) condition_def -> . CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
-    (44) expression_def -> . EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (43) action_def -> . ACTION NODENAME COLON CODE
+    (42) condition_def -> . CONDITION NODENAME COLON CODE
+    (44) expression_def -> . EXPRESSION NODENAME COLON CODE
 
     $end            reduce using rule 1 (root -> behavior definitions .)
     SEQUENCE        shift and go to state 14
@@ -526,7 +524,7 @@ state 24
 
 state 25
 
-    (3) behavior -> BEHAVIOR LCURLYBRACKET . node RCURLYBRACKET
+    (3) behavior -> BEHAVIOR LSQUAREBRACKET . node RSQUAREBRACKET
     (4) node -> . sequence
     (5) node -> . selector
     (6) node -> . prob_selector
@@ -596,37 +594,36 @@ state 30
 
 state 31
 
-    (43) action_def -> ACTION NODENAME . COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (43) action_def -> ACTION NODENAME . COLON CODE
 
     COLON           shift and go to state 54
 
 
 state 32
 
-    (42) condition_def -> CONDITION NODENAME . COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (42) condition_def -> CONDITION NODENAME . COLON CODE
 
     COLON           shift and go to state 55
 
 
 state 33
 
-    (44) expression_def -> EXPRESSION NODENAME . COLON LCURLYBRACKET CODE RCURLYBRACKET
+    (44) expression_def -> EXPRESSION NODENAME . COLON CODE
 
     COLON           shift and go to state 56
 
 
 state 34
 
-    (3) behavior -> BEHAVIOR LCURLYBRACKET node . RCURLYBRACKET
+    (3) behavior -> BEHAVIOR LSQUAREBRACKET node . RSQUAREBRACKET
 
-    RCURLYBRACKET   shift and go to state 57
+    RSQUAREBRACKET  shift and go to state 57
 
 
 state 35
 
     (4) node -> sequence .
 
-    RCURLYBRACKET   reduce using rule 4 (node -> sequence .)
     RSQUAREBRACKET  reduce using rule 4 (node -> sequence .)
     COMMA           reduce using rule 4 (node -> sequence .)
 
@@ -635,7 +632,6 @@ state 36
 
     (5) node -> selector .
 
-    RCURLYBRACKET   reduce using rule 5 (node -> selector .)
     RSQUAREBRACKET  reduce using rule 5 (node -> selector .)
     COMMA           reduce using rule 5 (node -> selector .)
 
@@ -644,7 +640,6 @@ state 37
 
     (6) node -> prob_selector .
 
-    RCURLYBRACKET   reduce using rule 6 (node -> prob_selector .)
     RSQUAREBRACKET  reduce using rule 6 (node -> prob_selector .)
     COMMA           reduce using rule 6 (node -> prob_selector .)
 
@@ -653,7 +648,6 @@ state 38
 
     (7) node -> parallel .
 
-    RCURLYBRACKET   reduce using rule 7 (node -> parallel .)
     RSQUAREBRACKET  reduce using rule 7 (node -> parallel .)
     COMMA           reduce using rule 7 (node -> parallel .)
 
@@ -662,7 +656,6 @@ state 39
 
     (8) node -> decorator .
 
-    RCURLYBRACKET   reduce using rule 8 (node -> decorator .)
     RSQUAREBRACKET  reduce using rule 8 (node -> decorator .)
     COMMA           reduce using rule 8 (node -> decorator .)
 
@@ -671,7 +664,6 @@ state 40
 
     (9) node -> action .
 
-    RCURLYBRACKET   reduce using rule 9 (node -> action .)
     RSQUAREBRACKET  reduce using rule 9 (node -> action .)
     COMMA           reduce using rule 9 (node -> action .)
 
@@ -680,7 +672,6 @@ state 41
 
     (10) node -> condition .
 
-    RCURLYBRACKET   reduce using rule 10 (node -> condition .)
     RSQUAREBRACKET  reduce using rule 10 (node -> condition .)
     COMMA           reduce using rule 10 (node -> condition .)
 
@@ -777,38 +768,38 @@ state 53
 
 state 54
 
-    (43) action_def -> ACTION NODENAME COLON . LCURLYBRACKET CODE RCURLYBRACKET
+    (43) action_def -> ACTION NODENAME COLON . CODE
 
-    LCURLYBRACKET   shift and go to state 73
+    CODE            shift and go to state 73
 
 
 state 55
 
-    (42) condition_def -> CONDITION NODENAME COLON . LCURLYBRACKET CODE RCURLYBRACKET
+    (42) condition_def -> CONDITION NODENAME COLON . CODE
 
-    LCURLYBRACKET   shift and go to state 74
+    CODE            shift and go to state 74
 
 
 state 56
 
-    (44) expression_def -> EXPRESSION NODENAME COLON . LCURLYBRACKET CODE RCURLYBRACKET
+    (44) expression_def -> EXPRESSION NODENAME COLON . CODE
 
-    LCURLYBRACKET   shift and go to state 75
+    CODE            shift and go to state 75
 
 
 state 57
 
-    (3) behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .
+    (3) behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .
 
-    SEQUENCE        reduce using rule 3 (behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .)
-    SELECTOR        reduce using rule 3 (behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .)
-    PROBSELECTOR    reduce using rule 3 (behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .)
-    PARALLEL        reduce using rule 3 (behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .)
-    DECORATOR       reduce using rule 3 (behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .)
-    ACTION          reduce using rule 3 (behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .)
-    CONDITION       reduce using rule 3 (behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .)
-    EXPRESSION      reduce using rule 3 (behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .)
-    $end            reduce using rule 3 (behavior -> BEHAVIOR LCURLYBRACKET node RCURLYBRACKET .)
+    SEQUENCE        reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
+    SELECTOR        reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
+    PROBSELECTOR    reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
+    PARALLEL        reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
+    DECORATOR       reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
+    ACTION          reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
+    CONDITION       reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
+    EXPRESSION      reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
+    $end            reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
 
 
 state 58
@@ -1021,23 +1012,50 @@ state 72
 
 state 73
 
-    (43) action_def -> ACTION NODENAME COLON LCURLYBRACKET . CODE RCURLYBRACKET
+    (43) action_def -> ACTION NODENAME COLON CODE .
 
-    CODE            shift and go to state 90
+    BEHAVIOR        reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    SEQUENCE        reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    SELECTOR        reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    PROBSELECTOR    reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    PARALLEL        reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    DECORATOR       reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    ACTION          reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    CONDITION       reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    EXPRESSION      reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    $end            reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
 
 
 state 74
 
-    (42) condition_def -> CONDITION NODENAME COLON LCURLYBRACKET . CODE RCURLYBRACKET
+    (42) condition_def -> CONDITION NODENAME COLON CODE .
 
-    CODE            shift and go to state 91
+    BEHAVIOR        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    SEQUENCE        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    SELECTOR        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    PROBSELECTOR    reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    PARALLEL        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    DECORATOR       reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    ACTION          reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    CONDITION       reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    EXPRESSION      reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    $end            reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
 
 
 state 75
 
-    (44) expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET . CODE RCURLYBRACKET
+    (44) expression_def -> EXPRESSION NODENAME COLON CODE .
 
-    CODE            shift and go to state 92
+    BEHAVIOR        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    SEQUENCE        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    SELECTOR        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    PROBSELECTOR    reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    PARALLEL        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    DECORATOR       reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    ACTION          reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    CONDITION       reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    EXPRESSION      reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    $end            reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
 
 
 state 76
@@ -1068,7 +1086,7 @@ state 76
     ACTION          shift and go to state 47
     CONDITION       shift and go to state 48
 
-    nodes                          shift and go to state 93
+    nodes                          shift and go to state 90
     node                           shift and go to state 85
     sequence                       shift and go to state 35
     selector                       shift and go to state 36
@@ -1106,7 +1124,7 @@ state 77
     ACTION          shift and go to state 47
     CONDITION       shift and go to state 48
 
-    nodes                          shift and go to state 94
+    nodes                          shift and go to state 91
     node                           shift and go to state 85
     sequence                       shift and go to state 35
     selector                       shift and go to state 36
@@ -1126,29 +1144,28 @@ state 78
 
     DOLLAR          shift and go to state 82
 
-    prob_nodes                     shift and go to state 95
-    prob_node                      shift and go to state 96
-    var                            shift and go to state 97
+    prob_nodes                     shift and go to state 92
+    prob_node                      shift and go to state 93
+    var                            shift and go to state 94
 
 state 79
 
     (14) parallel -> PARALLEL COLON INT . LSQUAREBRACKET nodes RSQUAREBRACKET
 
-    LSQUAREBRACKET  shift and go to state 98
+    LSQUAREBRACKET  shift and go to state 95
 
 
 state 80
 
     (15) decorator -> DECORATOR COLON policy . LSQUAREBRACKET node RSQUAREBRACKET
 
-    LSQUAREBRACKET  shift and go to state 99
+    LSQUAREBRACKET  shift and go to state 96
 
 
 state 81
 
     (25) action -> ACTION COLON var .
 
-    RCURLYBRACKET   reduce using rule 25 (action -> ACTION COLON var .)
     RSQUAREBRACKET  reduce using rule 25 (action -> ACTION COLON var .)
     COMMA           reduce using rule 25 (action -> ACTION COLON var .)
 
@@ -1157,14 +1174,13 @@ state 82
 
     (26) var -> DOLLAR . NODENAME
 
-    NODENAME        shift and go to state 100
+    NODENAME        shift and go to state 97
 
 
 state 83
 
     (24) condition -> CONDITION COLON var .
 
-    RCURLYBRACKET   reduce using rule 24 (condition -> CONDITION COLON var .)
     RSQUAREBRACKET  reduce using rule 24 (condition -> CONDITION COLON var .)
     COMMA           reduce using rule 24 (condition -> CONDITION COLON var .)
 
@@ -1174,8 +1190,8 @@ state 84
     (37) sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
     (16) nodes -> nodes . COMMA node
 
-    RSQUAREBRACKET  shift and go to state 101
-    COMMA           shift and go to state 102
+    RSQUAREBRACKET  shift and go to state 98
+    COMMA           shift and go to state 99
 
 
 state 85
@@ -1191,8 +1207,8 @@ state 86
     (38) selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
     (16) nodes -> nodes . COMMA node
 
-    RSQUAREBRACKET  shift and go to state 103
-    COMMA           shift and go to state 102
+    RSQUAREBRACKET  shift and go to state 100
+    COMMA           shift and go to state 99
 
 
 state 87
@@ -1200,8 +1216,8 @@ state 87
     (39) prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
     (16) nodes -> nodes . COMMA node
 
-    RSQUAREBRACKET  shift and go to state 104
-    COMMA           shift and go to state 102
+    RSQUAREBRACKET  shift and go to state 101
+    COMMA           shift and go to state 99
 
 
 state 88
@@ -1232,7 +1248,7 @@ state 88
     ACTION          shift and go to state 47
     CONDITION       shift and go to state 48
 
-    nodes                          shift and go to state 105
+    nodes                          shift and go to state 102
     node                           shift and go to state 85
     sequence                       shift and go to state 35
     selector                       shift and go to state 36
@@ -1270,7 +1286,7 @@ state 89
     ACTION          shift and go to state 47
     CONDITION       shift and go to state 48
 
-    nodes                          shift and go to state 106
+    nodes                          shift and go to state 103
     node                           shift and go to state 85
     sequence                       shift and go to state 35
     selector                       shift and go to state 36
@@ -1282,53 +1298,32 @@ state 89
 
 state 90
 
-    (43) action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE . RCURLYBRACKET
+    (11) sequence -> SEQUENCE COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
+    (16) nodes -> nodes . COMMA node
 
-    RCURLYBRACKET   shift and go to state 107
+    RSQUAREBRACKET  shift and go to state 104
+    COMMA           shift and go to state 99
 
 
 state 91
 
-    (42) condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE . RCURLYBRACKET
+    (12) selector -> SELECTOR COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
+    (16) nodes -> nodes . COMMA node
 
-    RCURLYBRACKET   shift and go to state 108
+    RSQUAREBRACKET  shift and go to state 105
+    COMMA           shift and go to state 99
 
 
 state 92
 
-    (44) expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE . RCURLYBRACKET
-
-    RCURLYBRACKET   shift and go to state 109
-
-
-state 93
-
-    (11) sequence -> SEQUENCE COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
-
-    RSQUAREBRACKET  shift and go to state 110
-    COMMA           shift and go to state 102
-
-
-state 94
-
-    (12) selector -> SELECTOR COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
-
-    RSQUAREBRACKET  shift and go to state 111
-    COMMA           shift and go to state 102
-
-
-state 95
-
     (13) prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes . RSQUAREBRACKET
     (18) prob_nodes -> prob_nodes . COMMA prob_node
 
-    RSQUAREBRACKET  shift and go to state 112
-    COMMA           shift and go to state 113
+    RSQUAREBRACKET  shift and go to state 106
+    COMMA           shift and go to state 107
 
 
-state 96
+state 93
 
     (19) prob_nodes -> prob_node .
 
@@ -1336,14 +1331,14 @@ state 96
     COMMA           reduce using rule 19 (prob_nodes -> prob_node .)
 
 
-state 97
+state 94
 
     (20) prob_node -> var . RIGHTARROW node
 
-    RIGHTARROW      shift and go to state 114
+    RIGHTARROW      shift and go to state 108
 
 
-state 98
+state 95
 
     (14) parallel -> PARALLEL COLON INT LSQUAREBRACKET . nodes RSQUAREBRACKET
     (16) nodes -> . nodes COMMA node
@@ -1371,7 +1366,7 @@ state 98
     ACTION          shift and go to state 47
     CONDITION       shift and go to state 48
 
-    nodes                          shift and go to state 115
+    nodes                          shift and go to state 109
     node                           shift and go to state 85
     sequence                       shift and go to state 35
     selector                       shift and go to state 36
@@ -1381,7 +1376,7 @@ state 98
     action                         shift and go to state 40
     condition                      shift and go to state 41
 
-state 99
+state 96
 
     (15) decorator -> DECORATOR COLON policy LSQUAREBRACKET . node RSQUAREBRACKET
     (4) node -> . sequence
@@ -1407,7 +1402,7 @@ state 99
     ACTION          shift and go to state 47
     CONDITION       shift and go to state 48
 
-    node                           shift and go to state 116
+    node                           shift and go to state 110
     sequence                       shift and go to state 35
     selector                       shift and go to state 36
     prob_selector                  shift and go to state 37
@@ -1416,17 +1411,16 @@ state 99
     action                         shift and go to state 40
     condition                      shift and go to state 41
 
-state 100
+state 97
 
     (26) var -> DOLLAR NODENAME .
 
-    RCURLYBRACKET   reduce using rule 26 (var -> DOLLAR NODENAME .)
     RSQUAREBRACKET  reduce using rule 26 (var -> DOLLAR NODENAME .)
     COMMA           reduce using rule 26 (var -> DOLLAR NODENAME .)
     RIGHTARROW      reduce using rule 26 (var -> DOLLAR NODENAME .)
 
 
-state 101
+state 98
 
     (37) sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
 
@@ -1442,7 +1436,7 @@ state 101
     $end            reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
 
 
-state 102
+state 99
 
     (16) nodes -> nodes COMMA . node
     (4) node -> . sequence
@@ -1468,7 +1462,7 @@ state 102
     ACTION          shift and go to state 47
     CONDITION       shift and go to state 48
 
-    node                           shift and go to state 117
+    node                           shift and go to state 111
     sequence                       shift and go to state 35
     selector                       shift and go to state 36
     prob_selector                  shift and go to state 37
@@ -1477,7 +1471,7 @@ state 102
     action                         shift and go to state 40
     condition                      shift and go to state 41
 
-state 103
+state 100
 
     (38) selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
 
@@ -1493,7 +1487,7 @@ state 103
     $end            reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
 
 
-state 104
+state 101
 
     (39) prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
 
@@ -1509,100 +1503,49 @@ state 104
     $end            reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
 
 
-state 105
+state 102
 
     (40) parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes . RSQUAREBRACKET
     (16) nodes -> nodes . COMMA node
 
-    RSQUAREBRACKET  shift and go to state 118
-    COMMA           shift and go to state 102
+    RSQUAREBRACKET  shift and go to state 112
+    COMMA           shift and go to state 99
 
 
-state 106
+state 103
 
     (41) decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes . RSQUAREBRACKET
     (16) nodes -> nodes . COMMA node
 
-    RSQUAREBRACKET  shift and go to state 119
-    COMMA           shift and go to state 102
+    RSQUAREBRACKET  shift and go to state 113
+    COMMA           shift and go to state 99
 
 
-state 107
-
-    (43) action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .
-
-    BEHAVIOR        reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    SEQUENCE        reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    SELECTOR        reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    PROBSELECTOR    reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    PARALLEL        reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    DECORATOR       reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    ACTION          reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    CONDITION       reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    EXPRESSION      reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    $end            reduce using rule 43 (action_def -> ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-
-
-state 108
-
-    (42) condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .
-
-    BEHAVIOR        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    SEQUENCE        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    SELECTOR        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    PROBSELECTOR    reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    PARALLEL        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    DECORATOR       reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    ACTION          reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    CONDITION       reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    EXPRESSION      reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    $end            reduce using rule 42 (condition_def -> CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-
-
-state 109
-
-    (44) expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .
-
-    BEHAVIOR        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    SEQUENCE        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    SELECTOR        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    PROBSELECTOR    reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    PARALLEL        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    DECORATOR       reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    ACTION          reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    CONDITION       reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    EXPRESSION      reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-    $end            reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET .)
-
-
-state 110
+state 104
 
     (11) sequence -> SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
 
-    RCURLYBRACKET   reduce using rule 11 (sequence -> SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
     RSQUAREBRACKET  reduce using rule 11 (sequence -> SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
     COMMA           reduce using rule 11 (sequence -> SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
 
 
-state 111
+state 105
 
     (12) selector -> SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
 
-    RCURLYBRACKET   reduce using rule 12 (selector -> SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
     RSQUAREBRACKET  reduce using rule 12 (selector -> SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
     COMMA           reduce using rule 12 (selector -> SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
 
 
-state 112
+state 106
 
     (13) prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET .
 
-    RCURLYBRACKET   reduce using rule 13 (prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET .)
     RSQUAREBRACKET  reduce using rule 13 (prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET .)
     COMMA           reduce using rule 13 (prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET .)
 
 
-state 113
+state 107
 
     (18) prob_nodes -> prob_nodes COMMA . prob_node
     (20) prob_node -> . var RIGHTARROW node
@@ -1610,10 +1553,10 @@ state 113
 
     DOLLAR          shift and go to state 82
 
-    prob_node                      shift and go to state 120
-    var                            shift and go to state 97
+    prob_node                      shift and go to state 114
+    var                            shift and go to state 94
 
-state 114
+state 108
 
     (20) prob_node -> var RIGHTARROW . node
     (4) node -> . sequence
@@ -1639,7 +1582,7 @@ state 114
     ACTION          shift and go to state 47
     CONDITION       shift and go to state 48
 
-    node                           shift and go to state 121
+    node                           shift and go to state 115
     sequence                       shift and go to state 35
     selector                       shift and go to state 36
     prob_selector                  shift and go to state 37
@@ -1648,23 +1591,23 @@ state 114
     action                         shift and go to state 40
     condition                      shift and go to state 41
 
-state 115
+state 109
 
     (14) parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes . RSQUAREBRACKET
     (16) nodes -> nodes . COMMA node
 
-    RSQUAREBRACKET  shift and go to state 122
-    COMMA           shift and go to state 102
+    RSQUAREBRACKET  shift and go to state 116
+    COMMA           shift and go to state 99
 
 
-state 116
+state 110
 
     (15) decorator -> DECORATOR COLON policy LSQUAREBRACKET node . RSQUAREBRACKET
 
-    RSQUAREBRACKET  shift and go to state 123
+    RSQUAREBRACKET  shift and go to state 117
 
 
-state 117
+state 111
 
     (16) nodes -> nodes COMMA node .
 
@@ -1672,7 +1615,7 @@ state 117
     COMMA           reduce using rule 16 (nodes -> nodes COMMA node .)
 
 
-state 118
+state 112
 
     (40) parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .
 
@@ -1688,7 +1631,7 @@ state 118
     $end            reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
 
 
-state 119
+state 113
 
     (41) decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .
 
@@ -1704,7 +1647,7 @@ state 119
     $end            reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
 
 
-state 120
+state 114
 
     (18) prob_nodes -> prob_nodes COMMA prob_node .
 
@@ -1712,7 +1655,7 @@ state 120
     COMMA           reduce using rule 18 (prob_nodes -> prob_nodes COMMA prob_node .)
 
 
-state 121
+state 115
 
     (20) prob_node -> var RIGHTARROW node .
 
@@ -1720,20 +1663,18 @@ state 121
     COMMA           reduce using rule 20 (prob_node -> var RIGHTARROW node .)
 
 
-state 122
+state 116
 
     (14) parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .
 
-    RCURLYBRACKET   reduce using rule 14 (parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
     RSQUAREBRACKET  reduce using rule 14 (parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
     COMMA           reduce using rule 14 (parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
 
 
-state 123
+state 117
 
     (15) decorator -> DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET .
 
-    RCURLYBRACKET   reduce using rule 15 (decorator -> DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET .)
     RSQUAREBRACKET  reduce using rule 15 (decorator -> DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET .)
     COMMA           reduce using rule 15 (decorator -> DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET .)
 

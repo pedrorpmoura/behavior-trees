@@ -8,12 +8,12 @@ def p_root(p):
     root : behavior definitions 
          | definitions behavior
     '''
-    print(p[1])
+    print(p[1:])
 
 
 def p_behavior(p):
     '''
-    behavior : BEHAVIOR LCURLYBRACKET node RCURLYBRACKET
+    behavior : BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET
     '''
     p[0] = ' '.join(p[1:])
 
@@ -180,21 +180,21 @@ def p_decorator_def(p):
 
 def p_condition_def(p):
     '''
-    condition_def : CONDITION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    condition_def : CONDITION NODENAME COLON CODE
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = ' '.join(p[1:]) + "CODE"
 
 
 def p_action_def(p):
     '''
-    action_def : ACTION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    action_def : ACTION NODENAME COLON CODE
     '''
     p[0] = ' '.join(p[1:])
 
 
 def p_expression_def(p):
     '''
-    expression_def : EXPRESSION NODENAME COLON LCURLYBRACKET CODE RCURLYBRACKET
+    expression_def : EXPRESSION NODENAME COLON CODE
     '''
     p[0] = ' '.join(p[1:])
 

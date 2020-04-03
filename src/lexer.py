@@ -7,8 +7,6 @@ tokens = (
     # ponctuation
     'LBRACKET',
     'RBRACKET',
-    'LCURLYBRACKET',
-    'RCURLYBRACKET',
     'LSQUAREBRACKET',
     'RSQUAREBRACKET',
     'COLON',
@@ -48,13 +46,6 @@ def t_RBRACKET(t):
     r'\)'
     return t
 
-def t_LCURLYBRACKET(t):
-    r'\{'
-    return t
-
-def t_RCURLYBRACKET(t):
-    r'\}'
-    return t
 
 def t_LSQUAREBRACKET(t):
     r'\['
@@ -147,7 +138,7 @@ def t_NODENAME(t):
     return t
 
 def t_CODE(t):
-    r'    (.|\n)+'
+    r'\{(.|\n)+\}'
     t.type = 'CODE'
     return t
 
