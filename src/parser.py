@@ -1,122 +1,126 @@
 import ply.yacc as yacc
 import sys
-from lexer import *
+from lexer2 import *
 
 
-def p_root(p):
+def p_root1(p):
     '''
-    root : behavior definitions 
-         | definitions behavior
+    root : behavior definitions
     '''
     print(p[1:])
 
 
+def p_root2(p):
+    '''
+    root : definitions behavior
+    '''
+    print(p[1:])
+
+
+def p_root3(p):
+    '''
+    root : behavior definitions DOUBLEPERCENTAGE CODE
+    '''
+    print(p[1:])
+
+
+def p_root4(p):
+    '''
+    root : definitions behavior DOUBLEPERCENTAGE CODE
+    '''
+
+
 def p_behavior(p):
     '''
-    behavior : BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET
+    behavior : BEHAVIOR '[' node ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_node(p):
+def p_node_sequence(p):
     '''
-    node : sequence
-         | selector
-         | prob_selector
-         | parallel
-         | decorator
-         | action
-         | condition
+    node : SEQUENCE ':' '[' nodes ']'
     '''
-    p[0] = p[1]
+    p[0] = p[1:]
 
 
-def p_sequence(p):
+def p_node_selector(p):
     '''
-    sequence : SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    node : SELECTOR ':' '[' nodes ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_selector(p):
+def p_node_prob_selector(p):
     '''
-    selector : SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    node : PROBSELECTOR ':' '[' prob_nodes ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_prob_selector(p):
+def p_node_parallel(p):
     '''
-    prob_selector : PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
+    node : PARALLEL ':' INT '[' nodes ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_parallel(p):
+def p_node_decorator1(p):
     '''
-    parallel : PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
+    node : DECORATOR ':' INVERTER '[' node ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_decorator(p):
+def p_node_decorator2(p):
     '''
-    decorator : DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
+    node : DECORATOR ':' MAXTRIES '[' node ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
+
+
+def p_node_decorator3(p):
+    '''
+    node : DECORATOR ':' MAXSECONDS '[' node ']'
+    '''
+    p[0] = p[1:]
+
+
+def p_node_condition(p):
+    '''
+    node : CONDITION ':' VAR
+    '''
+    p[0] = p[1:]
+
+
+def p_node_action(p):
+    '''
+    node : ACTION ':' VAR
+    '''
+    p[0] = p[1:]
 
 
 def p_nodes(p):
     '''
-    nodes : nodes COMMA node
+    nodes : nodes ',' node
           | node
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
 def p_prob_nodes(p):
     '''
-    prob_nodes : prob_nodes COMMA prob_node
+    prob_nodes : prob_nodes ',' prob_node
                | prob_node
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
 def p_prob_node(p):
     '''
-    prob_node : var RIGHTARROW node
+    prob_node : VAR RIGHTARROW node
     '''
-    p[0] = ' '.join(p[1:])
-
-
-def p_policy(p):
-    '''
-    policy : INVERTER
-           | MAXTRIES
-           | MAXSECONDS
-    '''
-    p[0] = ' '.join(p[1:])
-
-def p_condition(p):
-    '''
-    condition : CONDITION COLON var
-    '''
-    p[0] = ' '.join(p[1:])
-
-
-
-def p_action(p):
-    '''
-    action : ACTION COLON var
-    '''
-    p[0] = ' '.join(p[1:])
-
-
-def p_var(p):
-    '''
-    var : DOLLAR NODENAME
-    '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
 
@@ -124,91 +128,86 @@ def p_var(p):
 def p_definitions(p):
     '''
     definitions : definitions definition
-               | definition
+               | definition 
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_definition(p):
+def p_definition_sequence(p):
     '''
-    definition : sequence_def
-              | selector_def
-              | prob_selector_def
-              | parallel_def
-              | decorator_def
-              | action_def
-              | condition_def
-              | expression_def
+    definitions : SEQUENCE VAR ':' '[' nodes ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_sequence_def(p):
+def p_definition_selector(p):
     '''
-    sequence_def : SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    definitions : SELECTOR VAR ':' '[' nodes ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_selector_def(p):
+def p_definition_prob_selector(p):
     '''
-    selector_def : SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    definitions : PROBSELECTOR VAR ':' '[' prob_nodes ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_prob_selector_def(p):
+def p_definition_parallel(p):
     '''
-    prob_selector_def : PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    definitions : PARALLEL VAR ':' INT '[' nodes ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_parallel_def(p):
+def p_definition_decorator1(p):
     '''
-    parallel_def : PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
+    definitions : DECORATOR VAR ':' INVERTER '[' node ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_decorator_def(p):
+def p_definition_decorator2(p):
     '''
-    decorator_def : DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
+    definitions : DECORATOR VAR ':' MAXTRIES '[' node ']'
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_condition_def(p):
+def p_definition_decorator3(p):
     '''
-    condition_def : CONDITION NODENAME COLON CODE
+    definitions : DECORATOR VAR ':' MAXSECONDS '[' node ']'
     '''
-    p[0] = ' '.join(p[1:]) + "CODE"
+    p[0] = p[1:]
 
 
-def p_action_def(p):
+def p_definition_condition(p):
     '''
-    action_def : ACTION NODENAME COLON CODE
+    definition : CONDITION NODENAME ':' CODE
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
 
 
-def p_expression_def(p):
+def p_definition_action(p):
     '''
-    expression_def : EXPRESSION NODENAME COLON CODE
+    definition : ACTION NODENAME ':' CODE
     '''
-    p[0] = ' '.join(p[1:])
+    p[0] = p[1:]
+
+
+def p_definition_expression(p):
+    '''
+    definition : EXPRESSION NODENAME ':' CODE
+    '''
+    p[0] = p[1:]
 
 
 def p_error(p):
     print('Syntax error: ' + p.value + ', type: ' + p.type)
-
 
 parser = yacc.yacc()
 
 with open('test.txt', 'r') as f:
     s = f.read()
     parser.parse(s)
-
-# while True:
-#     s = input()
-#     parser.parse(s)

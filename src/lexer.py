@@ -3,18 +3,15 @@ import sys
 import re
 
 
+
+
+literals = "{[]},:%"
+t_ignore = " \n\t"
+
 tokens = (
-    # ponctuation
-    'LBRACKET',
-    'RBRACKET',
-    'LSQUAREBRACKET',
-    'RSQUAREBRACKET',
-    'COLON',
-    'COMMA',
     'RIGHTARROW',
-    'DOLLAR',
     'DOUBLEPERCENTAGE',
-    
+
     # keywords
     'BEHAVIOR',
     'SEQUENCE',
@@ -29,117 +26,40 @@ tokens = (
     'MAXTRIES',
     'MAXSECONDS',
 
-    # variables
+     # variables
     'INT',
+    'VAR',
     'NODENAME',
     'CODE'
 )
 
-t_ignore = ' \n\t'
+t_RIGHTARROW = r'->'
+t_DOUBLEPERCENTAGE = r'%%'
 
-
-def t_LBRACKET(t):
-    r'\('
-    return t
-
-def t_RBRACKET(t):
-    r'\)'
-    return t
-
-
-def t_LSQUAREBRACKET(t):
-    r'\['
-    return t
-
-def t_RSQUAREBRACKET(t):
-    r'\]'
-    return t
-
-def t_COLON(t):
-    r'\:'
-    return t
-
-def t_COMMA(t):
-    r'\,'
-    return t
-
-def t_RIGHTARROW(t):
-    r'\-\>'
-    return t
-
-def t_DOLLAR(t):
-    r'\$'
-    return t
-
-def t_DOUBLEPERCENTAGE(t):
-    r'%%'
-    return t
-
-
-
-def t_BEHAVIOR(t):
-    r'\b(behavior)\b'
-    return t
-
-def t_SEQUENCE(t):
-    r'\b(sequence)\b'
-    return t
-
-def t_SELECTOR(t):
-    r'\b(selector)\b'
-    return t
-
-def t_PROBSELECTOR(t):
-    r'\b(prob_selector)\b'
-    return t
-
-def t_PARALLEL(t):
-    r'\b(parallel)\b'
-    return t
-
-def t_DECORATOR(t):
-    r'\b(decorator)\b'
-    return t
-
-def t_CONDITION(t):
-    r'\b(condition)\b'
-    return t
-
-def t_ACTION(t):
-    r'\b(action)\b'
-    return t
-
-def t_EXPRESSION(t):
-    r'\b(expression)\b'
-    return t
-
-def t_INVERTER(t):
-    r'\b(INVERTER)\b'
-    return t
-
-def t_MAXTRIES(t):
-    r'\b(MAXTRIES)\b'
-    return t
-
-def t_MAXSECONDS(t):
-    r'\b(MAXSECONDS)\b'
-    return t
-
-
+t_BEHAVIOR      = r'\bbehavior\b'
+t_SEQUENCE      = r'\bsequence\b'
+t_SELECTOR      = r'\bselector\b'
+t_PROBSELECTOR  = r'\bprob_selector\b'
+t_PARALLEL      = r'\bparallel\b'
+t_DECORATOR     = r'\bdecorator\b'
+t_CONDITION     = r'\bcondition\b'
+t_ACTION        = r'\baction\b'
+t_EXPRESSION    = r'\bexpression\b'
+t_INVERTER      = r'\bINVERTER\b'
+t_MAXTRIES      = r'\bMAXTRIES\b'
+t_MAXSECONDS    = r'\bMAXSECONDS\b'
+t_VAR           = r'\$\w+'
+t_NODENAME      = r'\w+'
 
 def t_INT(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
-def t_NODENAME(t):
-    r'\w[\w\d]*'
-    t.type = 'NODENAME'
-    return t
 
 def t_CODE(t):
-    r'\{(.|\n)+\}'
-    t.type = 'CODE'
+    r'{(.|\n)+?}'
+    t.value = t.value[1:-1]
     return t
 
 
@@ -148,41 +68,32 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-
 lexer = lex.lex()
 
 lexer.input(
     """
-    condition CONDITION : {
-        x == y
-    }
+    behavior : [ 
+        sequence: [
+            condition : $CONDITION2,
+            parallel : 10 [
+                action : $ACTION1,
+                action : $ACTION2
+            ]
+        ],
+        prob_selector : [
+            $EXPRESSION1 -> sequence : [
+            condition : $CONDITION1
+            ],
+            $EXPRESSION2 -> sequence : [
+                action: $action1
+            ]
+        ]
+    ]s
     """
 )
 
-while True:
-    tok = lexer.token()
-    if not tok:
-        break
-    print(tok)
-'''
-lexer.input("""
-    behavior: {
-
-        sequence : [
-            decorator: INVERTER [
-                NODE
-            ],
-            condition: $CONDITION,
-            parallel: N [
-                sequence: [
-
-                ]
-            ]
-        ]
-    }
-
-    condition CONDITION : {
-        x == y
-    }
-""")
-'''
+#while True:
+#    tok = lexer.token()
+#    if not tok:
+#        break
+#    print(tok)

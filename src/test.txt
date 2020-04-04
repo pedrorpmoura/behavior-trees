@@ -24,3 +24,20 @@ action action1 : {
 action action2 : {
     print("Hello World")
 }
+
+
+%% {
+
+def function(x):
+
+    if x == 2:
+        return True
+    
+    return False
+
+
+
+
+
+
+}

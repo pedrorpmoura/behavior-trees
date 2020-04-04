@@ -1,114 +1,76 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
-Unused terminals:
-
-    DOUBLEPERCENTAGE
-    LBRACKET
-    RBRACKET
-
 Grammar
 
 Rule 0     S' -> root
 Rule 1     root -> behavior definitions
 Rule 2     root -> definitions behavior
-Rule 3     behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET
-Rule 4     node -> sequence
-Rule 5     node -> selector
-Rule 6     node -> prob_selector
-Rule 7     node -> parallel
-Rule 8     node -> decorator
-Rule 9     node -> action
-Rule 10    node -> condition
-Rule 11    sequence -> SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-Rule 12    selector -> SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-Rule 13    prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-Rule 14    parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-Rule 15    decorator -> DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-Rule 16    nodes -> nodes COMMA node
-Rule 17    nodes -> node
-Rule 18    prob_nodes -> prob_nodes COMMA prob_node
-Rule 19    prob_nodes -> prob_node
-Rule 20    prob_node -> var RIGHTARROW node
-Rule 21    policy -> INVERTER
-Rule 22    policy -> MAXTRIES
-Rule 23    policy -> MAXSECONDS
-Rule 24    condition -> CONDITION COLON var
-Rule 25    action -> ACTION COLON var
-Rule 26    var -> DOLLAR NODENAME
-Rule 27    definitions -> definitions definition
-Rule 28    definitions -> definition
-Rule 29    definition -> sequence_def
-Rule 30    definition -> selector_def
-Rule 31    definition -> prob_selector_def
-Rule 32    definition -> parallel_def
-Rule 33    definition -> decorator_def
-Rule 34    definition -> action_def
-Rule 35    definition -> condition_def
-Rule 36    definition -> expression_def
-Rule 37    sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-Rule 38    selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-Rule 39    prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-Rule 40    parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-Rule 41    decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-Rule 42    condition_def -> CONDITION NODENAME COLON CODE
-Rule 43    action_def -> ACTION NODENAME COLON CODE
-Rule 44    expression_def -> EXPRESSION NODENAME COLON CODE
+Rule 3     root -> behavior definitions DOUBLEPERCENTAGE CODE
+Rule 4     root -> definitions behavior DOUBLEPERCENTAGE CODE
+Rule 5     behavior -> BEHAVIOR [ node ]
+Rule 6     node -> SEQUENCE : [ nodes ]
+Rule 7     node -> SELECTOR : [ nodes ]
+Rule 8     node -> PROBSELECTOR : [ prob_nodes ]
+Rule 9     node -> PARALLEL : INT [ nodes ]
+Rule 10    node -> DECORATOR : INVERTER [ node ]
+Rule 11    node -> DECORATOR : MAXTRIES [ node ]
+Rule 12    node -> DECORATOR : MAXSECONDS [ node ]
+Rule 13    node -> CONDITION : VAR
+Rule 14    node -> ACTION : VAR
+Rule 15    nodes -> nodes , node
+Rule 16    nodes -> node
+Rule 17    prob_nodes -> prob_nodes , prob_node
+Rule 18    prob_nodes -> prob_node
+Rule 19    prob_node -> VAR RIGHTARROW node
+Rule 20    definitions -> definitions definition
+Rule 21    definitions -> definition
+Rule 22    definitions -> SEQUENCE VAR : [ nodes ]
+Rule 23    definitions -> SELECTOR VAR : [ nodes ]
+Rule 24    definitions -> PROBSELECTOR VAR : [ prob_nodes ]
+Rule 25    definitions -> PARALLEL VAR : INT [ nodes ]
+Rule 26    definitions -> DECORATOR VAR : INVERTER [ node ]
+Rule 27    definitions -> DECORATOR VAR : MAXTRIES [ node ]
+Rule 28    definitions -> DECORATOR VAR : MAXSECONDS [ node ]
+Rule 29    definition -> CONDITION NODENAME : CODE
+Rule 30    definition -> ACTION NODENAME : CODE
+Rule 31    definition -> EXPRESSION NODENAME : CODE
 
 Terminals, with rules where they appear
 
-ACTION               : 25 43
-BEHAVIOR             : 3
-CODE                 : 42 43 44
-COLON                : 11 12 13 14 15 24 25 37 38 39 40 41 42 43 44
-COMMA                : 16 18
-CONDITION            : 24 42
-DECORATOR            : 15 41
-DOLLAR               : 26
-DOUBLEPERCENTAGE     : 
-EXPRESSION           : 44
-INT                  : 14 40
-INVERTER             : 21
-LBRACKET             : 
-LSQUAREBRACKET       : 3 11 12 13 14 15 37 38 39 40 41
-MAXSECONDS           : 23
-MAXTRIES             : 22
-NODENAME             : 26 37 38 39 40 41 42 43 44
-PARALLEL             : 14 40
-PROBSELECTOR         : 13 39
-RBRACKET             : 
-RIGHTARROW           : 20
-RSQUAREBRACKET       : 3 11 12 13 14 15 37 38 39 40 41
-SELECTOR             : 12 38
-SEQUENCE             : 11 37
+,                    : 15 17
+:                    : 6 7 8 9 10 11 12 13 14 22 23 24 25 26 27 28 29 30 31
+ACTION               : 14 30
+BEHAVIOR             : 5
+CODE                 : 3 4 29 30 31
+CONDITION            : 13 29
+DECORATOR            : 10 11 12 26 27 28
+DOUBLEPERCENTAGE     : 3 4
+EXPRESSION           : 31
+INT                  : 9 25
+INVERTER             : 10 26
+MAXSECONDS           : 12 28
+MAXTRIES             : 11 27
+NODENAME             : 29 30 31
+PARALLEL             : 9 25
+PROBSELECTOR         : 8 24
+RIGHTARROW           : 19
+SELECTOR             : 7 23
+SEQUENCE             : 6 22
+VAR                  : 13 14 19 22 23 24 25 26 27 28
+[                    : 5 6 7 8 9 10 11 12 22 23 24 25 26 27 28
+]                    : 5 6 7 8 9 10 11 12 22 23 24 25 26 27 28
 error                : 
 
 Nonterminals, with rules where they appear
 
-action               : 9
-action_def           : 34
-behavior             : 1 2
-condition            : 10
-condition_def        : 35
-decorator            : 8
-decorator_def        : 33
-definition           : 27 28
-definitions          : 1 2 27
-expression_def       : 36
-node                 : 3 15 16 17 20
-nodes                : 11 12 14 16 37 38 39 40 41
-parallel             : 7
-parallel_def         : 32
-policy               : 15 41
-prob_node            : 18 19
-prob_nodes           : 13 18
-prob_selector        : 6
-prob_selector_def    : 31
+behavior             : 1 2 3 4
+definition           : 20 21
+definitions          : 1 2 3 4 20
+node                 : 5 10 11 12 15 16 19 26 27 28
+nodes                : 6 7 9 15 22 23 25
+prob_node            : 17 18
+prob_nodes           : 8 17 24
 root                 : 0
-selector             : 5
-selector_def         : 30
-sequence             : 4
-sequence_def         : 29
-var                  : 20 24 25
 
 Parsing method: LALR
 
@@ -117,48 +79,36 @@ state 0
     (0) S' -> . root
     (1) root -> . behavior definitions
     (2) root -> . definitions behavior
-    (3) behavior -> . BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET
-    (27) definitions -> . definitions definition
-    (28) definitions -> . definition
-    (29) definition -> . sequence_def
-    (30) definition -> . selector_def
-    (31) definition -> . prob_selector_def
-    (32) definition -> . parallel_def
-    (33) definition -> . decorator_def
-    (34) definition -> . action_def
-    (35) definition -> . condition_def
-    (36) definition -> . expression_def
-    (37) sequence_def -> . SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (38) selector_def -> . SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (39) prob_selector_def -> . PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (40) parallel_def -> . PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (41) decorator_def -> . DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-    (43) action_def -> . ACTION NODENAME COLON CODE
-    (42) condition_def -> . CONDITION NODENAME COLON CODE
-    (44) expression_def -> . EXPRESSION NODENAME COLON CODE
+    (3) root -> . behavior definitions DOUBLEPERCENTAGE CODE
+    (4) root -> . definitions behavior DOUBLEPERCENTAGE CODE
+    (5) behavior -> . BEHAVIOR [ node ]
+    (20) definitions -> . definitions definition
+    (21) definitions -> . definition
+    (22) definitions -> . SEQUENCE VAR : [ nodes ]
+    (23) definitions -> . SELECTOR VAR : [ nodes ]
+    (24) definitions -> . PROBSELECTOR VAR : [ prob_nodes ]
+    (25) definitions -> . PARALLEL VAR : INT [ nodes ]
+    (26) definitions -> . DECORATOR VAR : INVERTER [ node ]
+    (27) definitions -> . DECORATOR VAR : MAXTRIES [ node ]
+    (28) definitions -> . DECORATOR VAR : MAXSECONDS [ node ]
+    (29) definition -> . CONDITION NODENAME : CODE
+    (30) definition -> . ACTION NODENAME : CODE
+    (31) definition -> . EXPRESSION NODENAME : CODE
 
     BEHAVIOR        shift and go to state 4
-    SEQUENCE        shift and go to state 14
-    SELECTOR        shift and go to state 15
-    PROBSELECTOR    shift and go to state 16
-    PARALLEL        shift and go to state 17
-    DECORATOR       shift and go to state 18
-    ACTION          shift and go to state 19
-    CONDITION       shift and go to state 20
-    EXPRESSION      shift and go to state 21
+    SEQUENCE        shift and go to state 6
+    SELECTOR        shift and go to state 7
+    PROBSELECTOR    shift and go to state 8
+    PARALLEL        shift and go to state 9
+    DECORATOR       shift and go to state 10
+    CONDITION       shift and go to state 11
+    ACTION          shift and go to state 12
+    EXPRESSION      shift and go to state 13
 
     root                           shift and go to state 1
     behavior                       shift and go to state 2
     definitions                    shift and go to state 3
     definition                     shift and go to state 5
-    sequence_def                   shift and go to state 6
-    selector_def                   shift and go to state 7
-    prob_selector_def              shift and go to state 8
-    parallel_def                   shift and go to state 9
-    decorator_def                  shift and go to state 10
-    action_def                     shift and go to state 11
-    condition_def                  shift and go to state 12
-    expression_def                 shift and go to state 13
 
 state 1
 
@@ -169,1512 +119,1239 @@ state 1
 state 2
 
     (1) root -> behavior . definitions
-    (27) definitions -> . definitions definition
-    (28) definitions -> . definition
-    (29) definition -> . sequence_def
-    (30) definition -> . selector_def
-    (31) definition -> . prob_selector_def
-    (32) definition -> . parallel_def
-    (33) definition -> . decorator_def
-    (34) definition -> . action_def
-    (35) definition -> . condition_def
-    (36) definition -> . expression_def
-    (37) sequence_def -> . SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (38) selector_def -> . SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (39) prob_selector_def -> . PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (40) parallel_def -> . PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (41) decorator_def -> . DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-    (43) action_def -> . ACTION NODENAME COLON CODE
-    (42) condition_def -> . CONDITION NODENAME COLON CODE
-    (44) expression_def -> . EXPRESSION NODENAME COLON CODE
+    (3) root -> behavior . definitions DOUBLEPERCENTAGE CODE
+    (20) definitions -> . definitions definition
+    (21) definitions -> . definition
+    (22) definitions -> . SEQUENCE VAR : [ nodes ]
+    (23) definitions -> . SELECTOR VAR : [ nodes ]
+    (24) definitions -> . PROBSELECTOR VAR : [ prob_nodes ]
+    (25) definitions -> . PARALLEL VAR : INT [ nodes ]
+    (26) definitions -> . DECORATOR VAR : INVERTER [ node ]
+    (27) definitions -> . DECORATOR VAR : MAXTRIES [ node ]
+    (28) definitions -> . DECORATOR VAR : MAXSECONDS [ node ]
+    (29) definition -> . CONDITION NODENAME : CODE
+    (30) definition -> . ACTION NODENAME : CODE
+    (31) definition -> . EXPRESSION NODENAME : CODE
 
-    SEQUENCE        shift and go to state 14
-    SELECTOR        shift and go to state 15
-    PROBSELECTOR    shift and go to state 16
-    PARALLEL        shift and go to state 17
-    DECORATOR       shift and go to state 18
-    ACTION          shift and go to state 19
-    CONDITION       shift and go to state 20
-    EXPRESSION      shift and go to state 21
+    SEQUENCE        shift and go to state 6
+    SELECTOR        shift and go to state 7
+    PROBSELECTOR    shift and go to state 8
+    PARALLEL        shift and go to state 9
+    DECORATOR       shift and go to state 10
+    CONDITION       shift and go to state 11
+    ACTION          shift and go to state 12
+    EXPRESSION      shift and go to state 13
 
-    definitions                    shift and go to state 22
+    definitions                    shift and go to state 14
     definition                     shift and go to state 5
-    sequence_def                   shift and go to state 6
-    selector_def                   shift and go to state 7
-    prob_selector_def              shift and go to state 8
-    parallel_def                   shift and go to state 9
-    decorator_def                  shift and go to state 10
-    action_def                     shift and go to state 11
-    condition_def                  shift and go to state 12
-    expression_def                 shift and go to state 13
 
 state 3
 
     (2) root -> definitions . behavior
-    (27) definitions -> definitions . definition
-    (3) behavior -> . BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET
-    (29) definition -> . sequence_def
-    (30) definition -> . selector_def
-    (31) definition -> . prob_selector_def
-    (32) definition -> . parallel_def
-    (33) definition -> . decorator_def
-    (34) definition -> . action_def
-    (35) definition -> . condition_def
-    (36) definition -> . expression_def
-    (37) sequence_def -> . SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (38) selector_def -> . SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (39) prob_selector_def -> . PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (40) parallel_def -> . PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (41) decorator_def -> . DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-    (43) action_def -> . ACTION NODENAME COLON CODE
-    (42) condition_def -> . CONDITION NODENAME COLON CODE
-    (44) expression_def -> . EXPRESSION NODENAME COLON CODE
+    (4) root -> definitions . behavior DOUBLEPERCENTAGE CODE
+    (20) definitions -> definitions . definition
+    (5) behavior -> . BEHAVIOR [ node ]
+    (29) definition -> . CONDITION NODENAME : CODE
+    (30) definition -> . ACTION NODENAME : CODE
+    (31) definition -> . EXPRESSION NODENAME : CODE
 
     BEHAVIOR        shift and go to state 4
-    SEQUENCE        shift and go to state 14
-    SELECTOR        shift and go to state 15
-    PROBSELECTOR    shift and go to state 16
-    PARALLEL        shift and go to state 17
-    DECORATOR       shift and go to state 18
-    ACTION          shift and go to state 19
-    CONDITION       shift and go to state 20
-    EXPRESSION      shift and go to state 21
+    CONDITION       shift and go to state 11
+    ACTION          shift and go to state 12
+    EXPRESSION      shift and go to state 13
 
-    behavior                       shift and go to state 23
-    definition                     shift and go to state 24
-    sequence_def                   shift and go to state 6
-    selector_def                   shift and go to state 7
-    prob_selector_def              shift and go to state 8
-    parallel_def                   shift and go to state 9
-    decorator_def                  shift and go to state 10
-    action_def                     shift and go to state 11
-    condition_def                  shift and go to state 12
-    expression_def                 shift and go to state 13
+    behavior                       shift and go to state 15
+    definition                     shift and go to state 16
 
 state 4
 
-    (3) behavior -> BEHAVIOR . LSQUAREBRACKET node RSQUAREBRACKET
+    (5) behavior -> BEHAVIOR . [ node ]
 
-    LSQUAREBRACKET  shift and go to state 25
+    [               shift and go to state 17
 
 
 state 5
 
-    (28) definitions -> definition .
+    (21) definitions -> definition .
 
-    BEHAVIOR        reduce using rule 28 (definitions -> definition .)
-    SEQUENCE        reduce using rule 28 (definitions -> definition .)
-    SELECTOR        reduce using rule 28 (definitions -> definition .)
-    PROBSELECTOR    reduce using rule 28 (definitions -> definition .)
-    PARALLEL        reduce using rule 28 (definitions -> definition .)
-    DECORATOR       reduce using rule 28 (definitions -> definition .)
-    ACTION          reduce using rule 28 (definitions -> definition .)
-    CONDITION       reduce using rule 28 (definitions -> definition .)
-    EXPRESSION      reduce using rule 28 (definitions -> definition .)
-    $end            reduce using rule 28 (definitions -> definition .)
+    BEHAVIOR        reduce using rule 21 (definitions -> definition .)
+    CONDITION       reduce using rule 21 (definitions -> definition .)
+    ACTION          reduce using rule 21 (definitions -> definition .)
+    EXPRESSION      reduce using rule 21 (definitions -> definition .)
+    DOUBLEPERCENTAGE reduce using rule 21 (definitions -> definition .)
+    $end            reduce using rule 21 (definitions -> definition .)
 
 
 state 6
 
-    (29) definition -> sequence_def .
+    (22) definitions -> SEQUENCE . VAR : [ nodes ]
 
-    BEHAVIOR        reduce using rule 29 (definition -> sequence_def .)
-    SEQUENCE        reduce using rule 29 (definition -> sequence_def .)
-    SELECTOR        reduce using rule 29 (definition -> sequence_def .)
-    PROBSELECTOR    reduce using rule 29 (definition -> sequence_def .)
-    PARALLEL        reduce using rule 29 (definition -> sequence_def .)
-    DECORATOR       reduce using rule 29 (definition -> sequence_def .)
-    ACTION          reduce using rule 29 (definition -> sequence_def .)
-    CONDITION       reduce using rule 29 (definition -> sequence_def .)
-    EXPRESSION      reduce using rule 29 (definition -> sequence_def .)
-    $end            reduce using rule 29 (definition -> sequence_def .)
+    VAR             shift and go to state 18
 
 
 state 7
 
-    (30) definition -> selector_def .
+    (23) definitions -> SELECTOR . VAR : [ nodes ]
 
-    BEHAVIOR        reduce using rule 30 (definition -> selector_def .)
-    SEQUENCE        reduce using rule 30 (definition -> selector_def .)
-    SELECTOR        reduce using rule 30 (definition -> selector_def .)
-    PROBSELECTOR    reduce using rule 30 (definition -> selector_def .)
-    PARALLEL        reduce using rule 30 (definition -> selector_def .)
-    DECORATOR       reduce using rule 30 (definition -> selector_def .)
-    ACTION          reduce using rule 30 (definition -> selector_def .)
-    CONDITION       reduce using rule 30 (definition -> selector_def .)
-    EXPRESSION      reduce using rule 30 (definition -> selector_def .)
-    $end            reduce using rule 30 (definition -> selector_def .)
+    VAR             shift and go to state 19
 
 
 state 8
 
-    (31) definition -> prob_selector_def .
+    (24) definitions -> PROBSELECTOR . VAR : [ prob_nodes ]
 
-    BEHAVIOR        reduce using rule 31 (definition -> prob_selector_def .)
-    SEQUENCE        reduce using rule 31 (definition -> prob_selector_def .)
-    SELECTOR        reduce using rule 31 (definition -> prob_selector_def .)
-    PROBSELECTOR    reduce using rule 31 (definition -> prob_selector_def .)
-    PARALLEL        reduce using rule 31 (definition -> prob_selector_def .)
-    DECORATOR       reduce using rule 31 (definition -> prob_selector_def .)
-    ACTION          reduce using rule 31 (definition -> prob_selector_def .)
-    CONDITION       reduce using rule 31 (definition -> prob_selector_def .)
-    EXPRESSION      reduce using rule 31 (definition -> prob_selector_def .)
-    $end            reduce using rule 31 (definition -> prob_selector_def .)
+    VAR             shift and go to state 20
 
 
 state 9
 
-    (32) definition -> parallel_def .
+    (25) definitions -> PARALLEL . VAR : INT [ nodes ]
 
-    BEHAVIOR        reduce using rule 32 (definition -> parallel_def .)
-    SEQUENCE        reduce using rule 32 (definition -> parallel_def .)
-    SELECTOR        reduce using rule 32 (definition -> parallel_def .)
-    PROBSELECTOR    reduce using rule 32 (definition -> parallel_def .)
-    PARALLEL        reduce using rule 32 (definition -> parallel_def .)
-    DECORATOR       reduce using rule 32 (definition -> parallel_def .)
-    ACTION          reduce using rule 32 (definition -> parallel_def .)
-    CONDITION       reduce using rule 32 (definition -> parallel_def .)
-    EXPRESSION      reduce using rule 32 (definition -> parallel_def .)
-    $end            reduce using rule 32 (definition -> parallel_def .)
+    VAR             shift and go to state 21
 
 
 state 10
 
-    (33) definition -> decorator_def .
+    (26) definitions -> DECORATOR . VAR : INVERTER [ node ]
+    (27) definitions -> DECORATOR . VAR : MAXTRIES [ node ]
+    (28) definitions -> DECORATOR . VAR : MAXSECONDS [ node ]
 
-    BEHAVIOR        reduce using rule 33 (definition -> decorator_def .)
-    SEQUENCE        reduce using rule 33 (definition -> decorator_def .)
-    SELECTOR        reduce using rule 33 (definition -> decorator_def .)
-    PROBSELECTOR    reduce using rule 33 (definition -> decorator_def .)
-    PARALLEL        reduce using rule 33 (definition -> decorator_def .)
-    DECORATOR       reduce using rule 33 (definition -> decorator_def .)
-    ACTION          reduce using rule 33 (definition -> decorator_def .)
-    CONDITION       reduce using rule 33 (definition -> decorator_def .)
-    EXPRESSION      reduce using rule 33 (definition -> decorator_def .)
-    $end            reduce using rule 33 (definition -> decorator_def .)
+    VAR             shift and go to state 22
 
 
 state 11
 
-    (34) definition -> action_def .
+    (29) definition -> CONDITION . NODENAME : CODE
 
-    BEHAVIOR        reduce using rule 34 (definition -> action_def .)
-    SEQUENCE        reduce using rule 34 (definition -> action_def .)
-    SELECTOR        reduce using rule 34 (definition -> action_def .)
-    PROBSELECTOR    reduce using rule 34 (definition -> action_def .)
-    PARALLEL        reduce using rule 34 (definition -> action_def .)
-    DECORATOR       reduce using rule 34 (definition -> action_def .)
-    ACTION          reduce using rule 34 (definition -> action_def .)
-    CONDITION       reduce using rule 34 (definition -> action_def .)
-    EXPRESSION      reduce using rule 34 (definition -> action_def .)
-    $end            reduce using rule 34 (definition -> action_def .)
+    NODENAME        shift and go to state 23
 
 
 state 12
 
-    (35) definition -> condition_def .
+    (30) definition -> ACTION . NODENAME : CODE
 
-    BEHAVIOR        reduce using rule 35 (definition -> condition_def .)
-    SEQUENCE        reduce using rule 35 (definition -> condition_def .)
-    SELECTOR        reduce using rule 35 (definition -> condition_def .)
-    PROBSELECTOR    reduce using rule 35 (definition -> condition_def .)
-    PARALLEL        reduce using rule 35 (definition -> condition_def .)
-    DECORATOR       reduce using rule 35 (definition -> condition_def .)
-    ACTION          reduce using rule 35 (definition -> condition_def .)
-    CONDITION       reduce using rule 35 (definition -> condition_def .)
-    EXPRESSION      reduce using rule 35 (definition -> condition_def .)
-    $end            reduce using rule 35 (definition -> condition_def .)
+    NODENAME        shift and go to state 24
 
 
 state 13
 
-    (36) definition -> expression_def .
+    (31) definition -> EXPRESSION . NODENAME : CODE
 
-    BEHAVIOR        reduce using rule 36 (definition -> expression_def .)
-    SEQUENCE        reduce using rule 36 (definition -> expression_def .)
-    SELECTOR        reduce using rule 36 (definition -> expression_def .)
-    PROBSELECTOR    reduce using rule 36 (definition -> expression_def .)
-    PARALLEL        reduce using rule 36 (definition -> expression_def .)
-    DECORATOR       reduce using rule 36 (definition -> expression_def .)
-    ACTION          reduce using rule 36 (definition -> expression_def .)
-    CONDITION       reduce using rule 36 (definition -> expression_def .)
-    EXPRESSION      reduce using rule 36 (definition -> expression_def .)
-    $end            reduce using rule 36 (definition -> expression_def .)
+    NODENAME        shift and go to state 25
 
 
 state 14
 
-    (37) sequence_def -> SEQUENCE . NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    (1) root -> behavior definitions .
+    (3) root -> behavior definitions . DOUBLEPERCENTAGE CODE
+    (20) definitions -> definitions . definition
+    (29) definition -> . CONDITION NODENAME : CODE
+    (30) definition -> . ACTION NODENAME : CODE
+    (31) definition -> . EXPRESSION NODENAME : CODE
 
-    NODENAME        shift and go to state 26
+    $end            reduce using rule 1 (root -> behavior definitions .)
+    DOUBLEPERCENTAGE shift and go to state 26
+    CONDITION       shift and go to state 11
+    ACTION          shift and go to state 12
+    EXPRESSION      shift and go to state 13
 
+    definition                     shift and go to state 16
 
 state 15
 
-    (38) selector_def -> SELECTOR . NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    (2) root -> definitions behavior .
+    (4) root -> definitions behavior . DOUBLEPERCENTAGE CODE
 
-    NODENAME        shift and go to state 27
+    $end            reduce using rule 2 (root -> definitions behavior .)
+    DOUBLEPERCENTAGE shift and go to state 27
 
 
 state 16
 
-    (39) prob_selector_def -> PROBSELECTOR . NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    (20) definitions -> definitions definition .
 
-    NODENAME        shift and go to state 28
+    BEHAVIOR        reduce using rule 20 (definitions -> definitions definition .)
+    CONDITION       reduce using rule 20 (definitions -> definitions definition .)
+    ACTION          reduce using rule 20 (definitions -> definitions definition .)
+    EXPRESSION      reduce using rule 20 (definitions -> definitions definition .)
+    DOUBLEPERCENTAGE reduce using rule 20 (definitions -> definitions definition .)
+    $end            reduce using rule 20 (definitions -> definitions definition .)
 
 
 state 17
 
-    (40) parallel_def -> PARALLEL . NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
+    (5) behavior -> BEHAVIOR [ . node ]
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    NODENAME        shift and go to state 29
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    node                           shift and go to state 28
 
 state 18
 
-    (41) decorator_def -> DECORATOR . NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
+    (22) definitions -> SEQUENCE VAR . : [ nodes ]
 
-    NODENAME        shift and go to state 30
+    :               shift and go to state 36
 
 
 state 19
 
-    (43) action_def -> ACTION . NODENAME COLON CODE
+    (23) definitions -> SELECTOR VAR . : [ nodes ]
 
-    NODENAME        shift and go to state 31
+    :               shift and go to state 37
 
 
 state 20
 
-    (42) condition_def -> CONDITION . NODENAME COLON CODE
+    (24) definitions -> PROBSELECTOR VAR . : [ prob_nodes ]
 
-    NODENAME        shift and go to state 32
+    :               shift and go to state 38
 
 
 state 21
 
-    (44) expression_def -> EXPRESSION . NODENAME COLON CODE
+    (25) definitions -> PARALLEL VAR . : INT [ nodes ]
 
-    NODENAME        shift and go to state 33
+    :               shift and go to state 39
 
 
 state 22
 
-    (1) root -> behavior definitions .
-    (27) definitions -> definitions . definition
-    (29) definition -> . sequence_def
-    (30) definition -> . selector_def
-    (31) definition -> . prob_selector_def
-    (32) definition -> . parallel_def
-    (33) definition -> . decorator_def
-    (34) definition -> . action_def
-    (35) definition -> . condition_def
-    (36) definition -> . expression_def
-    (37) sequence_def -> . SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (38) selector_def -> . SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (39) prob_selector_def -> . PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (40) parallel_def -> . PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (41) decorator_def -> . DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
-    (43) action_def -> . ACTION NODENAME COLON CODE
-    (42) condition_def -> . CONDITION NODENAME COLON CODE
-    (44) expression_def -> . EXPRESSION NODENAME COLON CODE
+    (26) definitions -> DECORATOR VAR . : INVERTER [ node ]
+    (27) definitions -> DECORATOR VAR . : MAXTRIES [ node ]
+    (28) definitions -> DECORATOR VAR . : MAXSECONDS [ node ]
 
-    $end            reduce using rule 1 (root -> behavior definitions .)
-    SEQUENCE        shift and go to state 14
-    SELECTOR        shift and go to state 15
-    PROBSELECTOR    shift and go to state 16
-    PARALLEL        shift and go to state 17
-    DECORATOR       shift and go to state 18
-    ACTION          shift and go to state 19
-    CONDITION       shift and go to state 20
-    EXPRESSION      shift and go to state 21
+    :               shift and go to state 40
 
-    definition                     shift and go to state 24
-    sequence_def                   shift and go to state 6
-    selector_def                   shift and go to state 7
-    prob_selector_def              shift and go to state 8
-    parallel_def                   shift and go to state 9
-    decorator_def                  shift and go to state 10
-    action_def                     shift and go to state 11
-    condition_def                  shift and go to state 12
-    expression_def                 shift and go to state 13
 
 state 23
 
-    (2) root -> definitions behavior .
+    (29) definition -> CONDITION NODENAME . : CODE
 
-    $end            reduce using rule 2 (root -> definitions behavior .)
+    :               shift and go to state 41
 
 
 state 24
 
-    (27) definitions -> definitions definition .
+    (30) definition -> ACTION NODENAME . : CODE
 
-    BEHAVIOR        reduce using rule 27 (definitions -> definitions definition .)
-    SEQUENCE        reduce using rule 27 (definitions -> definitions definition .)
-    SELECTOR        reduce using rule 27 (definitions -> definitions definition .)
-    PROBSELECTOR    reduce using rule 27 (definitions -> definitions definition .)
-    PARALLEL        reduce using rule 27 (definitions -> definitions definition .)
-    DECORATOR       reduce using rule 27 (definitions -> definitions definition .)
-    ACTION          reduce using rule 27 (definitions -> definitions definition .)
-    CONDITION       reduce using rule 27 (definitions -> definitions definition .)
-    EXPRESSION      reduce using rule 27 (definitions -> definitions definition .)
-    $end            reduce using rule 27 (definitions -> definitions definition .)
+    :               shift and go to state 42
 
 
 state 25
 
-    (3) behavior -> BEHAVIOR LSQUAREBRACKET . node RSQUAREBRACKET
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (31) definition -> EXPRESSION NODENAME . : CODE
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    :               shift and go to state 43
 
-    node                           shift and go to state 34
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
 
 state 26
 
-    (37) sequence_def -> SEQUENCE NODENAME . COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    (3) root -> behavior definitions DOUBLEPERCENTAGE . CODE
 
-    COLON           shift and go to state 49
+    CODE            shift and go to state 44
 
 
 state 27
 
-    (38) selector_def -> SELECTOR NODENAME . COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    (4) root -> definitions behavior DOUBLEPERCENTAGE . CODE
 
-    COLON           shift and go to state 50
+    CODE            shift and go to state 45
 
 
 state 28
 
-    (39) prob_selector_def -> PROBSELECTOR NODENAME . COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    (5) behavior -> BEHAVIOR [ node . ]
 
-    COLON           shift and go to state 51
+    ]               shift and go to state 46
 
 
 state 29
 
-    (40) parallel_def -> PARALLEL NODENAME . COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
+    (6) node -> SEQUENCE . : [ nodes ]
 
-    COLON           shift and go to state 52
+    :               shift and go to state 47
 
 
 state 30
 
-    (41) decorator_def -> DECORATOR NODENAME . COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET
+    (7) node -> SELECTOR . : [ nodes ]
 
-    COLON           shift and go to state 53
+    :               shift and go to state 48
 
 
 state 31
 
-    (43) action_def -> ACTION NODENAME . COLON CODE
+    (8) node -> PROBSELECTOR . : [ prob_nodes ]
 
-    COLON           shift and go to state 54
+    :               shift and go to state 49
 
 
 state 32
 
-    (42) condition_def -> CONDITION NODENAME . COLON CODE
+    (9) node -> PARALLEL . : INT [ nodes ]
 
-    COLON           shift and go to state 55
+    :               shift and go to state 50
 
 
 state 33
 
-    (44) expression_def -> EXPRESSION NODENAME . COLON CODE
+    (10) node -> DECORATOR . : INVERTER [ node ]
+    (11) node -> DECORATOR . : MAXTRIES [ node ]
+    (12) node -> DECORATOR . : MAXSECONDS [ node ]
 
-    COLON           shift and go to state 56
+    :               shift and go to state 51
 
 
 state 34
 
-    (3) behavior -> BEHAVIOR LSQUAREBRACKET node . RSQUAREBRACKET
+    (13) node -> CONDITION . : VAR
 
-    RSQUAREBRACKET  shift and go to state 57
+    :               shift and go to state 52
 
 
 state 35
 
-    (4) node -> sequence .
+    (14) node -> ACTION . : VAR
 
-    RSQUAREBRACKET  reduce using rule 4 (node -> sequence .)
-    COMMA           reduce using rule 4 (node -> sequence .)
+    :               shift and go to state 53
 
 
 state 36
 
-    (5) node -> selector .
+    (22) definitions -> SEQUENCE VAR : . [ nodes ]
 
-    RSQUAREBRACKET  reduce using rule 5 (node -> selector .)
-    COMMA           reduce using rule 5 (node -> selector .)
+    [               shift and go to state 54
 
 
 state 37
 
-    (6) node -> prob_selector .
+    (23) definitions -> SELECTOR VAR : . [ nodes ]
 
-    RSQUAREBRACKET  reduce using rule 6 (node -> prob_selector .)
-    COMMA           reduce using rule 6 (node -> prob_selector .)
+    [               shift and go to state 55
 
 
 state 38
 
-    (7) node -> parallel .
+    (24) definitions -> PROBSELECTOR VAR : . [ prob_nodes ]
 
-    RSQUAREBRACKET  reduce using rule 7 (node -> parallel .)
-    COMMA           reduce using rule 7 (node -> parallel .)
+    [               shift and go to state 56
 
 
 state 39
 
-    (8) node -> decorator .
+    (25) definitions -> PARALLEL VAR : . INT [ nodes ]
 
-    RSQUAREBRACKET  reduce using rule 8 (node -> decorator .)
-    COMMA           reduce using rule 8 (node -> decorator .)
+    INT             shift and go to state 57
 
 
 state 40
 
-    (9) node -> action .
+    (26) definitions -> DECORATOR VAR : . INVERTER [ node ]
+    (27) definitions -> DECORATOR VAR : . MAXTRIES [ node ]
+    (28) definitions -> DECORATOR VAR : . MAXSECONDS [ node ]
 
-    RSQUAREBRACKET  reduce using rule 9 (node -> action .)
-    COMMA           reduce using rule 9 (node -> action .)
+    INVERTER        shift and go to state 58
+    MAXTRIES        shift and go to state 59
+    MAXSECONDS      shift and go to state 60
 
 
 state 41
 
-    (10) node -> condition .
+    (29) definition -> CONDITION NODENAME : . CODE
 
-    RSQUAREBRACKET  reduce using rule 10 (node -> condition .)
-    COMMA           reduce using rule 10 (node -> condition .)
+    CODE            shift and go to state 61
 
 
 state 42
 
-    (11) sequence -> SEQUENCE . COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    (30) definition -> ACTION NODENAME : . CODE
 
-    COLON           shift and go to state 58
+    CODE            shift and go to state 62
 
 
 state 43
 
-    (12) selector -> SELECTOR . COLON LSQUAREBRACKET nodes RSQUAREBRACKET
+    (31) definition -> EXPRESSION NODENAME : . CODE
 
-    COLON           shift and go to state 59
+    CODE            shift and go to state 63
 
 
 state 44
 
-    (13) prob_selector -> PROBSELECTOR . COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
+    (3) root -> behavior definitions DOUBLEPERCENTAGE CODE .
 
-    COLON           shift and go to state 60
+    $end            reduce using rule 3 (root -> behavior definitions DOUBLEPERCENTAGE CODE .)
 
 
 state 45
 
-    (14) parallel -> PARALLEL . COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
+    (4) root -> definitions behavior DOUBLEPERCENTAGE CODE .
 
-    COLON           shift and go to state 61
+    $end            reduce using rule 4 (root -> definitions behavior DOUBLEPERCENTAGE CODE .)
 
 
 state 46
 
-    (15) decorator -> DECORATOR . COLON policy LSQUAREBRACKET node RSQUAREBRACKET
+    (5) behavior -> BEHAVIOR [ node ] .
 
-    COLON           shift and go to state 62
+    SEQUENCE        reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
+    SELECTOR        reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
+    PROBSELECTOR    reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
+    PARALLEL        reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
+    DECORATOR       reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
+    CONDITION       reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
+    ACTION          reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
+    EXPRESSION      reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
+    DOUBLEPERCENTAGE reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
+    $end            reduce using rule 5 (behavior -> BEHAVIOR [ node ] .)
 
 
 state 47
 
-    (25) action -> ACTION . COLON var
+    (6) node -> SEQUENCE : . [ nodes ]
 
-    COLON           shift and go to state 63
+    [               shift and go to state 64
 
 
 state 48
 
-    (24) condition -> CONDITION . COLON var
+    (7) node -> SELECTOR : . [ nodes ]
 
-    COLON           shift and go to state 64
+    [               shift and go to state 65
 
 
 state 49
 
-    (37) sequence_def -> SEQUENCE NODENAME COLON . LSQUAREBRACKET nodes RSQUAREBRACKET
+    (8) node -> PROBSELECTOR : . [ prob_nodes ]
 
-    LSQUAREBRACKET  shift and go to state 65
+    [               shift and go to state 66
 
 
 state 50
 
-    (38) selector_def -> SELECTOR NODENAME COLON . LSQUAREBRACKET nodes RSQUAREBRACKET
+    (9) node -> PARALLEL : . INT [ nodes ]
 
-    LSQUAREBRACKET  shift and go to state 66
+    INT             shift and go to state 67
 
 
 state 51
 
-    (39) prob_selector_def -> PROBSELECTOR NODENAME COLON . LSQUAREBRACKET nodes RSQUAREBRACKET
+    (10) node -> DECORATOR : . INVERTER [ node ]
+    (11) node -> DECORATOR : . MAXTRIES [ node ]
+    (12) node -> DECORATOR : . MAXSECONDS [ node ]
 
-    LSQUAREBRACKET  shift and go to state 67
+    INVERTER        shift and go to state 68
+    MAXTRIES        shift and go to state 69
+    MAXSECONDS      shift and go to state 70
 
 
 state 52
 
-    (40) parallel_def -> PARALLEL NODENAME COLON . INT LSQUAREBRACKET nodes RSQUAREBRACKET
+    (13) node -> CONDITION : . VAR
 
-    INT             shift and go to state 68
+    VAR             shift and go to state 71
 
 
 state 53
 
-    (41) decorator_def -> DECORATOR NODENAME COLON . policy LSQUAREBRACKET nodes RSQUAREBRACKET
-    (21) policy -> . INVERTER
-    (22) policy -> . MAXTRIES
-    (23) policy -> . MAXSECONDS
+    (14) node -> ACTION : . VAR
 
-    INVERTER        shift and go to state 70
-    MAXTRIES        shift and go to state 71
-    MAXSECONDS      shift and go to state 72
+    VAR             shift and go to state 72
 
-    policy                         shift and go to state 69
 
 state 54
 
-    (43) action_def -> ACTION NODENAME COLON . CODE
+    (22) definitions -> SEQUENCE VAR : [ . nodes ]
+    (15) nodes -> . nodes , node
+    (16) nodes -> . node
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    CODE            shift and go to state 73
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    nodes                          shift and go to state 73
+    node                           shift and go to state 74
 
 state 55
 
-    (42) condition_def -> CONDITION NODENAME COLON . CODE
+    (23) definitions -> SELECTOR VAR : [ . nodes ]
+    (15) nodes -> . nodes , node
+    (16) nodes -> . node
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    CODE            shift and go to state 74
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    nodes                          shift and go to state 75
+    node                           shift and go to state 74
 
 state 56
 
-    (44) expression_def -> EXPRESSION NODENAME COLON . CODE
+    (24) definitions -> PROBSELECTOR VAR : [ . prob_nodes ]
+    (17) prob_nodes -> . prob_nodes , prob_node
+    (18) prob_nodes -> . prob_node
+    (19) prob_node -> . VAR RIGHTARROW node
 
-    CODE            shift and go to state 75
+    VAR             shift and go to state 76
 
+    prob_nodes                     shift and go to state 77
+    prob_node                      shift and go to state 78
 
 state 57
 
-    (3) behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .
+    (25) definitions -> PARALLEL VAR : INT . [ nodes ]
 
-    SEQUENCE        reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
-    SELECTOR        reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
-    PROBSELECTOR    reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
-    PARALLEL        reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
-    DECORATOR       reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
-    ACTION          reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
-    CONDITION       reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
-    EXPRESSION      reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
-    $end            reduce using rule 3 (behavior -> BEHAVIOR LSQUAREBRACKET node RSQUAREBRACKET .)
+    [               shift and go to state 79
 
 
 state 58
 
-    (11) sequence -> SEQUENCE COLON . LSQUAREBRACKET nodes RSQUAREBRACKET
+    (26) definitions -> DECORATOR VAR : INVERTER . [ node ]
 
-    LSQUAREBRACKET  shift and go to state 76
+    [               shift and go to state 80
 
 
 state 59
 
-    (12) selector -> SELECTOR COLON . LSQUAREBRACKET nodes RSQUAREBRACKET
+    (27) definitions -> DECORATOR VAR : MAXTRIES . [ node ]
 
-    LSQUAREBRACKET  shift and go to state 77
+    [               shift and go to state 81
 
 
 state 60
 
-    (13) prob_selector -> PROBSELECTOR COLON . LSQUAREBRACKET prob_nodes RSQUAREBRACKET
+    (28) definitions -> DECORATOR VAR : MAXSECONDS . [ node ]
 
-    LSQUAREBRACKET  shift and go to state 78
+    [               shift and go to state 82
 
 
 state 61
 
-    (14) parallel -> PARALLEL COLON . INT LSQUAREBRACKET nodes RSQUAREBRACKET
+    (29) definition -> CONDITION NODENAME : CODE .
 
-    INT             shift and go to state 79
+    BEHAVIOR        reduce using rule 29 (definition -> CONDITION NODENAME : CODE .)
+    CONDITION       reduce using rule 29 (definition -> CONDITION NODENAME : CODE .)
+    ACTION          reduce using rule 29 (definition -> CONDITION NODENAME : CODE .)
+    EXPRESSION      reduce using rule 29 (definition -> CONDITION NODENAME : CODE .)
+    DOUBLEPERCENTAGE reduce using rule 29 (definition -> CONDITION NODENAME : CODE .)
+    $end            reduce using rule 29 (definition -> CONDITION NODENAME : CODE .)
 
 
 state 62
 
-    (15) decorator -> DECORATOR COLON . policy LSQUAREBRACKET node RSQUAREBRACKET
-    (21) policy -> . INVERTER
-    (22) policy -> . MAXTRIES
-    (23) policy -> . MAXSECONDS
+    (30) definition -> ACTION NODENAME : CODE .
 
-    INVERTER        shift and go to state 70
-    MAXTRIES        shift and go to state 71
-    MAXSECONDS      shift and go to state 72
+    BEHAVIOR        reduce using rule 30 (definition -> ACTION NODENAME : CODE .)
+    CONDITION       reduce using rule 30 (definition -> ACTION NODENAME : CODE .)
+    ACTION          reduce using rule 30 (definition -> ACTION NODENAME : CODE .)
+    EXPRESSION      reduce using rule 30 (definition -> ACTION NODENAME : CODE .)
+    DOUBLEPERCENTAGE reduce using rule 30 (definition -> ACTION NODENAME : CODE .)
+    $end            reduce using rule 30 (definition -> ACTION NODENAME : CODE .)
 
-    policy                         shift and go to state 80
 
 state 63
 
-    (25) action -> ACTION COLON . var
-    (26) var -> . DOLLAR NODENAME
+    (31) definition -> EXPRESSION NODENAME : CODE .
 
-    DOLLAR          shift and go to state 82
+    BEHAVIOR        reduce using rule 31 (definition -> EXPRESSION NODENAME : CODE .)
+    CONDITION       reduce using rule 31 (definition -> EXPRESSION NODENAME : CODE .)
+    ACTION          reduce using rule 31 (definition -> EXPRESSION NODENAME : CODE .)
+    EXPRESSION      reduce using rule 31 (definition -> EXPRESSION NODENAME : CODE .)
+    DOUBLEPERCENTAGE reduce using rule 31 (definition -> EXPRESSION NODENAME : CODE .)
+    $end            reduce using rule 31 (definition -> EXPRESSION NODENAME : CODE .)
 
-    var                            shift and go to state 81
 
 state 64
 
-    (24) condition -> CONDITION COLON . var
-    (26) var -> . DOLLAR NODENAME
+    (6) node -> SEQUENCE : [ . nodes ]
+    (15) nodes -> . nodes , node
+    (16) nodes -> . node
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    DOLLAR          shift and go to state 82
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
-    var                            shift and go to state 83
+    nodes                          shift and go to state 83
+    node                           shift and go to state 74
 
 state 65
 
-    (37) sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET . nodes RSQUAREBRACKET
-    (16) nodes -> . nodes COMMA node
-    (17) nodes -> . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (7) node -> SELECTOR : [ . nodes ]
+    (15) nodes -> . nodes , node
+    (16) nodes -> . node
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
     nodes                          shift and go to state 84
-    node                           shift and go to state 85
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
+    node                           shift and go to state 74
 
 state 66
 
-    (38) selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET . nodes RSQUAREBRACKET
-    (16) nodes -> . nodes COMMA node
-    (17) nodes -> . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (8) node -> PROBSELECTOR : [ . prob_nodes ]
+    (17) prob_nodes -> . prob_nodes , prob_node
+    (18) prob_nodes -> . prob_node
+    (19) prob_node -> . VAR RIGHTARROW node
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    VAR             shift and go to state 76
 
-    nodes                          shift and go to state 86
-    node                           shift and go to state 85
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
+    prob_nodes                     shift and go to state 85
+    prob_node                      shift and go to state 78
 
 state 67
 
-    (39) prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET . nodes RSQUAREBRACKET
-    (16) nodes -> . nodes COMMA node
-    (17) nodes -> . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (9) node -> PARALLEL : INT . [ nodes ]
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    [               shift and go to state 86
 
-    nodes                          shift and go to state 87
-    node                           shift and go to state 85
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
 
 state 68
 
-    (40) parallel_def -> PARALLEL NODENAME COLON INT . LSQUAREBRACKET nodes RSQUAREBRACKET
+    (10) node -> DECORATOR : INVERTER . [ node ]
 
-    LSQUAREBRACKET  shift and go to state 88
+    [               shift and go to state 87
 
 
 state 69
 
-    (41) decorator_def -> DECORATOR NODENAME COLON policy . LSQUAREBRACKET nodes RSQUAREBRACKET
+    (11) node -> DECORATOR : MAXTRIES . [ node ]
 
-    LSQUAREBRACKET  shift and go to state 89
+    [               shift and go to state 88
 
 
 state 70
 
-    (21) policy -> INVERTER .
+    (12) node -> DECORATOR : MAXSECONDS . [ node ]
 
-    LSQUAREBRACKET  reduce using rule 21 (policy -> INVERTER .)
+    [               shift and go to state 89
 
 
 state 71
 
-    (22) policy -> MAXTRIES .
+    (13) node -> CONDITION : VAR .
 
-    LSQUAREBRACKET  reduce using rule 22 (policy -> MAXTRIES .)
+    ]               reduce using rule 13 (node -> CONDITION : VAR .)
+    ,               reduce using rule 13 (node -> CONDITION : VAR .)
 
 
 state 72
 
-    (23) policy -> MAXSECONDS .
+    (14) node -> ACTION : VAR .
 
-    LSQUAREBRACKET  reduce using rule 23 (policy -> MAXSECONDS .)
+    ]               reduce using rule 14 (node -> ACTION : VAR .)
+    ,               reduce using rule 14 (node -> ACTION : VAR .)
 
 
 state 73
 
-    (43) action_def -> ACTION NODENAME COLON CODE .
+    (22) definitions -> SEQUENCE VAR : [ nodes . ]
+    (15) nodes -> nodes . , node
 
-    BEHAVIOR        reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
-    SEQUENCE        reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
-    SELECTOR        reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
-    PROBSELECTOR    reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
-    PARALLEL        reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
-    DECORATOR       reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
-    ACTION          reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
-    CONDITION       reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
-    EXPRESSION      reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
-    $end            reduce using rule 43 (action_def -> ACTION NODENAME COLON CODE .)
+    ]               shift and go to state 90
+    ,               shift and go to state 91
 
 
 state 74
 
-    (42) condition_def -> CONDITION NODENAME COLON CODE .
+    (16) nodes -> node .
 
-    BEHAVIOR        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
-    SEQUENCE        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
-    SELECTOR        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
-    PROBSELECTOR    reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
-    PARALLEL        reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
-    DECORATOR       reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
-    ACTION          reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
-    CONDITION       reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
-    EXPRESSION      reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
-    $end            reduce using rule 42 (condition_def -> CONDITION NODENAME COLON CODE .)
+    ]               reduce using rule 16 (nodes -> node .)
+    ,               reduce using rule 16 (nodes -> node .)
 
 
 state 75
 
-    (44) expression_def -> EXPRESSION NODENAME COLON CODE .
+    (23) definitions -> SELECTOR VAR : [ nodes . ]
+    (15) nodes -> nodes . , node
 
-    BEHAVIOR        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
-    SEQUENCE        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
-    SELECTOR        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
-    PROBSELECTOR    reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
-    PARALLEL        reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
-    DECORATOR       reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
-    ACTION          reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
-    CONDITION       reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
-    EXPRESSION      reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
-    $end            reduce using rule 44 (expression_def -> EXPRESSION NODENAME COLON CODE .)
+    ]               shift and go to state 92
+    ,               shift and go to state 91
 
 
 state 76
 
-    (11) sequence -> SEQUENCE COLON LSQUAREBRACKET . nodes RSQUAREBRACKET
-    (16) nodes -> . nodes COMMA node
-    (17) nodes -> . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (19) prob_node -> VAR . RIGHTARROW node
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    RIGHTARROW      shift and go to state 93
 
-    nodes                          shift and go to state 90
-    node                           shift and go to state 85
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
 
 state 77
 
-    (12) selector -> SELECTOR COLON LSQUAREBRACKET . nodes RSQUAREBRACKET
-    (16) nodes -> . nodes COMMA node
-    (17) nodes -> . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (24) definitions -> PROBSELECTOR VAR : [ prob_nodes . ]
+    (17) prob_nodes -> prob_nodes . , prob_node
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    ]               shift and go to state 94
+    ,               shift and go to state 95
 
-    nodes                          shift and go to state 91
-    node                           shift and go to state 85
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
 
 state 78
 
-    (13) prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET . prob_nodes RSQUAREBRACKET
-    (18) prob_nodes -> . prob_nodes COMMA prob_node
-    (19) prob_nodes -> . prob_node
-    (20) prob_node -> . var RIGHTARROW node
-    (26) var -> . DOLLAR NODENAME
+    (18) prob_nodes -> prob_node .
 
-    DOLLAR          shift and go to state 82
+    ]               reduce using rule 18 (prob_nodes -> prob_node .)
+    ,               reduce using rule 18 (prob_nodes -> prob_node .)
 
-    prob_nodes                     shift and go to state 92
-    prob_node                      shift and go to state 93
-    var                            shift and go to state 94
 
 state 79
 
-    (14) parallel -> PARALLEL COLON INT . LSQUAREBRACKET nodes RSQUAREBRACKET
+    (25) definitions -> PARALLEL VAR : INT [ . nodes ]
+    (15) nodes -> . nodes , node
+    (16) nodes -> . node
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    LSQUAREBRACKET  shift and go to state 95
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    nodes                          shift and go to state 96
+    node                           shift and go to state 74
 
 state 80
 
-    (15) decorator -> DECORATOR COLON policy . LSQUAREBRACKET node RSQUAREBRACKET
+    (26) definitions -> DECORATOR VAR : INVERTER [ . node ]
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    LSQUAREBRACKET  shift and go to state 96
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    node                           shift and go to state 97
 
 state 81
 
-    (25) action -> ACTION COLON var .
+    (27) definitions -> DECORATOR VAR : MAXTRIES [ . node ]
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    RSQUAREBRACKET  reduce using rule 25 (action -> ACTION COLON var .)
-    COMMA           reduce using rule 25 (action -> ACTION COLON var .)
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    node                           shift and go to state 98
 
 state 82
 
-    (26) var -> DOLLAR . NODENAME
+    (28) definitions -> DECORATOR VAR : MAXSECONDS [ . node ]
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    NODENAME        shift and go to state 97
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    node                           shift and go to state 99
 
 state 83
 
-    (24) condition -> CONDITION COLON var .
+    (6) node -> SEQUENCE : [ nodes . ]
+    (15) nodes -> nodes . , node
 
-    RSQUAREBRACKET  reduce using rule 24 (condition -> CONDITION COLON var .)
-    COMMA           reduce using rule 24 (condition -> CONDITION COLON var .)
+    ]               shift and go to state 100
+    ,               shift and go to state 91
 
 
 state 84
 
-    (37) sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
+    (7) node -> SELECTOR : [ nodes . ]
+    (15) nodes -> nodes . , node
 
-    RSQUAREBRACKET  shift and go to state 98
-    COMMA           shift and go to state 99
+    ]               shift and go to state 101
+    ,               shift and go to state 91
 
 
 state 85
 
-    (17) nodes -> node .
+    (8) node -> PROBSELECTOR : [ prob_nodes . ]
+    (17) prob_nodes -> prob_nodes . , prob_node
 
-    RSQUAREBRACKET  reduce using rule 17 (nodes -> node .)
-    COMMA           reduce using rule 17 (nodes -> node .)
+    ]               shift and go to state 102
+    ,               shift and go to state 95
 
 
 state 86
 
-    (38) selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
+    (9) node -> PARALLEL : INT [ . nodes ]
+    (15) nodes -> . nodes , node
+    (16) nodes -> . node
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    RSQUAREBRACKET  shift and go to state 100
-    COMMA           shift and go to state 99
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    nodes                          shift and go to state 103
+    node                           shift and go to state 74
 
 state 87
 
-    (39) prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
+    (10) node -> DECORATOR : INVERTER [ . node ]
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    RSQUAREBRACKET  shift and go to state 101
-    COMMA           shift and go to state 99
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    node                           shift and go to state 104
 
 state 88
 
-    (40) parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET . nodes RSQUAREBRACKET
-    (16) nodes -> . nodes COMMA node
-    (17) nodes -> . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (11) node -> DECORATOR : MAXTRIES [ . node ]
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
-    nodes                          shift and go to state 102
-    node                           shift and go to state 85
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
+    node                           shift and go to state 105
 
 state 89
 
-    (41) decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET . nodes RSQUAREBRACKET
-    (16) nodes -> . nodes COMMA node
-    (17) nodes -> . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (12) node -> DECORATOR : MAXSECONDS [ . node ]
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
-    nodes                          shift and go to state 103
-    node                           shift and go to state 85
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
+    node                           shift and go to state 106
 
 state 90
 
-    (11) sequence -> SEQUENCE COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
+    (22) definitions -> SEQUENCE VAR : [ nodes ] .
 
-    RSQUAREBRACKET  shift and go to state 104
-    COMMA           shift and go to state 99
+    BEHAVIOR        reduce using rule 22 (definitions -> SEQUENCE VAR : [ nodes ] .)
+    CONDITION       reduce using rule 22 (definitions -> SEQUENCE VAR : [ nodes ] .)
+    ACTION          reduce using rule 22 (definitions -> SEQUENCE VAR : [ nodes ] .)
+    EXPRESSION      reduce using rule 22 (definitions -> SEQUENCE VAR : [ nodes ] .)
+    DOUBLEPERCENTAGE reduce using rule 22 (definitions -> SEQUENCE VAR : [ nodes ] .)
+    $end            reduce using rule 22 (definitions -> SEQUENCE VAR : [ nodes ] .)
 
 
 state 91
 
-    (12) selector -> SELECTOR COLON LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
+    (15) nodes -> nodes , . node
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    RSQUAREBRACKET  shift and go to state 105
-    COMMA           shift and go to state 99
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    node                           shift and go to state 107
 
 state 92
 
-    (13) prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes . RSQUAREBRACKET
-    (18) prob_nodes -> prob_nodes . COMMA prob_node
+    (23) definitions -> SELECTOR VAR : [ nodes ] .
 
-    RSQUAREBRACKET  shift and go to state 106
-    COMMA           shift and go to state 107
+    BEHAVIOR        reduce using rule 23 (definitions -> SELECTOR VAR : [ nodes ] .)
+    CONDITION       reduce using rule 23 (definitions -> SELECTOR VAR : [ nodes ] .)
+    ACTION          reduce using rule 23 (definitions -> SELECTOR VAR : [ nodes ] .)
+    EXPRESSION      reduce using rule 23 (definitions -> SELECTOR VAR : [ nodes ] .)
+    DOUBLEPERCENTAGE reduce using rule 23 (definitions -> SELECTOR VAR : [ nodes ] .)
+    $end            reduce using rule 23 (definitions -> SELECTOR VAR : [ nodes ] .)
 
 
 state 93
 
-    (19) prob_nodes -> prob_node .
+    (19) prob_node -> VAR RIGHTARROW . node
+    (6) node -> . SEQUENCE : [ nodes ]
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . PROBSELECTOR : [ prob_nodes ]
+    (9) node -> . PARALLEL : INT [ nodes ]
+    (10) node -> . DECORATOR : INVERTER [ node ]
+    (11) node -> . DECORATOR : MAXTRIES [ node ]
+    (12) node -> . DECORATOR : MAXSECONDS [ node ]
+    (13) node -> . CONDITION : VAR
+    (14) node -> . ACTION : VAR
 
-    RSQUAREBRACKET  reduce using rule 19 (prob_nodes -> prob_node .)
-    COMMA           reduce using rule 19 (prob_nodes -> prob_node .)
+    SEQUENCE        shift and go to state 29
+    SELECTOR        shift and go to state 30
+    PROBSELECTOR    shift and go to state 31
+    PARALLEL        shift and go to state 32
+    DECORATOR       shift and go to state 33
+    CONDITION       shift and go to state 34
+    ACTION          shift and go to state 35
 
+    node                           shift and go to state 108
 
 state 94
 
-    (20) prob_node -> var . RIGHTARROW node
+    (24) definitions -> PROBSELECTOR VAR : [ prob_nodes ] .
 
-    RIGHTARROW      shift and go to state 108
+    BEHAVIOR        reduce using rule 24 (definitions -> PROBSELECTOR VAR : [ prob_nodes ] .)
+    CONDITION       reduce using rule 24 (definitions -> PROBSELECTOR VAR : [ prob_nodes ] .)
+    ACTION          reduce using rule 24 (definitions -> PROBSELECTOR VAR : [ prob_nodes ] .)
+    EXPRESSION      reduce using rule 24 (definitions -> PROBSELECTOR VAR : [ prob_nodes ] .)
+    DOUBLEPERCENTAGE reduce using rule 24 (definitions -> PROBSELECTOR VAR : [ prob_nodes ] .)
+    $end            reduce using rule 24 (definitions -> PROBSELECTOR VAR : [ prob_nodes ] .)
 
 
 state 95
 
-    (14) parallel -> PARALLEL COLON INT LSQUAREBRACKET . nodes RSQUAREBRACKET
-    (16) nodes -> . nodes COMMA node
-    (17) nodes -> . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (17) prob_nodes -> prob_nodes , . prob_node
+    (19) prob_node -> . VAR RIGHTARROW node
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    VAR             shift and go to state 76
 
-    nodes                          shift and go to state 109
-    node                           shift and go to state 85
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
+    prob_node                      shift and go to state 109
 
 state 96
 
-    (15) decorator -> DECORATOR COLON policy LSQUAREBRACKET . node RSQUAREBRACKET
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (25) definitions -> PARALLEL VAR : INT [ nodes . ]
+    (15) nodes -> nodes . , node
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    ]               shift and go to state 110
+    ,               shift and go to state 91
 
-    node                           shift and go to state 110
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
 
 state 97
 
-    (26) var -> DOLLAR NODENAME .
+    (26) definitions -> DECORATOR VAR : INVERTER [ node . ]
 
-    RSQUAREBRACKET  reduce using rule 26 (var -> DOLLAR NODENAME .)
-    COMMA           reduce using rule 26 (var -> DOLLAR NODENAME .)
-    RIGHTARROW      reduce using rule 26 (var -> DOLLAR NODENAME .)
+    ]               shift and go to state 111
 
 
 state 98
 
-    (37) sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
+    (27) definitions -> DECORATOR VAR : MAXTRIES [ node . ]
 
-    BEHAVIOR        reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SEQUENCE        reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SELECTOR        reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PROBSELECTOR    reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PARALLEL        reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    DECORATOR       reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    ACTION          reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    CONDITION       reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    EXPRESSION      reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    $end            reduce using rule 37 (sequence_def -> SEQUENCE NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
+    ]               shift and go to state 112
 
 
 state 99
 
-    (16) nodes -> nodes COMMA . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (28) definitions -> DECORATOR VAR : MAXSECONDS [ node . ]
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    ]               shift and go to state 113
 
-    node                           shift and go to state 111
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
 
 state 100
 
-    (38) selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
+    (6) node -> SEQUENCE : [ nodes ] .
 
-    BEHAVIOR        reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SEQUENCE        reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SELECTOR        reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PROBSELECTOR    reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PARALLEL        reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    DECORATOR       reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    ACTION          reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    CONDITION       reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    EXPRESSION      reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    $end            reduce using rule 38 (selector_def -> SELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
+    ]               reduce using rule 6 (node -> SEQUENCE : [ nodes ] .)
+    ,               reduce using rule 6 (node -> SEQUENCE : [ nodes ] .)
 
 
 state 101
 
-    (39) prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
+    (7) node -> SELECTOR : [ nodes ] .
 
-    BEHAVIOR        reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SEQUENCE        reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SELECTOR        reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PROBSELECTOR    reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PARALLEL        reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    DECORATOR       reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    ACTION          reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    CONDITION       reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    EXPRESSION      reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    $end            reduce using rule 39 (prob_selector_def -> PROBSELECTOR NODENAME COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
+    ]               reduce using rule 7 (node -> SELECTOR : [ nodes ] .)
+    ,               reduce using rule 7 (node -> SELECTOR : [ nodes ] .)
 
 
 state 102
 
-    (40) parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
+    (8) node -> PROBSELECTOR : [ prob_nodes ] .
 
-    RSQUAREBRACKET  shift and go to state 112
-    COMMA           shift and go to state 99
+    ]               reduce using rule 8 (node -> PROBSELECTOR : [ prob_nodes ] .)
+    ,               reduce using rule 8 (node -> PROBSELECTOR : [ prob_nodes ] .)
 
 
 state 103
 
-    (41) decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
+    (9) node -> PARALLEL : INT [ nodes . ]
+    (15) nodes -> nodes . , node
 
-    RSQUAREBRACKET  shift and go to state 113
-    COMMA           shift and go to state 99
+    ]               shift and go to state 114
+    ,               shift and go to state 91
 
 
 state 104
 
-    (11) sequence -> SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
+    (10) node -> DECORATOR : INVERTER [ node . ]
 
-    RSQUAREBRACKET  reduce using rule 11 (sequence -> SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    COMMA           reduce using rule 11 (sequence -> SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
+    ]               shift and go to state 115
 
 
 state 105
 
-    (12) selector -> SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET .
+    (11) node -> DECORATOR : MAXTRIES [ node . ]
 
-    RSQUAREBRACKET  reduce using rule 12 (selector -> SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    COMMA           reduce using rule 12 (selector -> SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET .)
+    ]               shift and go to state 116
 
 
 state 106
 
-    (13) prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET .
+    (12) node -> DECORATOR : MAXSECONDS [ node . ]
 
-    RSQUAREBRACKET  reduce using rule 13 (prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET .)
-    COMMA           reduce using rule 13 (prob_selector -> PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET .)
+    ]               shift and go to state 117
 
 
 state 107
 
-    (18) prob_nodes -> prob_nodes COMMA . prob_node
-    (20) prob_node -> . var RIGHTARROW node
-    (26) var -> . DOLLAR NODENAME
+    (15) nodes -> nodes , node .
 
-    DOLLAR          shift and go to state 82
+    ]               reduce using rule 15 (nodes -> nodes , node .)
+    ,               reduce using rule 15 (nodes -> nodes , node .)
 
-    prob_node                      shift and go to state 114
-    var                            shift and go to state 94
 
 state 108
 
-    (20) prob_node -> var RIGHTARROW . node
-    (4) node -> . sequence
-    (5) node -> . selector
-    (6) node -> . prob_selector
-    (7) node -> . parallel
-    (8) node -> . decorator
-    (9) node -> . action
-    (10) node -> . condition
-    (11) sequence -> . SEQUENCE COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (12) selector -> . SELECTOR COLON LSQUAREBRACKET nodes RSQUAREBRACKET
-    (13) prob_selector -> . PROBSELECTOR COLON LSQUAREBRACKET prob_nodes RSQUAREBRACKET
-    (14) parallel -> . PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET
-    (15) decorator -> . DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET
-    (25) action -> . ACTION COLON var
-    (24) condition -> . CONDITION COLON var
+    (19) prob_node -> VAR RIGHTARROW node .
 
-    SEQUENCE        shift and go to state 42
-    SELECTOR        shift and go to state 43
-    PROBSELECTOR    shift and go to state 44
-    PARALLEL        shift and go to state 45
-    DECORATOR       shift and go to state 46
-    ACTION          shift and go to state 47
-    CONDITION       shift and go to state 48
+    ]               reduce using rule 19 (prob_node -> VAR RIGHTARROW node .)
+    ,               reduce using rule 19 (prob_node -> VAR RIGHTARROW node .)
 
-    node                           shift and go to state 115
-    sequence                       shift and go to state 35
-    selector                       shift and go to state 36
-    prob_selector                  shift and go to state 37
-    parallel                       shift and go to state 38
-    decorator                      shift and go to state 39
-    action                         shift and go to state 40
-    condition                      shift and go to state 41
 
 state 109
 
-    (14) parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes . RSQUAREBRACKET
-    (16) nodes -> nodes . COMMA node
+    (17) prob_nodes -> prob_nodes , prob_node .
 
-    RSQUAREBRACKET  shift and go to state 116
-    COMMA           shift and go to state 99
+    ]               reduce using rule 17 (prob_nodes -> prob_nodes , prob_node .)
+    ,               reduce using rule 17 (prob_nodes -> prob_nodes , prob_node .)
 
 
 state 110
 
-    (15) decorator -> DECORATOR COLON policy LSQUAREBRACKET node . RSQUAREBRACKET
+    (25) definitions -> PARALLEL VAR : INT [ nodes ] .
 
-    RSQUAREBRACKET  shift and go to state 117
+    BEHAVIOR        reduce using rule 25 (definitions -> PARALLEL VAR : INT [ nodes ] .)
+    CONDITION       reduce using rule 25 (definitions -> PARALLEL VAR : INT [ nodes ] .)
+    ACTION          reduce using rule 25 (definitions -> PARALLEL VAR : INT [ nodes ] .)
+    EXPRESSION      reduce using rule 25 (definitions -> PARALLEL VAR : INT [ nodes ] .)
+    DOUBLEPERCENTAGE reduce using rule 25 (definitions -> PARALLEL VAR : INT [ nodes ] .)
+    $end            reduce using rule 25 (definitions -> PARALLEL VAR : INT [ nodes ] .)
 
 
 state 111
 
-    (16) nodes -> nodes COMMA node .
+    (26) definitions -> DECORATOR VAR : INVERTER [ node ] .
 
-    RSQUAREBRACKET  reduce using rule 16 (nodes -> nodes COMMA node .)
-    COMMA           reduce using rule 16 (nodes -> nodes COMMA node .)
+    BEHAVIOR        reduce using rule 26 (definitions -> DECORATOR VAR : INVERTER [ node ] .)
+    CONDITION       reduce using rule 26 (definitions -> DECORATOR VAR : INVERTER [ node ] .)
+    ACTION          reduce using rule 26 (definitions -> DECORATOR VAR : INVERTER [ node ] .)
+    EXPRESSION      reduce using rule 26 (definitions -> DECORATOR VAR : INVERTER [ node ] .)
+    DOUBLEPERCENTAGE reduce using rule 26 (definitions -> DECORATOR VAR : INVERTER [ node ] .)
+    $end            reduce using rule 26 (definitions -> DECORATOR VAR : INVERTER [ node ] .)
 
 
 state 112
 
-    (40) parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .
+    (27) definitions -> DECORATOR VAR : MAXTRIES [ node ] .
 
-    BEHAVIOR        reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SEQUENCE        reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SELECTOR        reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PROBSELECTOR    reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PARALLEL        reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    DECORATOR       reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    ACTION          reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    CONDITION       reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    EXPRESSION      reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    $end            reduce using rule 40 (parallel_def -> PARALLEL NODENAME COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
+    BEHAVIOR        reduce using rule 27 (definitions -> DECORATOR VAR : MAXTRIES [ node ] .)
+    CONDITION       reduce using rule 27 (definitions -> DECORATOR VAR : MAXTRIES [ node ] .)
+    ACTION          reduce using rule 27 (definitions -> DECORATOR VAR : MAXTRIES [ node ] .)
+    EXPRESSION      reduce using rule 27 (definitions -> DECORATOR VAR : MAXTRIES [ node ] .)
+    DOUBLEPERCENTAGE reduce using rule 27 (definitions -> DECORATOR VAR : MAXTRIES [ node ] .)
+    $end            reduce using rule 27 (definitions -> DECORATOR VAR : MAXTRIES [ node ] .)
 
 
 state 113
 
-    (41) decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .
+    (28) definitions -> DECORATOR VAR : MAXSECONDS [ node ] .
 
-    BEHAVIOR        reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SEQUENCE        reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    SELECTOR        reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PROBSELECTOR    reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    PARALLEL        reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    DECORATOR       reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    ACTION          reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    CONDITION       reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    EXPRESSION      reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    $end            reduce using rule 41 (decorator_def -> DECORATOR NODENAME COLON policy LSQUAREBRACKET nodes RSQUAREBRACKET .)
+    BEHAVIOR        reduce using rule 28 (definitions -> DECORATOR VAR : MAXSECONDS [ node ] .)
+    CONDITION       reduce using rule 28 (definitions -> DECORATOR VAR : MAXSECONDS [ node ] .)
+    ACTION          reduce using rule 28 (definitions -> DECORATOR VAR : MAXSECONDS [ node ] .)
+    EXPRESSION      reduce using rule 28 (definitions -> DECORATOR VAR : MAXSECONDS [ node ] .)
+    DOUBLEPERCENTAGE reduce using rule 28 (definitions -> DECORATOR VAR : MAXSECONDS [ node ] .)
+    $end            reduce using rule 28 (definitions -> DECORATOR VAR : MAXSECONDS [ node ] .)
 
 
 state 114
 
-    (18) prob_nodes -> prob_nodes COMMA prob_node .
+    (9) node -> PARALLEL : INT [ nodes ] .
 
-    RSQUAREBRACKET  reduce using rule 18 (prob_nodes -> prob_nodes COMMA prob_node .)
-    COMMA           reduce using rule 18 (prob_nodes -> prob_nodes COMMA prob_node .)
+    ]               reduce using rule 9 (node -> PARALLEL : INT [ nodes ] .)
+    ,               reduce using rule 9 (node -> PARALLEL : INT [ nodes ] .)
 
 
 state 115
 
-    (20) prob_node -> var RIGHTARROW node .
+    (10) node -> DECORATOR : INVERTER [ node ] .
 
-    RSQUAREBRACKET  reduce using rule 20 (prob_node -> var RIGHTARROW node .)
-    COMMA           reduce using rule 20 (prob_node -> var RIGHTARROW node .)
+    ]               reduce using rule 10 (node -> DECORATOR : INVERTER [ node ] .)
+    ,               reduce using rule 10 (node -> DECORATOR : INVERTER [ node ] .)
 
 
 state 116
 
-    (14) parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .
+    (11) node -> DECORATOR : MAXTRIES [ node ] .
 
-    RSQUAREBRACKET  reduce using rule 14 (parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
-    COMMA           reduce using rule 14 (parallel -> PARALLEL COLON INT LSQUAREBRACKET nodes RSQUAREBRACKET .)
+    ]               reduce using rule 11 (node -> DECORATOR : MAXTRIES [ node ] .)
+    ,               reduce using rule 11 (node -> DECORATOR : MAXTRIES [ node ] .)
 
 
 state 117
 
-    (15) decorator -> DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET .
+    (12) node -> DECORATOR : MAXSECONDS [ node ] .
 
-    RSQUAREBRACKET  reduce using rule 15 (decorator -> DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET .)
-    COMMA           reduce using rule 15 (decorator -> DECORATOR COLON policy LSQUAREBRACKET node RSQUAREBRACKET .)
+    ]               reduce using rule 12 (node -> DECORATOR : MAXSECONDS [ node ] .)
+    ,               reduce using rule 12 (node -> DECORATOR : MAXSECONDS [ node ] .)
 
