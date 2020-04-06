@@ -6,4 +6,7 @@ class Action(ExecutionNode):
     """
 
     def __init__(self, name):
-        super().__init__(self)
+        ExecutionNode.__init__(self, name)
+
+    def __str__(self):
+        return "Action: " + self.name

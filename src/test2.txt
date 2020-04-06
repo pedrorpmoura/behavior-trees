@@ -1,13 +1,11 @@
 behavior : [
     sequence : [
         action : $action1,
-        prob_selector : [
-            $EXPRESSION1 -> action: $action1,
-            $EXPRESSION2 -> sequence : [
+        selector : [
+            action: $action1,
+            sequence : [
                 condition: $condition1,
-                decorator: INVERTER [
-                    action: $action2
-                ]
+                action: $action2 
             ]
         ]
     ]

@@ -1,0 +1,15 @@
+behavior : [
+    sequence : [
+        action : $action1
+    ]
+]
+
+
+%%
+
+def action1(x):
+
+    if x == 2:
+        return True
+    
+    return False

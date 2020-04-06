@@ -21,7 +21,6 @@ tokens = (
     'DECORATOR',
     'CONDITION',
     'ACTION',
-    'EXPRESSION',
     'INVERTER',
     'MAXTRIES',
     'MAXSECONDS',
@@ -29,7 +28,6 @@ tokens = (
      # variables
     'INT',
     'VAR',
-    'NODENAME',
     'CODE'
 )
 
@@ -44,22 +42,19 @@ t_PARALLEL      = r'\bparallel\b'
 t_DECORATOR     = r'\bdecorator\b'
 t_CONDITION     = r'\bcondition\b'
 t_ACTION        = r'\baction\b'
-t_EXPRESSION    = r'\bexpression\b'
 t_INVERTER      = r'\bINVERTER\b'
 t_MAXTRIES      = r'\bMAXTRIES\b'
 t_MAXSECONDS    = r'\bMAXSECONDS\b'
 t_VAR           = r'\$\w+'
-t_NODENAME      = r'\w+'
 
 def t_INT(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
-
 def t_CODE(t):
-    r'{(.|\n)+?}'
-    t.value = t.value[1:-1]
+    r'%%(.|\n)+'
+    t.value = t.value[2:]
     return t
 
 
