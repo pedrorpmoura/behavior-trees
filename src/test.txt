@@ -1,4 +1,4 @@
-behavior [
+behavior : [
     sequence : [
         action : $action1,
         prob_selector : [

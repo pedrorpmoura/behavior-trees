@@ -32,7 +32,7 @@ def p_root4(p):
 
 def p_behavior(p):
     '''
-    behavior : BEHAVIOR '[' node ']'
+    behavior : BEHAVIOR ':' '[' node ']'
     '''
     p[0] = p[1:]
 

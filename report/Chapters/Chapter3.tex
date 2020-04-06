@@ -4,3 +4,102 @@
 
 \label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
+Tal como foi referido anteriormente, o objetivo deste projeto é o desenvolvimento de uma linguagem de modo a representar \textit{Behavior Trees}.
+
+Agora que já explicamos o que são estas árvores, podemos avançar para a especificação da linguagem.
+
+\section{Estrutura}
+Chamaremos a cada ficheiro da nossa linguagem um ficheiro de comportamento.
+
+Um ficheiro de comportamento é composto por 3 partes: \textit{behavior}, \textit{definitions} e \textit{code} (opcional).
+
+\subsection{\textit{Behavior}}
+O \textit{behavior} é a árvore principal do programa, e é esta que é utilizada para especificar o comportamento representado pelo ficheiro.
+De certa forma, pode ser visto como a função \textit{main} de um programa.
+
+\subsection{\textit{Definitions}}
+
+
+\subsection{\textit{Code}}
+
+
+\section{Sintaxe}
+
+
+%Na linguagem, pode ser descrito como se segue:
+%
+%\begin{lstlisting} 
+%    behavior : [
+%        tree
+%    ]
+%\end{lstlisting}
+%
+%Dentro do \textit{behavior}, começaremos a criar a nossa árvore de comportamento.
+%Seguindo a estrutura do capítulo anterior, os nodos podem ser especificados das seguintes formas:
+%\begin{figure}[H]
+%\centering
+%
+%\begin{subfigure}{0.45\linewidth}
+%\begin{lstlisting}
+%    sequence : [
+%        child1,
+%        child2,
+%        ...
+%        childn
+%    ]
+%\end{lstlisting}
+%\caption{}
+%\end{subfigure}
+%\hfil
+%\begin{subfigure}{0.45\linewidth}
+%\begin{lstlisting}
+%    selector : [
+%        child1,
+%        child2,
+%        ...
+%        childn
+%    ]
+%\end{lstlisting}
+%\caption{}
+%\end{subfigure}
+%\begin{subfigure}{0.45\linewidth}
+%\begin{lstlisting}
+%    prob_selector : [
+%        P1 -> child1,
+%        P2 -> child2,
+%        ...
+%        Pn -> childn
+%    ]
+%\end{lstlisting}
+%\caption{}
+%\end{subfigure}
+%\hfil
+%\begin{subfigure}{0.45\linewidth}
+%\begin{lstlisting}
+%    parallel : M [
+%        child1,
+%        child2,
+%        ...
+%        childn
+%    ]
+%\end{lstlisting}
+%\caption{}
+%\end{subfigure}
+%\begin{subfigure}{0.45\linewidth}
+%\begin{lstlisting}
+%    decorator : POLICY [
+%        child
+%    ]
+%\end{lstlisting}
+%\caption{}
+%\end{subfigure}
+%\hfil
+%\begin{subfigure}{0.45\linewidth}
+%\begin{lstlisting}
+%    condition : $CONDITION
+%
+%    action : $ACTION
+%\end{lstlisting}
+%\caption{}
+%\end{subfigure}
+%\end{figure}
