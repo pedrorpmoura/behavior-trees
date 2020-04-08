@@ -6,12 +6,12 @@ class Selector(ControlFlowNode):
     """
 
     def __init__(self, name, children):
-        super(Selector, self).__init__(name, children)
+        super().__init__(name, children)
 
     def __str__(self):
-        text = "selector: " + str(self.name) + "\n" + "[\n"
+        text = "selector: " + str(self.name) + " [\n"
         for child in self.children:
-            text += "\t" + str(child) + "\n"
-        text += "]\n"
+            text += "\t" + str(child).replace('\n', '\n\t') + "\n"
+        text += "]"
         return text
             

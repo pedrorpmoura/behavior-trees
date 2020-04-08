@@ -5,14 +5,17 @@ class Sequence(ControlFlowNode):
     Class that represents a sequence node.
     """
 
+    # def __init__(self, name, children):
+    #     ControlFlowNode.__init__(self, name, children)
+    
     def __init__(self, name, children):
-        ControlFlowNode.__init__(self, name, children)
+        super().__init__(name, children)
 
     def __str__(self):
-        text = "sequence: " + str(self.name) + "\n" + "[\n"
+        text = "sequence: " + str(self.name) + " [\n"
         for child in self.children:
-            text += "\t" + str(child) + "\n"
-        text += "]\n"
+            text += "\t" + str(child).replace('\n', '\n\t') + "\n"
+        text += "]"
         return text
         
         
