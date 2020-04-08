@@ -5,7 +5,7 @@ import re
 
 
 
-literals = "{[]},:%"
+literals = "({[]}),:%"
 t_ignore = " \n\t"
 
 tokens = (
@@ -51,6 +51,7 @@ def t_INT(t):
     r'\d+'
     t.value = int(t.value)
     return t
+
 
 def t_CODE(t):
     r'%%(.|\n)+'
