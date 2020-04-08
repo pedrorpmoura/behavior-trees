@@ -7,9 +7,23 @@ from models.condition_node import Condition
 from models.action_node import Action
 from models.selector_node import Selector
 from models.sequence_node import Sequence
+from models.decorator_node import Decorator, Inverter, MaxTries, MaxSeconds
+from models.parallel_node import Parallel
+from models.prob_selector_node import ProbSelector, ProbNode
 from models.behavior_node import Behavior
 
-current_index = 0
+
+current_indexes = {
+    'sequence': 0,
+    'selector': 0,
+    'prob_selector': 0,
+    'parallel': 0,
+    'inverter': 0,
+    'max_tries': 0,
+    'max_seconds': 0,
+    'action': 0,
+    'condition': 0
+}
 
 def p_root1(p):
     '''
@@ -36,6 +50,7 @@ def p_root4(p):
     behavior.fill_definitions(p[1])
     print(str(behavior))
 
+
 def p_behavior(p):
     '''
     behavior : BEHAVIOR ':' '[' node ']'
@@ -47,25 +62,25 @@ def p_node_sequence1(p):
     '''
     node : SEQUENCE ':' '[' nodes ']'
     '''
-    global current_index
-    p[0] = Sequence("sequence" + str(current_index), p[4]) # list of nodes
-    current_index += 1
+    global current_indexes
+    p[0] = Sequence("sequence" + str(current_indexes['sequence']), p[4]) # list of nodes
+    current_indexes['sequence'] += 1
 
 
 def p_node_sequence2(p):
     '''
     node : SEQUENCE ':' VAR
     '''
-    pass
+    p[0] = Sequence(p[3], [])
 
 
 def p_node_selector1(p):
     '''
     node : SELECTOR ':' '[' nodes ']'
     '''
-    global current_index
-    p[0] = Selector("selector" + str(current_index), p[4]) # list of nodes
-    current_index += 1
+    global current_indexes
+    p[0] = Selector("selector" + str(current_indexes['selector']), p[4]) # list of nodes
+    current_indexes['selector'] += 1
 
 
 def p_node_selector2(p):
@@ -74,61 +89,71 @@ def p_node_selector2(p):
     '''
     p[0] = Selector(p[3], [])
 
+
 def p_node_prob_selector1(p):
     '''
     node : PROBSELECTOR ':' '[' prob_nodes ']'
     '''
-    #p[0] = ProbSelector(p[4]) # list of nodes
-    pass
+    global current_indexes
+    p[0] = Selector("prob_selector" + str(current_indexes['prob_selector']), p[4]) # list of nodes
+    current_indexes['prob_selector'] += 1
 
 
 def p_node_prob_selector2(p):
     '''
     node : PROBSELECTOR ':' VAR
     '''
-    pass
+    p[0] = ProbSelector(p[3], [])
 
 
 def p_node_parallel1(p):
     '''
     node : PARALLEL ':' INT '[' nodes ']'
     '''
-    p[0] = Parallel(p[4]) # list of nodes
+    global current_indexes
+    p[0] = Parallel("parallel" + str(current_indexes['parallel']), p[5], p[3])
+    current_indexes['parallel'] += 1
 
 
 def p_node_parallel2(p):
     '''
     node : PARALLEL ':' VAR
     '''
-    pass
+    p[0] = Parallel(p[3], [], None)
 
 
 def p_node_decorator11(p):
     '''
     node : DECORATOR ':' INVERTER '[' node ']'
     '''
-    #p[0] = Decorator(p[3],p[5])
-    pass
+    global current_indexes
+    p[0] = Inverter("inverter" + str(current_indexes['inverter']), [p[5]])
+    current_indexes['inverter'] += 1
 
 
 def p_node_decorator12(p):
     '''
+    node : DECORATOR ':' MAXTRIES '(' INT ')' '[' node ']'
+    '''
+    global current_indexes
+    p[0] = MaxTries("max_tries" + str(current_indexes['max_tries']), [p[8]], N = p[5])
+    current_indexes['max_tries'] += 1
+
+
+def p_node_decorator13(p):
+    '''
+    node : DECORATOR ':' MAXSECONDS '(' INT ')' '[' node ']'
+    '''
+    global current_indexes
+    p[0] = MaxSeconds("max_seconds" + str(current_indexes['max_seconds']), [p[8]], T = p[5])
+    current_indexes['max_seconds'] += 1
+
+
+def p_node_decorator2(p):
+    '''
     node : DECORATOR ':' VAR
     '''
-
-
-def p_node_decorator21(p):
-    '''
-    node : DECORATOR ':' MAXTRIES '[' node ']'
-    '''
-    p[0] = Decorator(p[3],p[5])
-
-
-def p_node_decorator3(p):
-    '''
-    node : DECORATOR ':' MAXSECONDS '[' node ']'
-    '''
-    p[0] = Decorator(p[3],p[5])
+    p[0] = Decorator(p[3], [])
 
 
 def p_node_condition(p):
@@ -171,8 +196,7 @@ def p_prob_node(p):
     '''
     prob_node : VAR RIGHTARROW node
     '''
-    #p[0] = ProbNode(p[1], p[3])
-    pass
+    p[0] = ProbNode(p[1], p[3])
 
 
 
