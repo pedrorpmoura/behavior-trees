@@ -1,11 +1,26 @@
 behavior : [
     sequence : [
-        action : $action1,
+        condition : $condition1,
+        decorator : MAXTRIES (10) [
+            decorator : INVERTER [
+                decorator : INVERTER [
+                    action: $action1
+                ]
+            ]
+        ],
         selector : [
-            action: $action1,
-            sequence : [
-                condition: $condition1,
-                action: $action2 
+            parallel : 10 [
+                action : $action1,
+                action : $action2
+            ]
+        ],
+        sequence : $sequence10,
+        decorator : $decorator10,
+        prob_selector : [
+            $expression1 -> action : $action1,
+            $expression2 -> sequence : [
+                condition : $condition1,
+                action : $action2
             ]
         ]
     ]

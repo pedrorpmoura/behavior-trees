@@ -1,1 +1,27 @@
-Syntax error: action, type: ACTION
+sequence: sequence1 [
+	condition: $condition1
+	decorator: max_tries0 10 [
+		decorator: inverter1 [
+			decorator: inverter0 [
+				action: $action1
+			]
+		]
+	]
+	selector: selector0 [
+		sequence: parallel0 10 [
+			action: $action1
+			action: $action2
+		]
+	]
+	sequence: $sequence10 [
+	]
+	decorator: $decorator10 [
+	]
+	selector: prob_selector0 [
+		$expression1 -> action: $action1
+		$expression2 -> sequence: sequence0 [
+			condition: $condition1
+			action: $action2
+		]
+	]
+]
