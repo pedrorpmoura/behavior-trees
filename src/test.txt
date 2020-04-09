@@ -1,18 +1,60 @@
 behavior : [
     sequence : [
-        action : $action1,
-        prob_selector : [
-            $EXPRESSION1 -> action: $action1,
-            $EXPRESSION2 -> sequence : [
-                condition: $condition1,
-                decorator: INVERTER [
-                    action: $action2
+        condition : $condition2,
+        decorator : MAXTRIES (10) [
+            decorator : INVERTER [
+                decorator : INVERTER [
+                    action: $action1
                 ]
+            ]
+        ],
+        selector : [
+            parallel : 10 [
+                action : $action1,
+                action : $action2
+            ]
+        ],
+        sequence : $sequence10,
+        decorator : $decorator10,
+        prob_selector : [
+            $expression1 -> action : $action1,
+            $expression2 -> sequence : [
+                condition : $condition2,
+                action : $action2
             ]
         ]
     ]
 ]
 
+
+sequence seq : [
+    action : $action1
+]
+
+selector sel : [
+    condition: $condition2
+]
+
+parallel par : 5 [
+    condition: $condition2,
+    action: $action1
+]
+
+prob_selector prob : [
+    $expression1 -> sequence: $seq
+]
+
+decorator inv : INVERTER [
+    condition: $condition2
+]
+
+decorator mt : MAXTRIES(10) [
+    condition: $condition2
+]
+
+decorator ms : MAXSECONDS(10) [
+    condition: $condition2
+]
 
 %%
 

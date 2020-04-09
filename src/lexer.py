@@ -28,6 +28,7 @@ tokens = (
      # variables
     'INT',
     'VAR',
+    'NODENAME',
     'CODE'
 )
 
@@ -46,6 +47,7 @@ t_INVERTER      = r'\bINVERTER\b'
 t_MAXTRIES      = r'\bMAXTRIES\b'
 t_MAXSECONDS    = r'\bMAXSECONDS\b'
 t_VAR           = r'\$\w+'
+t_NODENAME      = r'\b\w+\b'
 
 def t_INT(t):
     r'\d+'

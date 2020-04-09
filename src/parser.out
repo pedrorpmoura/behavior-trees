@@ -32,18 +32,18 @@ Rule 22    prob_nodes -> prob_node
 Rule 23    prob_node -> VAR RIGHTARROW node
 Rule 24    definitions -> definitions definition
 Rule 25    definitions -> definition
-Rule 26    definition -> SEQUENCE VAR : [ nodes ]
-Rule 27    definition -> SELECTOR VAR : [ nodes ]
-Rule 28    definition -> PROBSELECTOR VAR : [ prob_nodes ]
-Rule 29    definition -> PARALLEL VAR : INT [ nodes ]
-Rule 30    definition -> DECORATOR VAR : INVERTER [ node ]
-Rule 31    definition -> DECORATOR VAR : MAXTRIES [ node ]
-Rule 32    definition -> DECORATOR VAR : MAXSECONDS [ node ]
+Rule 26    definition -> SEQUENCE NODENAME : [ nodes ]
+Rule 27    definition -> SELECTOR NODENAME : [ nodes ]
+Rule 28    definition -> PROBSELECTOR NODENAME : [ prob_nodes ]
+Rule 29    definition -> PARALLEL NODENAME : INT [ nodes ]
+Rule 30    definition -> DECORATOR NODENAME : INVERTER [ node ]
+Rule 31    definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ]
+Rule 32    definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ]
 
 Terminals, with rules where they appear
 
-(                    : 14 15
-)                    : 14 15
+(                    : 14 15 31 32
+)                    : 14 15 31 32
 ,                    : 19 21
 :                    : 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 26 27 28 29 30 31 32
 ACTION               : 18
@@ -52,16 +52,17 @@ CODE                 : 1 2 3
 CONDITION            : 17
 DECORATOR            : 13 14 15 16 30 31 32
 DOUBLEPERCENTAGE     : 
-INT                  : 11 14 15 29
+INT                  : 11 14 15 29 31 32
 INVERTER             : 13 30
 MAXSECONDS           : 15 32
 MAXTRIES             : 14 31
+NODENAME             : 26 27 28 29 30 31 32
 PARALLEL             : 11 12 29
 PROBSELECTOR         : 9 10 28
 RIGHTARROW           : 23
 SELECTOR             : 7 8 27
 SEQUENCE             : 5 6 26
-VAR                  : 6 8 10 12 16 17 18 23 26 27 28 29 30 31 32
+VAR                  : 6 8 10 12 16 17 18 23
 [                    : 4 5 7 9 11 13 14 15 26 27 28 29 30 31 32
 ]                    : 4 5 7 9 11 13 14 15 26 27 28 29 30 31 32
 error                : 
@@ -88,13 +89,13 @@ state 0
     (4) behavior -> . BEHAVIOR : [ node ]
     (24) definitions -> . definitions definition
     (25) definitions -> . definition
-    (26) definition -> . SEQUENCE VAR : [ nodes ]
-    (27) definition -> . SELECTOR VAR : [ nodes ]
-    (28) definition -> . PROBSELECTOR VAR : [ prob_nodes ]
-    (29) definition -> . PARALLEL VAR : INT [ nodes ]
-    (30) definition -> . DECORATOR VAR : INVERTER [ node ]
-    (31) definition -> . DECORATOR VAR : MAXTRIES [ node ]
-    (32) definition -> . DECORATOR VAR : MAXSECONDS [ node ]
+    (26) definition -> . SEQUENCE NODENAME : [ nodes ]
+    (27) definition -> . SELECTOR NODENAME : [ nodes ]
+    (28) definition -> . PROBSELECTOR NODENAME : [ prob_nodes ]
+    (29) definition -> . PARALLEL NODENAME : INT [ nodes ]
+    (30) definition -> . DECORATOR NODENAME : INVERTER [ node ]
+    (31) definition -> . DECORATOR NODENAME : MAXTRIES ( INT ) [ node ]
+    (32) definition -> . DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ]
 
     BEHAVIOR        shift and go to state 4
     SEQUENCE        shift and go to state 6
@@ -120,13 +121,13 @@ state 2
     (2) root -> behavior . definitions CODE
     (24) definitions -> . definitions definition
     (25) definitions -> . definition
-    (26) definition -> . SEQUENCE VAR : [ nodes ]
-    (27) definition -> . SELECTOR VAR : [ nodes ]
-    (28) definition -> . PROBSELECTOR VAR : [ prob_nodes ]
-    (29) definition -> . PARALLEL VAR : INT [ nodes ]
-    (30) definition -> . DECORATOR VAR : INVERTER [ node ]
-    (31) definition -> . DECORATOR VAR : MAXTRIES [ node ]
-    (32) definition -> . DECORATOR VAR : MAXSECONDS [ node ]
+    (26) definition -> . SEQUENCE NODENAME : [ nodes ]
+    (27) definition -> . SELECTOR NODENAME : [ nodes ]
+    (28) definition -> . PROBSELECTOR NODENAME : [ prob_nodes ]
+    (29) definition -> . PARALLEL NODENAME : INT [ nodes ]
+    (30) definition -> . DECORATOR NODENAME : INVERTER [ node ]
+    (31) definition -> . DECORATOR NODENAME : MAXTRIES ( INT ) [ node ]
+    (32) definition -> . DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ]
 
     CODE            shift and go to state 11
     SEQUENCE        shift and go to state 6
@@ -143,13 +144,13 @@ state 3
     (3) root -> definitions . behavior CODE
     (24) definitions -> definitions . definition
     (4) behavior -> . BEHAVIOR : [ node ]
-    (26) definition -> . SEQUENCE VAR : [ nodes ]
-    (27) definition -> . SELECTOR VAR : [ nodes ]
-    (28) definition -> . PROBSELECTOR VAR : [ prob_nodes ]
-    (29) definition -> . PARALLEL VAR : INT [ nodes ]
-    (30) definition -> . DECORATOR VAR : INVERTER [ node ]
-    (31) definition -> . DECORATOR VAR : MAXTRIES [ node ]
-    (32) definition -> . DECORATOR VAR : MAXSECONDS [ node ]
+    (26) definition -> . SEQUENCE NODENAME : [ nodes ]
+    (27) definition -> . SELECTOR NODENAME : [ nodes ]
+    (28) definition -> . PROBSELECTOR NODENAME : [ prob_nodes ]
+    (29) definition -> . PARALLEL NODENAME : INT [ nodes ]
+    (30) definition -> . DECORATOR NODENAME : INVERTER [ node ]
+    (31) definition -> . DECORATOR NODENAME : MAXTRIES ( INT ) [ node ]
+    (32) definition -> . DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ]
 
     BEHAVIOR        shift and go to state 4
     SEQUENCE        shift and go to state 6
@@ -183,39 +184,39 @@ state 5
 
 state 6
 
-    (26) definition -> SEQUENCE . VAR : [ nodes ]
+    (26) definition -> SEQUENCE . NODENAME : [ nodes ]
 
-    VAR             shift and go to state 16
+    NODENAME        shift and go to state 16
 
 
 state 7
 
-    (27) definition -> SELECTOR . VAR : [ nodes ]
+    (27) definition -> SELECTOR . NODENAME : [ nodes ]
 
-    VAR             shift and go to state 17
+    NODENAME        shift and go to state 17
 
 
 state 8
 
-    (28) definition -> PROBSELECTOR . VAR : [ prob_nodes ]
+    (28) definition -> PROBSELECTOR . NODENAME : [ prob_nodes ]
 
-    VAR             shift and go to state 18
+    NODENAME        shift and go to state 18
 
 
 state 9
 
-    (29) definition -> PARALLEL . VAR : INT [ nodes ]
+    (29) definition -> PARALLEL . NODENAME : INT [ nodes ]
 
-    VAR             shift and go to state 19
+    NODENAME        shift and go to state 19
 
 
 state 10
 
-    (30) definition -> DECORATOR . VAR : INVERTER [ node ]
-    (31) definition -> DECORATOR . VAR : MAXTRIES [ node ]
-    (32) definition -> DECORATOR . VAR : MAXSECONDS [ node ]
+    (30) definition -> DECORATOR . NODENAME : INVERTER [ node ]
+    (31) definition -> DECORATOR . NODENAME : MAXTRIES ( INT ) [ node ]
+    (32) definition -> DECORATOR . NODENAME : MAXSECONDS ( INT ) [ node ]
 
-    VAR             shift and go to state 20
+    NODENAME        shift and go to state 20
 
 
 state 11
@@ -229,13 +230,13 @@ state 12
 
     (2) root -> behavior definitions . CODE
     (24) definitions -> definitions . definition
-    (26) definition -> . SEQUENCE VAR : [ nodes ]
-    (27) definition -> . SELECTOR VAR : [ nodes ]
-    (28) definition -> . PROBSELECTOR VAR : [ prob_nodes ]
-    (29) definition -> . PARALLEL VAR : INT [ nodes ]
-    (30) definition -> . DECORATOR VAR : INVERTER [ node ]
-    (31) definition -> . DECORATOR VAR : MAXTRIES [ node ]
-    (32) definition -> . DECORATOR VAR : MAXSECONDS [ node ]
+    (26) definition -> . SEQUENCE NODENAME : [ nodes ]
+    (27) definition -> . SELECTOR NODENAME : [ nodes ]
+    (28) definition -> . PROBSELECTOR NODENAME : [ prob_nodes ]
+    (29) definition -> . PARALLEL NODENAME : INT [ nodes ]
+    (30) definition -> . DECORATOR NODENAME : INVERTER [ node ]
+    (31) definition -> . DECORATOR NODENAME : MAXTRIES ( INT ) [ node ]
+    (32) definition -> . DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ]
 
     CODE            shift and go to state 21
     SEQUENCE        shift and go to state 6
@@ -275,37 +276,37 @@ state 15
 
 state 16
 
-    (26) definition -> SEQUENCE VAR . : [ nodes ]
+    (26) definition -> SEQUENCE NODENAME . : [ nodes ]
 
     :               shift and go to state 24
 
 
 state 17
 
-    (27) definition -> SELECTOR VAR . : [ nodes ]
+    (27) definition -> SELECTOR NODENAME . : [ nodes ]
 
     :               shift and go to state 25
 
 
 state 18
 
-    (28) definition -> PROBSELECTOR VAR . : [ prob_nodes ]
+    (28) definition -> PROBSELECTOR NODENAME . : [ prob_nodes ]
 
     :               shift and go to state 26
 
 
 state 19
 
-    (29) definition -> PARALLEL VAR . : INT [ nodes ]
+    (29) definition -> PARALLEL NODENAME . : INT [ nodes ]
 
     :               shift and go to state 27
 
 
 state 20
 
-    (30) definition -> DECORATOR VAR . : INVERTER [ node ]
-    (31) definition -> DECORATOR VAR . : MAXTRIES [ node ]
-    (32) definition -> DECORATOR VAR . : MAXSECONDS [ node ]
+    (30) definition -> DECORATOR NODENAME . : INVERTER [ node ]
+    (31) definition -> DECORATOR NODENAME . : MAXTRIES ( INT ) [ node ]
+    (32) definition -> DECORATOR NODENAME . : MAXSECONDS ( INT ) [ node ]
 
     :               shift and go to state 28
 
@@ -354,37 +355,37 @@ state 23
 
 state 24
 
-    (26) definition -> SEQUENCE VAR : . [ nodes ]
+    (26) definition -> SEQUENCE NODENAME : . [ nodes ]
 
     [               shift and go to state 37
 
 
 state 25
 
-    (27) definition -> SELECTOR VAR : . [ nodes ]
+    (27) definition -> SELECTOR NODENAME : . [ nodes ]
 
     [               shift and go to state 38
 
 
 state 26
 
-    (28) definition -> PROBSELECTOR VAR : . [ prob_nodes ]
+    (28) definition -> PROBSELECTOR NODENAME : . [ prob_nodes ]
 
     [               shift and go to state 39
 
 
 state 27
 
-    (29) definition -> PARALLEL VAR : . INT [ nodes ]
+    (29) definition -> PARALLEL NODENAME : . INT [ nodes ]
 
     INT             shift and go to state 40
 
 
 state 28
 
-    (30) definition -> DECORATOR VAR : . INVERTER [ node ]
-    (31) definition -> DECORATOR VAR : . MAXTRIES [ node ]
-    (32) definition -> DECORATOR VAR : . MAXSECONDS [ node ]
+    (30) definition -> DECORATOR NODENAME : . INVERTER [ node ]
+    (31) definition -> DECORATOR NODENAME : . MAXTRIES ( INT ) [ node ]
+    (32) definition -> DECORATOR NODENAME : . MAXSECONDS ( INT ) [ node ]
 
     INVERTER        shift and go to state 41
     MAXTRIES        shift and go to state 42
@@ -456,7 +457,7 @@ state 36
 
 state 37
 
-    (26) definition -> SEQUENCE VAR : [ . nodes ]
+    (26) definition -> SEQUENCE NODENAME : [ . nodes ]
     (19) nodes -> . nodes , node
     (20) nodes -> . node
     (5) node -> . SEQUENCE : [ nodes ]
@@ -487,7 +488,7 @@ state 37
 
 state 38
 
-    (27) definition -> SELECTOR VAR : [ . nodes ]
+    (27) definition -> SELECTOR NODENAME : [ . nodes ]
     (19) nodes -> . nodes , node
     (20) nodes -> . node
     (5) node -> . SEQUENCE : [ nodes ]
@@ -518,42 +519,42 @@ state 38
 
 state 39
 
-    (28) definition -> PROBSELECTOR VAR : [ . prob_nodes ]
+    (28) definition -> PROBSELECTOR NODENAME : [ . prob_nodes ]
     (21) prob_nodes -> . prob_nodes , prob_node
     (22) prob_nodes -> . prob_node
     (23) prob_node -> . VAR RIGHTARROW node
 
-    VAR             shift and go to state 55
+    VAR             shift and go to state 57
 
-    prob_nodes                     shift and go to state 56
-    prob_node                      shift and go to state 57
+    prob_nodes                     shift and go to state 55
+    prob_node                      shift and go to state 56
 
 state 40
 
-    (29) definition -> PARALLEL VAR : INT . [ nodes ]
+    (29) definition -> PARALLEL NODENAME : INT . [ nodes ]
 
     [               shift and go to state 58
 
 
 state 41
 
-    (30) definition -> DECORATOR VAR : INVERTER . [ node ]
+    (30) definition -> DECORATOR NODENAME : INVERTER . [ node ]
 
     [               shift and go to state 59
 
 
 state 42
 
-    (31) definition -> DECORATOR VAR : MAXTRIES . [ node ]
+    (31) definition -> DECORATOR NODENAME : MAXTRIES . ( INT ) [ node ]
 
-    [               shift and go to state 60
+    (               shift and go to state 60
 
 
 state 43
 
-    (32) definition -> DECORATOR VAR : MAXSECONDS . [ node ]
+    (32) definition -> DECORATOR NODENAME : MAXSECONDS . ( INT ) [ node ]
 
-    [               shift and go to state 61
+    (               shift and go to state 61
 
 
 state 44
@@ -633,7 +634,7 @@ state 51
 
 state 52
 
-    (26) definition -> SEQUENCE VAR : [ nodes . ]
+    (26) definition -> SEQUENCE NODENAME : [ nodes . ]
     (19) nodes -> nodes . , node
 
     ]               shift and go to state 76
@@ -650,7 +651,7 @@ state 53
 
 state 54
 
-    (27) definition -> SELECTOR VAR : [ nodes . ]
+    (27) definition -> SELECTOR NODENAME : [ nodes . ]
     (19) nodes -> nodes . , node
 
     ]               shift and go to state 78
@@ -659,21 +660,14 @@ state 54
 
 state 55
 
-    (23) prob_node -> VAR . RIGHTARROW node
+    (28) definition -> PROBSELECTOR NODENAME : [ prob_nodes . ]
+    (21) prob_nodes -> prob_nodes . , prob_node
 
-    RIGHTARROW      shift and go to state 79
+    ]               shift and go to state 79
+    ,               shift and go to state 80
 
 
 state 56
-
-    (28) definition -> PROBSELECTOR VAR : [ prob_nodes . ]
-    (21) prob_nodes -> prob_nodes . , prob_node
-
-    ]               shift and go to state 80
-    ,               shift and go to state 81
-
-
-state 57
 
     (22) prob_nodes -> prob_node .
 
@@ -681,9 +675,16 @@ state 57
     ,               reduce using rule 22 (prob_nodes -> prob_node .)
 
 
+state 57
+
+    (23) prob_node -> VAR . RIGHTARROW node
+
+    RIGHTARROW      shift and go to state 81
+
+
 state 58
 
-    (29) definition -> PARALLEL VAR : INT [ . nodes ]
+    (29) definition -> PARALLEL NODENAME : INT [ . nodes ]
     (19) nodes -> . nodes , node
     (20) nodes -> . node
     (5) node -> . SEQUENCE : [ nodes ]
@@ -714,7 +715,7 @@ state 58
 
 state 59
 
-    (30) definition -> DECORATOR VAR : INVERTER [ . node ]
+    (30) definition -> DECORATOR NODENAME : INVERTER [ . node ]
     (5) node -> . SEQUENCE : [ nodes ]
     (6) node -> . SEQUENCE : VAR
     (7) node -> . SELECTOR : [ nodes ]
@@ -742,59 +743,17 @@ state 59
 
 state 60
 
-    (31) definition -> DECORATOR VAR : MAXTRIES [ . node ]
-    (5) node -> . SEQUENCE : [ nodes ]
-    (6) node -> . SEQUENCE : VAR
-    (7) node -> . SELECTOR : [ nodes ]
-    (8) node -> . SELECTOR : VAR
-    (9) node -> . PROBSELECTOR : [ prob_nodes ]
-    (10) node -> . PROBSELECTOR : VAR
-    (11) node -> . PARALLEL : INT [ nodes ]
-    (12) node -> . PARALLEL : VAR
-    (13) node -> . DECORATOR : INVERTER [ node ]
-    (14) node -> . DECORATOR : MAXTRIES ( INT ) [ node ]
-    (15) node -> . DECORATOR : MAXSECONDS ( INT ) [ node ]
-    (16) node -> . DECORATOR : VAR
-    (17) node -> . CONDITION : VAR
-    (18) node -> . ACTION : VAR
+    (31) definition -> DECORATOR NODENAME : MAXTRIES ( . INT ) [ node ]
 
-    SEQUENCE        shift and go to state 30
-    SELECTOR        shift and go to state 31
-    PROBSELECTOR    shift and go to state 32
-    PARALLEL        shift and go to state 33
-    DECORATOR       shift and go to state 34
-    CONDITION       shift and go to state 35
-    ACTION          shift and go to state 36
+    INT             shift and go to state 84
 
-    node                           shift and go to state 84
 
 state 61
 
-    (32) definition -> DECORATOR VAR : MAXSECONDS [ . node ]
-    (5) node -> . SEQUENCE : [ nodes ]
-    (6) node -> . SEQUENCE : VAR
-    (7) node -> . SELECTOR : [ nodes ]
-    (8) node -> . SELECTOR : VAR
-    (9) node -> . PROBSELECTOR : [ prob_nodes ]
-    (10) node -> . PROBSELECTOR : VAR
-    (11) node -> . PARALLEL : INT [ nodes ]
-    (12) node -> . PARALLEL : VAR
-    (13) node -> . DECORATOR : INVERTER [ node ]
-    (14) node -> . DECORATOR : MAXTRIES ( INT ) [ node ]
-    (15) node -> . DECORATOR : MAXSECONDS ( INT ) [ node ]
-    (16) node -> . DECORATOR : VAR
-    (17) node -> . CONDITION : VAR
-    (18) node -> . ACTION : VAR
+    (32) definition -> DECORATOR NODENAME : MAXSECONDS ( . INT ) [ node ]
 
-    SEQUENCE        shift and go to state 30
-    SELECTOR        shift and go to state 31
-    PROBSELECTOR    shift and go to state 32
-    PARALLEL        shift and go to state 33
-    DECORATOR       shift and go to state 34
-    CONDITION       shift and go to state 35
-    ACTION          shift and go to state 36
+    INT             shift and go to state 85
 
-    node                           shift and go to state 85
 
 state 62
 
@@ -881,10 +840,10 @@ state 66
     (22) prob_nodes -> . prob_node
     (23) prob_node -> . VAR RIGHTARROW node
 
-    VAR             shift and go to state 55
+    VAR             shift and go to state 57
 
     prob_nodes                     shift and go to state 88
-    prob_node                      shift and go to state 57
+    prob_node                      shift and go to state 56
 
 state 67
 
@@ -956,15 +915,15 @@ state 75
 
 state 76
 
-    (26) definition -> SEQUENCE VAR : [ nodes ] .
+    (26) definition -> SEQUENCE NODENAME : [ nodes ] .
 
-    BEHAVIOR        reduce using rule 26 (definition -> SEQUENCE VAR : [ nodes ] .)
-    SEQUENCE        reduce using rule 26 (definition -> SEQUENCE VAR : [ nodes ] .)
-    SELECTOR        reduce using rule 26 (definition -> SEQUENCE VAR : [ nodes ] .)
-    PROBSELECTOR    reduce using rule 26 (definition -> SEQUENCE VAR : [ nodes ] .)
-    PARALLEL        reduce using rule 26 (definition -> SEQUENCE VAR : [ nodes ] .)
-    DECORATOR       reduce using rule 26 (definition -> SEQUENCE VAR : [ nodes ] .)
-    CODE            reduce using rule 26 (definition -> SEQUENCE VAR : [ nodes ] .)
+    BEHAVIOR        reduce using rule 26 (definition -> SEQUENCE NODENAME : [ nodes ] .)
+    SEQUENCE        reduce using rule 26 (definition -> SEQUENCE NODENAME : [ nodes ] .)
+    SELECTOR        reduce using rule 26 (definition -> SEQUENCE NODENAME : [ nodes ] .)
+    PROBSELECTOR    reduce using rule 26 (definition -> SEQUENCE NODENAME : [ nodes ] .)
+    PARALLEL        reduce using rule 26 (definition -> SEQUENCE NODENAME : [ nodes ] .)
+    DECORATOR       reduce using rule 26 (definition -> SEQUENCE NODENAME : [ nodes ] .)
+    CODE            reduce using rule 26 (definition -> SEQUENCE NODENAME : [ nodes ] .)
 
 
 state 77
@@ -997,18 +956,40 @@ state 77
 
 state 78
 
-    (27) definition -> SELECTOR VAR : [ nodes ] .
+    (27) definition -> SELECTOR NODENAME : [ nodes ] .
 
-    BEHAVIOR        reduce using rule 27 (definition -> SELECTOR VAR : [ nodes ] .)
-    SEQUENCE        reduce using rule 27 (definition -> SELECTOR VAR : [ nodes ] .)
-    SELECTOR        reduce using rule 27 (definition -> SELECTOR VAR : [ nodes ] .)
-    PROBSELECTOR    reduce using rule 27 (definition -> SELECTOR VAR : [ nodes ] .)
-    PARALLEL        reduce using rule 27 (definition -> SELECTOR VAR : [ nodes ] .)
-    DECORATOR       reduce using rule 27 (definition -> SELECTOR VAR : [ nodes ] .)
-    CODE            reduce using rule 27 (definition -> SELECTOR VAR : [ nodes ] .)
+    BEHAVIOR        reduce using rule 27 (definition -> SELECTOR NODENAME : [ nodes ] .)
+    SEQUENCE        reduce using rule 27 (definition -> SELECTOR NODENAME : [ nodes ] .)
+    SELECTOR        reduce using rule 27 (definition -> SELECTOR NODENAME : [ nodes ] .)
+    PROBSELECTOR    reduce using rule 27 (definition -> SELECTOR NODENAME : [ nodes ] .)
+    PARALLEL        reduce using rule 27 (definition -> SELECTOR NODENAME : [ nodes ] .)
+    DECORATOR       reduce using rule 27 (definition -> SELECTOR NODENAME : [ nodes ] .)
+    CODE            reduce using rule 27 (definition -> SELECTOR NODENAME : [ nodes ] .)
 
 
 state 79
+
+    (28) definition -> PROBSELECTOR NODENAME : [ prob_nodes ] .
+
+    BEHAVIOR        reduce using rule 28 (definition -> PROBSELECTOR NODENAME : [ prob_nodes ] .)
+    SEQUENCE        reduce using rule 28 (definition -> PROBSELECTOR NODENAME : [ prob_nodes ] .)
+    SELECTOR        reduce using rule 28 (definition -> PROBSELECTOR NODENAME : [ prob_nodes ] .)
+    PROBSELECTOR    reduce using rule 28 (definition -> PROBSELECTOR NODENAME : [ prob_nodes ] .)
+    PARALLEL        reduce using rule 28 (definition -> PROBSELECTOR NODENAME : [ prob_nodes ] .)
+    DECORATOR       reduce using rule 28 (definition -> PROBSELECTOR NODENAME : [ prob_nodes ] .)
+    CODE            reduce using rule 28 (definition -> PROBSELECTOR NODENAME : [ prob_nodes ] .)
+
+
+state 80
+
+    (21) prob_nodes -> prob_nodes , . prob_node
+    (23) prob_node -> . VAR RIGHTARROW node
+
+    VAR             shift and go to state 57
+
+    prob_node                      shift and go to state 94
+
+state 81
 
     (23) prob_node -> VAR RIGHTARROW . node
     (5) node -> . SEQUENCE : [ nodes ]
@@ -1034,33 +1015,11 @@ state 79
     CONDITION       shift and go to state 35
     ACTION          shift and go to state 36
 
-    node                           shift and go to state 94
-
-state 80
-
-    (28) definition -> PROBSELECTOR VAR : [ prob_nodes ] .
-
-    BEHAVIOR        reduce using rule 28 (definition -> PROBSELECTOR VAR : [ prob_nodes ] .)
-    SEQUENCE        reduce using rule 28 (definition -> PROBSELECTOR VAR : [ prob_nodes ] .)
-    SELECTOR        reduce using rule 28 (definition -> PROBSELECTOR VAR : [ prob_nodes ] .)
-    PROBSELECTOR    reduce using rule 28 (definition -> PROBSELECTOR VAR : [ prob_nodes ] .)
-    PARALLEL        reduce using rule 28 (definition -> PROBSELECTOR VAR : [ prob_nodes ] .)
-    DECORATOR       reduce using rule 28 (definition -> PROBSELECTOR VAR : [ prob_nodes ] .)
-    CODE            reduce using rule 28 (definition -> PROBSELECTOR VAR : [ prob_nodes ] .)
-
-
-state 81
-
-    (21) prob_nodes -> prob_nodes , . prob_node
-    (23) prob_node -> . VAR RIGHTARROW node
-
-    VAR             shift and go to state 55
-
-    prob_node                      shift and go to state 95
+    node                           shift and go to state 95
 
 state 82
 
-    (29) definition -> PARALLEL VAR : INT [ nodes . ]
+    (29) definition -> PARALLEL NODENAME : INT [ nodes . ]
     (19) nodes -> nodes . , node
 
     ]               shift and go to state 96
@@ -1069,23 +1028,23 @@ state 82
 
 state 83
 
-    (30) definition -> DECORATOR VAR : INVERTER [ node . ]
+    (30) definition -> DECORATOR NODENAME : INVERTER [ node . ]
 
     ]               shift and go to state 97
 
 
 state 84
 
-    (31) definition -> DECORATOR VAR : MAXTRIES [ node . ]
+    (31) definition -> DECORATOR NODENAME : MAXTRIES ( INT . ) [ node ]
 
-    ]               shift and go to state 98
+    )               shift and go to state 98
 
 
 state 85
 
-    (32) definition -> DECORATOR VAR : MAXSECONDS [ node . ]
+    (32) definition -> DECORATOR NODENAME : MAXSECONDS ( INT . ) [ node ]
 
-    ]               shift and go to state 99
+    )               shift and go to state 99
 
 
 state 86
@@ -1112,7 +1071,7 @@ state 88
     (21) prob_nodes -> prob_nodes . , prob_node
 
     ]               shift and go to state 102
-    ,               shift and go to state 81
+    ,               shift and go to state 80
 
 
 state 89
@@ -1198,70 +1157,58 @@ state 93
 
 state 94
 
-    (23) prob_node -> VAR RIGHTARROW node .
-
-    ]               reduce using rule 23 (prob_node -> VAR RIGHTARROW node .)
-    ,               reduce using rule 23 (prob_node -> VAR RIGHTARROW node .)
-
-
-state 95
-
     (21) prob_nodes -> prob_nodes , prob_node .
 
     ]               reduce using rule 21 (prob_nodes -> prob_nodes , prob_node .)
     ,               reduce using rule 21 (prob_nodes -> prob_nodes , prob_node .)
 
 
+state 95
+
+    (23) prob_node -> VAR RIGHTARROW node .
+
+    ]               reduce using rule 23 (prob_node -> VAR RIGHTARROW node .)
+    ,               reduce using rule 23 (prob_node -> VAR RIGHTARROW node .)
+
+
 state 96
 
-    (29) definition -> PARALLEL VAR : INT [ nodes ] .
+    (29) definition -> PARALLEL NODENAME : INT [ nodes ] .
 
-    BEHAVIOR        reduce using rule 29 (definition -> PARALLEL VAR : INT [ nodes ] .)
-    SEQUENCE        reduce using rule 29 (definition -> PARALLEL VAR : INT [ nodes ] .)
-    SELECTOR        reduce using rule 29 (definition -> PARALLEL VAR : INT [ nodes ] .)
-    PROBSELECTOR    reduce using rule 29 (definition -> PARALLEL VAR : INT [ nodes ] .)
-    PARALLEL        reduce using rule 29 (definition -> PARALLEL VAR : INT [ nodes ] .)
-    DECORATOR       reduce using rule 29 (definition -> PARALLEL VAR : INT [ nodes ] .)
-    CODE            reduce using rule 29 (definition -> PARALLEL VAR : INT [ nodes ] .)
+    BEHAVIOR        reduce using rule 29 (definition -> PARALLEL NODENAME : INT [ nodes ] .)
+    SEQUENCE        reduce using rule 29 (definition -> PARALLEL NODENAME : INT [ nodes ] .)
+    SELECTOR        reduce using rule 29 (definition -> PARALLEL NODENAME : INT [ nodes ] .)
+    PROBSELECTOR    reduce using rule 29 (definition -> PARALLEL NODENAME : INT [ nodes ] .)
+    PARALLEL        reduce using rule 29 (definition -> PARALLEL NODENAME : INT [ nodes ] .)
+    DECORATOR       reduce using rule 29 (definition -> PARALLEL NODENAME : INT [ nodes ] .)
+    CODE            reduce using rule 29 (definition -> PARALLEL NODENAME : INT [ nodes ] .)
 
 
 state 97
 
-    (30) definition -> DECORATOR VAR : INVERTER [ node ] .
+    (30) definition -> DECORATOR NODENAME : INVERTER [ node ] .
 
-    BEHAVIOR        reduce using rule 30 (definition -> DECORATOR VAR : INVERTER [ node ] .)
-    SEQUENCE        reduce using rule 30 (definition -> DECORATOR VAR : INVERTER [ node ] .)
-    SELECTOR        reduce using rule 30 (definition -> DECORATOR VAR : INVERTER [ node ] .)
-    PROBSELECTOR    reduce using rule 30 (definition -> DECORATOR VAR : INVERTER [ node ] .)
-    PARALLEL        reduce using rule 30 (definition -> DECORATOR VAR : INVERTER [ node ] .)
-    DECORATOR       reduce using rule 30 (definition -> DECORATOR VAR : INVERTER [ node ] .)
-    CODE            reduce using rule 30 (definition -> DECORATOR VAR : INVERTER [ node ] .)
+    BEHAVIOR        reduce using rule 30 (definition -> DECORATOR NODENAME : INVERTER [ node ] .)
+    SEQUENCE        reduce using rule 30 (definition -> DECORATOR NODENAME : INVERTER [ node ] .)
+    SELECTOR        reduce using rule 30 (definition -> DECORATOR NODENAME : INVERTER [ node ] .)
+    PROBSELECTOR    reduce using rule 30 (definition -> DECORATOR NODENAME : INVERTER [ node ] .)
+    PARALLEL        reduce using rule 30 (definition -> DECORATOR NODENAME : INVERTER [ node ] .)
+    DECORATOR       reduce using rule 30 (definition -> DECORATOR NODENAME : INVERTER [ node ] .)
+    CODE            reduce using rule 30 (definition -> DECORATOR NODENAME : INVERTER [ node ] .)
 
 
 state 98
 
-    (31) definition -> DECORATOR VAR : MAXTRIES [ node ] .
+    (31) definition -> DECORATOR NODENAME : MAXTRIES ( INT ) . [ node ]
 
-    BEHAVIOR        reduce using rule 31 (definition -> DECORATOR VAR : MAXTRIES [ node ] .)
-    SEQUENCE        reduce using rule 31 (definition -> DECORATOR VAR : MAXTRIES [ node ] .)
-    SELECTOR        reduce using rule 31 (definition -> DECORATOR VAR : MAXTRIES [ node ] .)
-    PROBSELECTOR    reduce using rule 31 (definition -> DECORATOR VAR : MAXTRIES [ node ] .)
-    PARALLEL        reduce using rule 31 (definition -> DECORATOR VAR : MAXTRIES [ node ] .)
-    DECORATOR       reduce using rule 31 (definition -> DECORATOR VAR : MAXTRIES [ node ] .)
-    CODE            reduce using rule 31 (definition -> DECORATOR VAR : MAXTRIES [ node ] .)
+    [               shift and go to state 107
 
 
 state 99
 
-    (32) definition -> DECORATOR VAR : MAXSECONDS [ node ] .
+    (32) definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) . [ node ]
 
-    BEHAVIOR        reduce using rule 32 (definition -> DECORATOR VAR : MAXSECONDS [ node ] .)
-    SEQUENCE        reduce using rule 32 (definition -> DECORATOR VAR : MAXSECONDS [ node ] .)
-    SELECTOR        reduce using rule 32 (definition -> DECORATOR VAR : MAXSECONDS [ node ] .)
-    PROBSELECTOR    reduce using rule 32 (definition -> DECORATOR VAR : MAXSECONDS [ node ] .)
-    PARALLEL        reduce using rule 32 (definition -> DECORATOR VAR : MAXSECONDS [ node ] .)
-    DECORATOR       reduce using rule 32 (definition -> DECORATOR VAR : MAXSECONDS [ node ] .)
-    CODE            reduce using rule 32 (definition -> DECORATOR VAR : MAXSECONDS [ node ] .)
+    [               shift and go to state 108
 
 
 state 100
@@ -1293,7 +1240,7 @@ state 103
     (11) node -> PARALLEL : INT [ nodes . ]
     (19) nodes -> nodes . , node
 
-    ]               shift and go to state 107
+    ]               shift and go to state 109
     ,               shift and go to state 77
 
 
@@ -1301,56 +1248,26 @@ state 104
 
     (13) node -> DECORATOR : INVERTER [ node . ]
 
-    ]               shift and go to state 108
+    ]               shift and go to state 110
 
 
 state 105
 
     (14) node -> DECORATOR : MAXTRIES ( INT . ) [ node ]
 
-    )               shift and go to state 109
+    )               shift and go to state 111
 
 
 state 106
 
     (15) node -> DECORATOR : MAXSECONDS ( INT . ) [ node ]
 
-    )               shift and go to state 110
+    )               shift and go to state 112
 
 
 state 107
 
-    (11) node -> PARALLEL : INT [ nodes ] .
-
-    ]               reduce using rule 11 (node -> PARALLEL : INT [ nodes ] .)
-    ,               reduce using rule 11 (node -> PARALLEL : INT [ nodes ] .)
-
-
-state 108
-
-    (13) node -> DECORATOR : INVERTER [ node ] .
-
-    ]               reduce using rule 13 (node -> DECORATOR : INVERTER [ node ] .)
-    ,               reduce using rule 13 (node -> DECORATOR : INVERTER [ node ] .)
-
-
-state 109
-
-    (14) node -> DECORATOR : MAXTRIES ( INT ) . [ node ]
-
-    [               shift and go to state 111
-
-
-state 110
-
-    (15) node -> DECORATOR : MAXSECONDS ( INT ) . [ node ]
-
-    [               shift and go to state 112
-
-
-state 111
-
-    (14) node -> DECORATOR : MAXTRIES ( INT ) [ . node ]
+    (31) definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ . node ]
     (5) node -> . SEQUENCE : [ nodes ]
     (6) node -> . SEQUENCE : VAR
     (7) node -> . SELECTOR : [ nodes ]
@@ -1376,9 +1293,9 @@ state 111
 
     node                           shift and go to state 113
 
-state 112
+state 108
 
-    (15) node -> DECORATOR : MAXSECONDS ( INT ) [ . node ]
+    (32) definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ . node ]
     (5) node -> . SEQUENCE : [ nodes ]
     (6) node -> . SEQUENCE : VAR
     (7) node -> . SELECTOR : [ nodes ]
@@ -1404,21 +1321,147 @@ state 112
 
     node                           shift and go to state 114
 
+state 109
+
+    (11) node -> PARALLEL : INT [ nodes ] .
+
+    ]               reduce using rule 11 (node -> PARALLEL : INT [ nodes ] .)
+    ,               reduce using rule 11 (node -> PARALLEL : INT [ nodes ] .)
+
+
+state 110
+
+    (13) node -> DECORATOR : INVERTER [ node ] .
+
+    ]               reduce using rule 13 (node -> DECORATOR : INVERTER [ node ] .)
+    ,               reduce using rule 13 (node -> DECORATOR : INVERTER [ node ] .)
+
+
+state 111
+
+    (14) node -> DECORATOR : MAXTRIES ( INT ) . [ node ]
+
+    [               shift and go to state 115
+
+
+state 112
+
+    (15) node -> DECORATOR : MAXSECONDS ( INT ) . [ node ]
+
+    [               shift and go to state 116
+
+
 state 113
 
-    (14) node -> DECORATOR : MAXTRIES ( INT ) [ node . ]
+    (31) definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node . ]
 
-    ]               shift and go to state 115
+    ]               shift and go to state 117
 
 
 state 114
 
-    (15) node -> DECORATOR : MAXSECONDS ( INT ) [ node . ]
+    (32) definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node . ]
 
-    ]               shift and go to state 116
+    ]               shift and go to state 118
 
 
 state 115
+
+    (14) node -> DECORATOR : MAXTRIES ( INT ) [ . node ]
+    (5) node -> . SEQUENCE : [ nodes ]
+    (6) node -> . SEQUENCE : VAR
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . SELECTOR : VAR
+    (9) node -> . PROBSELECTOR : [ prob_nodes ]
+    (10) node -> . PROBSELECTOR : VAR
+    (11) node -> . PARALLEL : INT [ nodes ]
+    (12) node -> . PARALLEL : VAR
+    (13) node -> . DECORATOR : INVERTER [ node ]
+    (14) node -> . DECORATOR : MAXTRIES ( INT ) [ node ]
+    (15) node -> . DECORATOR : MAXSECONDS ( INT ) [ node ]
+    (16) node -> . DECORATOR : VAR
+    (17) node -> . CONDITION : VAR
+    (18) node -> . ACTION : VAR
+
+    SEQUENCE        shift and go to state 30
+    SELECTOR        shift and go to state 31
+    PROBSELECTOR    shift and go to state 32
+    PARALLEL        shift and go to state 33
+    DECORATOR       shift and go to state 34
+    CONDITION       shift and go to state 35
+    ACTION          shift and go to state 36
+
+    node                           shift and go to state 119
+
+state 116
+
+    (15) node -> DECORATOR : MAXSECONDS ( INT ) [ . node ]
+    (5) node -> . SEQUENCE : [ nodes ]
+    (6) node -> . SEQUENCE : VAR
+    (7) node -> . SELECTOR : [ nodes ]
+    (8) node -> . SELECTOR : VAR
+    (9) node -> . PROBSELECTOR : [ prob_nodes ]
+    (10) node -> . PROBSELECTOR : VAR
+    (11) node -> . PARALLEL : INT [ nodes ]
+    (12) node -> . PARALLEL : VAR
+    (13) node -> . DECORATOR : INVERTER [ node ]
+    (14) node -> . DECORATOR : MAXTRIES ( INT ) [ node ]
+    (15) node -> . DECORATOR : MAXSECONDS ( INT ) [ node ]
+    (16) node -> . DECORATOR : VAR
+    (17) node -> . CONDITION : VAR
+    (18) node -> . ACTION : VAR
+
+    SEQUENCE        shift and go to state 30
+    SELECTOR        shift and go to state 31
+    PROBSELECTOR    shift and go to state 32
+    PARALLEL        shift and go to state 33
+    DECORATOR       shift and go to state 34
+    CONDITION       shift and go to state 35
+    ACTION          shift and go to state 36
+
+    node                           shift and go to state 120
+
+state 117
+
+    (31) definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ] .
+
+    BEHAVIOR        reduce using rule 31 (definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ] .)
+    SEQUENCE        reduce using rule 31 (definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ] .)
+    SELECTOR        reduce using rule 31 (definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ] .)
+    PROBSELECTOR    reduce using rule 31 (definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ] .)
+    PARALLEL        reduce using rule 31 (definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ] .)
+    DECORATOR       reduce using rule 31 (definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ] .)
+    CODE            reduce using rule 31 (definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ] .)
+
+
+state 118
+
+    (32) definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ] .
+
+    BEHAVIOR        reduce using rule 32 (definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ] .)
+    SEQUENCE        reduce using rule 32 (definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ] .)
+    SELECTOR        reduce using rule 32 (definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ] .)
+    PROBSELECTOR    reduce using rule 32 (definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ] .)
+    PARALLEL        reduce using rule 32 (definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ] .)
+    DECORATOR       reduce using rule 32 (definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ] .)
+    CODE            reduce using rule 32 (definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ] .)
+
+
+state 119
+
+    (14) node -> DECORATOR : MAXTRIES ( INT ) [ node . ]
+
+    ]               shift and go to state 121
+
+
+state 120
+
+    (15) node -> DECORATOR : MAXSECONDS ( INT ) [ node . ]
+
+    ]               shift and go to state 122
+
+
+state 121
 
     (14) node -> DECORATOR : MAXTRIES ( INT ) [ node ] .
 
@@ -1426,7 +1469,7 @@ state 115
     ,               reduce using rule 14 (node -> DECORATOR : MAXTRIES ( INT ) [ node ] .)
 
 
-state 116
+state 122
 
     (15) node -> DECORATOR : MAXSECONDS ( INT ) [ node ] .
 

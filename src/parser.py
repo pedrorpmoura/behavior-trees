@@ -41,14 +41,15 @@ def p_root2(p):
     behavior.fill_definitions(p[2])
     print(str(behavior))
 
-
-def p_root4(p):
+def p_root3(p):
     '''
     root : definitions behavior CODE
     '''
     behavior = Behavior(p[2], p[3])
     behavior.fill_definitions(p[1])
     print(str(behavior))
+    for d in p[1]:
+        print(d)
 
 
 def p_behavior(p):
@@ -206,56 +207,59 @@ def p_definitions(p):
     definitions : definitions definition
                | definition 
     '''
-    p[0] = p[1:]
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[2]]
 
 
 def p_definition_sequence(p):
     '''
-    definition : SEQUENCE VAR ':' '[' nodes ']'
+    definition : SEQUENCE NODENAME ':' '[' nodes ']'
     '''
-    p[0] = p[1:]
+    p[0] = Sequence(p[2], p[5])
 
 
 def p_definition_selector(p):
     '''
-    definition : SELECTOR VAR ':' '[' nodes ']'
+    definition : SELECTOR NODENAME ':' '[' nodes ']'
     '''
-    p[0] = p[1:]
+    p[0] = Selector(p[2], p[5])
 
 
 def p_definition_prob_selector(p):
     '''
-    definition : PROBSELECTOR VAR ':' '[' prob_nodes ']'
+    definition : PROBSELECTOR NODENAME ':' '[' prob_nodes ']'
     '''
-    p[0] = p[1:]
+    p[0] = ProbSelector(p[2], p[5])
 
 
 def p_definition_parallel(p):
     '''
-    definition : PARALLEL VAR ':' INT '[' nodes ']'
+    definition : PARALLEL NODENAME ':' INT '[' nodes ']'
     '''
-    p[0] = p[1:]
+    p[0] = Parallel(p[2], p[6], p[4])
 
 
 def p_definition_decorator1(p):
     '''
-    definition : DECORATOR VAR ':' INVERTER '[' node ']'
+    definition : DECORATOR NODENAME ':' INVERTER '[' node ']'
     '''
-    p[0] = p[1:]
+    p[0] = Inverter(p[2], [p[6]])
 
 
 def p_definition_decorator2(p):
     '''
-    definition : DECORATOR VAR ':' MAXTRIES '[' node ']'
+    definition : DECORATOR NODENAME ':' MAXTRIES '(' INT ')' '[' node ']'
     '''
-    p[0] = p[1:]
+    p[0] = MaxTries(p[2], [p[9]], p[6])
 
 
 def p_definition_decorator3(p):
     '''
-    definition : DECORATOR VAR ':' MAXSECONDS '[' node ']'
+    definition : DECORATOR NODENAME ':' MAXSECONDS '(' INT ')' '[' node ']'
     '''
-    p[0] = p[1:]
+    p[0] = MaxSeconds(p[2], [p[9]], p[6])
 
 
 

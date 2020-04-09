@@ -11,3 +11,6 @@ class ExecutionNode(Node):
     def __init__(self, name):
         super().__init__(name)
 
+
+    def verify_definitions(self, definitions):
+        pass
