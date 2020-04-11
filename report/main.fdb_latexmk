@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1586176615 "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.tex" "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.pdf" "main" 1586605911
-  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.aux" 1586605819 1537 dc4137040a2579ab7aeb33cb7df1a4a1 ""
+["pdflatex"] 1586176615 "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.tex" "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.pdf" "main" 1586606227
+  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.aux" 1586605919 1537 dc4137040a2579ab7aeb33cb7df1a4a1 ""
   "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.tex" 1586166844 10696 b66c73ad48fe02ddbbd882c2fe1eb98e ""
-  "/dev/null" 1586605881 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "/dev/null" 1586606212 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/jknappen/ec/ecrm1095.tfm" 1136768653 3584 929cdff2b7a8c11bd4d49fd68cb0ae70 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/cm/cmr10.tfm" 1136768653 1296 45809c5a464d5f32c8f98ba97c1bb47f ""
@@ -152,6 +152,6 @@
   "MastersDoctoralThesis.cls" 1583792712 19377 f0dc4ffa9aa8a53d6293f08fabba5c18 ""
   "main.tex" 1586166844 10696 b66c73ad48fe02ddbbd882c2fe1eb98e ""
   (generated)
-  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.log"
-  "main.log"
   "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.pdf"
+  "main.log"
+  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.log"
