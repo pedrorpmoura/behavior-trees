@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{../report/behaviortrees}
+\begin{document}
+\begin{behavior}
+    [\rootnode
+        [\sequence
+            [\condition{condition1}]
+            [\selector
+                [\action{action1}]
+                [\action{action2}]
+            ]
+        ]
+    ]
+\end{behavior}
+\end{document}

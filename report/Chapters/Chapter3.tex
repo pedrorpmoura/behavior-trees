@@ -1,106 +1,138 @@
 % Chapter Template
 
 \chapter{Linguagem} % Main chapter title
+\label{Chapter3} 
 
-\label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
-
-Tal como foi referido anteriormente, o objetivo deste projeto é o desenvolvimento de uma linguagem de modo a representar \textit{Behavior Trees}.
-
-Agora que já explicamos o que são estas árvores, podemos avançar para a especificação da linguagem.
-
+\textbf{TODO: breve introdução ao capítulo}
 \section{Estrutura}
-Daremos a cada ficheiro da nossa linguagem a designação de ``ficheiro de comportamento''.
+Um comportamento pode ser visto como um programa. Cada ficheiro, ao qual designamos de ``ficheiro de comportamento'', descreve um e só um comportamento.
 
-Um ficheiro de comportamento é composto por 3 partes: \textit{behavior}, \textit{definitions} (opcional) e \textit{code}.
-
-\subsection{\textit{Behavior}}
-O \textit{behavior} é a árvore principal do programa, e é esta que é utilizada para especificar o comportamento representado pelo ficheiro.
-Pode ser visto como a função \textit{main} de um programa.
-
-
-\subsection{\textit{Definitions}}
-
-
-\subsection{\textit{Code}}
+Um ficheiro de comportamento está dividido em 3 partes:
+\begin{itemize}
+    \item \textit{Comportamento} - especificação da BT que descreve o comportamento representado pelo ficheiro.
+    É análogo à função \textit{main} de um programa.
+    \item \textit{Definições} (opcional) - definições de nodos (ou sub-árvores) que podem ser referenciadas noutros nodos ou na árvore de comportamento.
+    \item \textit{Código} - código em \textit{Python} onde são descritos os nodos de execução, e código extra que o programador deseje utilizar.
+\end{itemize}
 
 
 \section{Sintaxe}
+\subsection{Comportamento}
+Um comportamento é definido da seguinte forma:
+\begin{lstlisting}
+    behavior : [
+        tree
+    ]
+\end{lstlisting}
 
+Dentro do comportamento, podemos criar a nossa árvore.
+Seguindo a estrutura do capítulo anterior, os nodos podem ser especificados das seguintes formas:
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    sequence : [
+        child1,
+        child2,
+        ...
+        childn
+    ]
+\end{lstlisting}
+\end{subfigure}
+\hfil
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    selector : [
+        child1,
+        child2,
+        ...
+        childn
+    ]
+\end{lstlisting}
+\end{subfigure}
+\end{figure}
+\begin{figure}[H]
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    prob_selector : [
+        P1 -> child1,
+        P2 -> child2,
+        ...
+        Pn -> childn
+    ]
+\end{lstlisting}
+\end{subfigure}
+\hfil
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    parallel : M [
+        child1,
+        child2,
+        ...
+        childn
+    ]
+\end{lstlisting}
+\end{subfigure}
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    decorator : POLICY [
+        child
+    ]
+\end{lstlisting}
+\end{subfigure}
+\end{figure}
 
-%Na linguagem, pode ser descrito como se segue:
-%
-%\begin{lstlisting} 
-%    behavior : [
-%        tree
-%    ]
-%\end{lstlisting}
-%
-%Dentro do \textit{behavior}, começaremos a criar a nossa árvore de comportamento.
-%Seguindo a estrutura do capítulo anterior, os nodos podem ser especificados das seguintes formas:
-%\begin{figure}[H]
-%\centering
-%
-%\begin{subfigure}{0.45\linewidth}
-%\begin{lstlisting}
-%    sequence : [
-%        child1,
-%        child2,
-%        ...
-%        childn
-%    ]
-%\end{lstlisting}
-%\caption{}
-%\end{subfigure}
-%\hfil
-%\begin{subfigure}{0.45\linewidth}
-%\begin{lstlisting}
-%    selector : [
-%        child1,
-%        child2,
-%        ...
-%        childn
-%    ]
-%\end{lstlisting}
-%\caption{}
-%\end{subfigure}
-%\begin{subfigure}{0.45\linewidth}
-%\begin{lstlisting}
-%    prob_selector : [
-%        P1 -> child1,
-%        P2 -> child2,
-%        ...
-%        Pn -> childn
-%    ]
-%\end{lstlisting}
-%\caption{}
-%\end{subfigure}
-%\hfil
-%\begin{subfigure}{0.45\linewidth}
-%\begin{lstlisting}
-%    parallel : M [
-%        child1,
-%        child2,
-%        ...
-%        childn
-%    ]
-%\end{lstlisting}
-%\caption{}
-%\end{subfigure}
-%\begin{subfigure}{0.45\linewidth}
-%\begin{lstlisting}
-%    decorator : POLICY [
-%        child
-%    ]
-%\end{lstlisting}
-%\caption{}
-%\end{subfigure}
-%\hfil
-%\begin{subfigure}{0.45\linewidth}
-%\begin{lstlisting}
-%    condition : $CONDITION
-%
-%    action : $ACTION
-%\end{lstlisting}
-%\caption{}
-%\end{subfigure}
-%\end{figure}
+\subsection{Definições}
+Basicamente, as definições são nodos etiquetados com um nome, logo a sintaxe é muito parecida:
+\begin{figure}[H]
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    sequence NAME : [
+        child1,
+        child2,
+        ...
+        childn
+    ]
+\end{lstlisting}
+\end{subfigure}
+\hfil
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    selector NAME : [
+        child1,
+        child2,
+        ...
+        childn
+    ]
+\end{lstlisting}
+\end{subfigure}
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    prob_selector NAME : [
+        P1 -> child1,
+        P2 -> child2,
+        ...
+        Pn -> childn
+    ]
+\end{lstlisting}
+\end{subfigure}
+\hfil
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    parallel NAME : M [
+        child1,
+        child2,
+        ...
+        childn
+    ]
+\end{lstlisting}
+\end{subfigure}
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    decorator NAME : POLICY [
+        child
+    ]
+\end{lstlisting}
+\end{subfigure}
+\end{figure}
+\subsection{Código}

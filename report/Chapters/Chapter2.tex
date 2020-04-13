@@ -301,7 +301,7 @@ Visto isto, decidimos introduzir um novo nodo: \textit{Probability Selector}.
 
 Para percebermos melhor as aplicações das BTs, decidimos escolher como exemplo aplicacional o jogo do PAC-MAN da \textit{Namco’s}. 
 
-O jogo do PAC-MAN é um jogo \textit{single player}, em que se passsa num labirinto que vai mudando a medida que o jogador passa de nivel. O jogador controla um boneco chamado de PAC-MAN, que tem como objectivo comer comida no labirinto e fugir dos inimigos chamados de fantasmas. Esta comida será representada por uma bolinha, sendo que existem 2 tipos de comida, a comida "normal" é representada por uma bolinha mais pequena, sendo que a bolinha maior após ingerida torna os fantasmas vulneráveis podendo o jogador comer os fantasmas durante um determinado tempo, após esse tempo os fantasmas regressam ao seu estado inicial. Os fantasmas irão perseguir o jogador, sendo que o objectivo deste será fugir destes ou come-los caso estes estejam vulneráveis. Por fim o jogador transita para o proximo nivel assim que comer toda a comida existente no labirinto.
+O jogo do PAC-MAN é um jogo \textit{single player}, em que se passsa num labirinto que vai mudando a medida que o jogador passa de nivel. O jogador controla um boneco chamado de PAC-MAN, que tem como objectivo comer comida(Eat Pills) no labirinto e fugir dos inimigos chamados de fantasmas(Ghosts). Esta comida(Pills) será representada por uma bolinha, sendo que existem 2 tipos de comida(Pills), a comida(Pills) "normal" é representada por uma bolinha mais pequena, sendo que a bolinha maior após ingerida torna os fantasmas vulneráveis(Ghosts Scared) podendo o jogador comer os fantasmas(Chase Ghosts) durante um determinado tempo, após esse tempo os fantasmas regressam ao seu estado inicial. Os fantasmas irão perseguir o jogador, sendo que o objectivo deste será fugir destes(Avoid Ghosts) ou come-los caso estes estejam vulneráveis. Por fim o jogador transita para o proximo nivel assim que comer toda a comida existente no labirinto.
 
 \begin{figure}[h!]
 \centering
@@ -310,7 +310,7 @@ O jogo do PAC-MAN é um jogo \textit{single player}, em que se passsa num labiri
 \label{fig:traducao}
 \end{figure}
 
-Foi importante perceber como funciona o jogo numa fase inicial pois, para definirmos uma BT para o jogador precisamos de perceber qual o seu comportamento. Dito isso, percebemos que numa fase inicial o jogador deverá verificar se não se encontra nenhum fantasma perto, caso se encontre deverá fugir deste, caso estes se encontrem vulneráveis o jogador deverá come-los. Caso não se encontre nenhum fantasma por perto o jogador deverá comer a comida que se encontra no labirinto. Após a nálise do comportamento, iremos em seguida mostrar a respectiva BT.
+Foi importante perceber como funciona o jogo numa fase inicial pois, para definirmos uma BT para o jogador precisamos de perceber qual o seu comportamento. Dito isso, percebemos que numa fase inicial o jogador deverá verificar se não se encontra nenhum fantasma perto(Ghost Close), caso se encontre deverá fugir deste(Avoid Ghosts), caso estes se encontrem vulneráveis o jogador deverá come-los(Chase Ghosts). Caso não se encontre nenhum fantasma por perto o jogador deverá comer a comida(Eat Pills) que se encontra no labirinto. Após a análise do comportamento, iremos em seguida mostrar a respectiva BT.
 
 
         \begin{figure}[H]
@@ -318,16 +318,16 @@ Foi importante perceber como funciona o jogo numa fase inicial pois, para defini
         \begin{behavior}
             [\selector
                 [\sequence
-                    [\condition{Fantasmas Perto}]
+                    [\condition{Ghost Close}]
                     [\selector
                         [\sequence
-                            [\condition{Fantasmas Vulneráveis}]
-                            [\action{Perseguir Fantasmas}]
+                            [\condition{Ghost Scared}]
+                            [\action{Chase Ghost}]
                         ]
-                        [\action{Fugir dos Fantasmas}]
+                        [\action{Avoid Ghost}]
                     ]
                 ]
-                [\action{Comer a Comida}]
+                [\action{Eat Pills}]
             ]
         \end{behavior}
         \caption{Exemplo da BT de um jogador de PAC-MAN.}

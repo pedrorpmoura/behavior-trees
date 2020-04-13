@@ -13,3 +13,10 @@ class Condition(ExecutionNode):
     
     def __str__(self):
         return "condition: " + self.name
+
+    def to_latex_str(self, indent):
+        text = indent * 4 * ' ' 
+        text += "[\\condition{"
+        text += self.name.replace("_", " ")
+        text += "}]\n"
+        return text

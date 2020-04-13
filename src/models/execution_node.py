@@ -5,12 +5,16 @@ class ExecutionNode(Node):
     Class that represents an execution node.
     """
 
-    # def __init__(self, name):
-    #     Node.__init__(self, name)
-
     def __init__(self, name):
         super().__init__(name)
-
+        self.code_function = None
 
     def verify_definitions(self, definitions):
-        pass
+        self.name = self.name[1:]
+
+    def check_execution_nodes(self, function_list):
+        if not self.name in function_list:
+            return self.name
+        
+        self.code_function = function_list[self.name]
+        return True

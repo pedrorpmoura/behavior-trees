@@ -20,12 +20,12 @@
 \contentsline {section}{\numberline {2.4}Exemplo - \textit {PACMAN}}{7}{section.33}% 
 \contentsline {chapter}{\numberline {3}Linguagem}{9}{chapter.36}% 
 \contentsline {section}{\numberline {3.1}Estrutura}{9}{section.37}% 
-\contentsline {subsection}{\numberline {3.1.1}\textit {Behavior}}{9}{subsection.38}% 
-\contentsline {subsection}{\numberline {3.1.2}\textit {Definitions}}{9}{subsection.39}% 
-\contentsline {subsection}{\numberline {3.1.3}\textit {Code}}{9}{subsection.40}% 
-\contentsline {section}{\numberline {3.2}Sintaxe}{9}{section.41}% 
-\contentsline {chapter}{\numberline {4}Compilador}{10}{chapter.42}% 
-\contentsline {chapter}{\numberline {5}Caso de Estudo}{11}{chapter.43}% 
-\contentsline {chapter}{\numberline {6}Conclus\IeC {\~a}o}{12}{chapter.44}% 
-\contentsline {chapter}{\numberline {A}Frequently Asked Questions}{13}{appendix.45}% 
-\contentsline {section}{\numberline {A.1}How do I change the colors of links?}{13}{section.46}% 
+\contentsline {section}{\numberline {3.2}Sintaxe}{9}{section.38}% 
+\contentsline {subsection}{\numberline {3.2.1}Comportamento}{9}{subsection.39}% 
+\contentsline {subsection}{\numberline {3.2.2}Defini\IeC {\c c}\IeC {\~o}es}{10}{subsection.78}% 
+\contentsline {subsection}{\numberline {3.2.3}C\IeC {\'o}digo}{10}{subsection.112}% 
+\contentsline {chapter}{\numberline {4}Compilador}{11}{chapter.113}% 
+\contentsline {chapter}{\numberline {5}Caso de Estudo}{12}{chapter.114}% 
+\contentsline {chapter}{\numberline {6}Conclus\IeC {\~a}o}{13}{chapter.115}% 
+\contentsline {chapter}{\numberline {A}Frequently Asked Questions}{14}{appendix.116}% 
+\contentsline {section}{\numberline {A.1}How do I change the colors of links?}{14}{section.117}% 

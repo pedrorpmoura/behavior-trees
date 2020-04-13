@@ -1,17 +1,19 @@
 behavior : [
-    sequence : $seq
+    sequence : $seq2
 ]
 
 
-sequence seq : [
+sequence seq2 : [
     condition: $condition1,
     selector: $sel
 ]
 
 
 selector sel : [
-    action: $action1
+    action: $action1,
+    action: $action2
 ]
+
 %%
 
 def action1(x):
@@ -20,3 +22,15 @@ def action1(x):
         return True
     
     return False
+
+
+def action2(x):
+
+    if x == 2:
+        return True
+    
+    return False
+
+
+def condition1(x):
+    return 1 == 2

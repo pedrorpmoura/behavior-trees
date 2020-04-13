@@ -29,17 +29,22 @@ def p_root1(p):
     '''
     root : behavior CODE
     '''
-    behavior = Behavior(p[1], p[2])
-    print(str(behavior))
-
+    behavior = Behavior(p[1])
+    behavior.set_code(p[2])
+    #print(str(behavior))
+    #print(behavior.to_latex_str())
+    p[0] = behavior
 
 def p_root2(p):
     '''
     root : behavior definitions CODE
     '''
-    behavior = Behavior(p[1], p[3])
+    behavior = Behavior(p[1])
     behavior.fill_definitions(p[2])
-    print(str(behavior))
+    behavior.set_code(p[3])
+    #print(str(behavior))
+    #print(behavior.to_latex_str())
+    p[0] = behavior
 
 def p_root3(p):
     '''
@@ -47,9 +52,10 @@ def p_root3(p):
     '''
     behavior = Behavior(p[2], p[3])
     behavior.fill_definitions(p[1])
-    print(str(behavior))
-    for d in p[1]:
-        print(d)
+    behavior.set_code(p[3])
+    #print(str(behavior))
+    #print(behavior.to_latex_str())
+    p[0] = behavior
 
 
 def p_behavior(p):
@@ -262,12 +268,26 @@ def p_definition_decorator3(p):
     p[0] = MaxSeconds(p[2], [p[9]], p[6])
 
 
-
 def p_error(p):
     print('Syntax error: ' + p.value + ', type: ' + p.type)
 
-parser = yacc.yacc()
 
-with open('test2.txt', 'r') as f:
-    s = f.read()
-    parser.parse(s)
+if __name__ == '__main__':
+    parser = yacc.yacc()
+    import sys
+    with open('test2.txt', 'r') as f:
+        s = f.read()
+        behavior = parser.parse(s)
+        if len(sys.argv) == 0:
+            print("Usage: -l or -p")
+            sys.exit(-1)
+
+        if "-l" in sys.argv or "--latex" in sys.argv:
+            print("Latex:")
+            with open('behavior.tex', 'w') as latex_file:
+                latex_file.write(behavior.to_latex_str())
+
+        if "-p" in sys.argv or "--python" in sys.argv:
+            print("Python:")
+            print(behavior.__str__())
+            pass

@@ -13,3 +13,10 @@ class Action(ExecutionNode):
 
     def __str__(self):
         return "action: " + self.name
+
+    def to_latex_str(self, indent):
+        text = indent * 4 * ' ' 
+        text += "[\\action{"
+        text += self.name.replace("_", " ")
+        text += "}]\n"
+        return text
