@@ -5,9 +5,6 @@ class Action(ExecutionNode):
     Class that represents an action node.
     """
 
-    #def __init__(self, name):
-    #    ExecutionNode.__init__(self, name)
-
     def __init__(self, name):
         super().__init__(name)
 

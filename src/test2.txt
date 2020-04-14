@@ -11,13 +11,14 @@ sequence seq2 : [
 
 selector sel : [
     action: $action1,
-    action: $action2
+    selector : [
+        action : $action2
+    ]
 ]
 
 %%
 
 def action1(x):
-
     if x == 2:
         return True
     
