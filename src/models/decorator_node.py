@@ -16,6 +16,14 @@ class Decorator(ControlFlowNode):
         text += "]"
         return text
 
+    def to_latex_str(self, indent):
+        text = indent * 4 * ' ' 
+        text += "[\\decorator\n"
+        for child in self.children:
+            text += child.to_latex_str(indent=indent+1)
+        text += indent * 4 * ' ' + "]\n"
+        return text
+
 class Inverter(Decorator):
     """
     Class that represents an inverter node.
@@ -25,12 +33,19 @@ class Inverter(Decorator):
         super().__init__(name, children)
     
     def __str__(self):
-        text = "decorator: " + str(self.name) + " [\n"
+        text = "inverter: " + str(self.name) + " [\n"
         for child in self.children:
             text += "\t" + str(child).replace('\n', '\n\t') + "\n"
         text += "]"
         return text
 
+    def to_latex_str(self, indent):
+        text = indent * 4 * ' ' 
+        text += "[\\inverter\n"
+        for child in self.children:
+            text += child.to_latex_str(indent=indent+1)
+        text += indent * 4 * ' ' + "]\n"
+        return text
 
 
 class MaxTries(Decorator):
@@ -49,6 +64,14 @@ class MaxTries(Decorator):
         text += "]"
         return text
 
+    def to_latex_str(self, indent):
+        text = indent * 4 * ' ' 
+        text += "[\\maxtries\n"
+        for child in self.children:
+            text += child.to_latex_str(indent=indent+1)
+        text += indent * 4 * ' ' + "]\n"
+        return text
+
 
 class MaxSeconds(Decorator):
     """
@@ -64,4 +87,12 @@ class MaxSeconds(Decorator):
         for child in self.children:
             text += "\t" + str(child).replace('\n', '\n\t') + "\n"
         text += "]"
+        return text
+
+    def to_latex_str(self, indent):
+        text = indent * 4 * ' ' 
+        text += "[\\maxseconds\n"
+        for child in self.children:
+            text += child.to_latex_str(indent=indent+1)
+        text += indent * 4 * ' ' + "]\n"
         return text

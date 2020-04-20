@@ -35,10 +35,23 @@
     ?,\controlflownodestyle
 }
 
+\newcommand{\probnodeselector}[1]{
+    ?,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle
+}
+
 \newcommand{\probselector}{
     $?_{P}$, 
     \controlflownodestyle,
-    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}},
+    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
+}
+
+\newcommand{\probnodeprobselector}[1]{
+    $?_{P}$,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle,
+    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
 }
 
 \newcommand{\sequence}{
@@ -46,8 +59,21 @@
     \controlflownodestyle
 }
 
+\newcommand{\probnodesequence}[1]{
+    $\rightarrow$,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle
+}
+
+
 \renewcommand{\parallel}[1] {
     $\rightrightarrows_{\scalebox{0.5}{$#1$}}$,
+    \controlflownodestyle
+}
+
+\newcommand{\probnodeparallel}[2]{
+    $\rightrightarrows_{\scalebox{0.5}{$#2$}}$,
+    edge label = {node [midway, above, sloped] {#1}},
     \controlflownodestyle
 }
 
@@ -70,6 +96,12 @@
     I, \decoratorstyle
 }
 
+\newcommand{\probinverter}[1] {
+    I,
+    edge label = {node [midway, above, sloped] {#1}},
+    \decoratorstyle
+}
+
 
 % EXECUTION NODES
 \newcommand{\action}[1] {
@@ -79,11 +111,27 @@
     inner sep=7pt
 }
 
+\newcommand{\probnodeaction}[2]{
+    #2,
+    rectangle,
+    draw,
+    inner sep=7pt,
+    edge label = {node [midway, above, sloped] {#1}},
+}
+
 \newcommand{\condition}[1] {
     #1,
     rounded rectangle,
     draw,
     inner sep=7pt
+}
+
+\newcommand{\probnodecondition}[2]{
+    #2,
+    rectangle,
+    draw,
+    inner sep=7pt,
+    edge label = {node [midway, above, sloped] {#1}}
 }
 %----------------------------------------------------------------------------------------
 %   ENVIRONMENT

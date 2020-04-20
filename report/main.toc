@@ -19,13 +19,16 @@
 \contentsline {paragraph}{Probability Selector}{5}{section*.30}% 
 \contentsline {section}{\numberline {2.4}Exemplo - \textit {PACMAN}}{7}{section.33}% 
 \contentsline {chapter}{\numberline {3}Linguagem}{9}{chapter.36}% 
-\contentsline {section}{\numberline {3.1}Estrutura}{9}{section.37}% 
+\contentsline {section}{\numberline {3.1}Estrutura de um ficheiro}{9}{section.37}% 
 \contentsline {section}{\numberline {3.2}Sintaxe}{9}{section.38}% 
 \contentsline {subsection}{\numberline {3.2.1}Comportamento}{9}{subsection.39}% 
-\contentsline {subsection}{\numberline {3.2.2}Defini\IeC {\c c}\IeC {\~o}es}{10}{subsection.78}% 
-\contentsline {subsection}{\numberline {3.2.3}C\IeC {\'o}digo}{10}{subsection.112}% 
-\contentsline {chapter}{\numberline {4}Compilador}{11}{chapter.113}% 
-\contentsline {chapter}{\numberline {5}Caso de Estudo}{12}{chapter.114}% 
-\contentsline {chapter}{\numberline {6}Conclus\IeC {\~a}o}{13}{chapter.115}% 
-\contentsline {chapter}{\numberline {A}Frequently Asked Questions}{14}{appendix.116}% 
-\contentsline {section}{\numberline {A.1}How do I change the colors of links?}{14}{section.117}% 
+\contentsline {subsection}{\numberline {3.2.2}Defini\IeC {\c c}\IeC {\~o}es}{10}{subsection.82}% 
+\contentsline {subsection}{\numberline {3.2.3}C\IeC {\'o}digo}{10}{subsection.116}% 
+\contentsline {chapter}{\numberline {4}Compilador}{11}{chapter.117}% 
+\contentsline {section}{\numberline {4.1}An\IeC {\'a}lise l\IeC {\'e}xica \textit {(tokenization)}}{11}{section.118}% 
+\contentsline {section}{\numberline {4.2}An\IeC {\'a}lise sint\IeC {\'a}tica \textit {(parsing)}}{11}{section.119}% 
+\contentsline {section}{\numberline {4.3}An\IeC {\'a}lise sem\IeC {\^a}ntica}{11}{section.120}% 
+\contentsline {chapter}{\numberline {5}Caso de Estudo}{12}{chapter.121}% 
+\contentsline {chapter}{\numberline {6}Conclus\IeC {\~a}o}{13}{chapter.122}% 
+\contentsline {chapter}{\numberline {A}Frequently Asked Questions}{14}{appendix.123}% 
+\contentsline {section}{\numberline {A.1}How do I change the colors of links?}{14}{section.124}% 

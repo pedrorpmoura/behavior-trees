@@ -102,7 +102,7 @@ def p_node_prob_selector1(p):
     node : PROBSELECTOR ':' '[' prob_nodes ']'
     '''
     global current_indexes
-    p[0] = Selector("prob_selector" + str(current_indexes['prob_selector']), p[4]) # list of nodes
+    p[0] = ProbSelector("prob_selector" + str(current_indexes['prob_selector']), p[4]) # list of nodes
     current_indexes['prob_selector'] += 1
 
 

@@ -1,9 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1586872309 "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.tex" "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.pdf" "behavior" 1586872312
-  "../report/behaviortrees.sty" 1584571671 2829 09a891ad29677d73d3f9c8179fd69a5f ""
-  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.aux" 1586872311 8 a94a2480d3289e625eea47cd1b285758 ""
+["pdflatex"] 1587421523 "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.tex" "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.pdf" "behavior" 1587421525
+  "../report/behaviortrees.sty" 1587421522 3053 d7d0c1902d914e9e66112ceff0f5cd1f ""
+  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.aux" 1587421525 8 a94a2480d3289e625eea47cd1b285758 ""
   "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.tex" 1586872282 448 9ac6fe0afaa7529ee7afcdb3344534f0 ""
-  "/dev/null" 1586872298 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "/dev/null" 1587421523 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -145,11 +145,11 @@
   "/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1557342064 3277517 23507ed665b4dd9046f0f2a94bbef2be ""
   "/usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1562257513 4259635 b90538ef47e9b6a7eb5435939c4195a6 ""
   "/usr/local/texlive/2019/texmf.cnf" 1557341546 577 d150fef99ac436ad1156e86b0892f6ef ""
-  "behavior.aux" 1586872311 8 a94a2480d3289e625eea47cd1b285758 "pdflatex"
+  "behavior.aux" 1587421525 8 a94a2480d3289e625eea47cd1b285758 "pdflatex"
   "behavior.tex" 1586872282 448 9ac6fe0afaa7529ee7afcdb3344534f0 ""
   (generated)
-  "behavior.log"
-  "behavior.aux"
-  "behavior.pdf"
-  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.pdf"
   "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.log"
+  "behavior.pdf"
+  "behavior.aux"
+  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.pdf"
+  "behavior.log"

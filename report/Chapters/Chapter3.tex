@@ -4,7 +4,7 @@
 \label{Chapter3} 
 
 \textbf{TODO: breve introdução ao capítulo}
-\section{Estrutura}
+\section{Estrutura de um ficheiro}
 Um comportamento pode ser visto como um programa. Cada ficheiro, ao qual designamos de ``ficheiro de comportamento'', descreve um e só um comportamento.
 
 Um ficheiro de comportamento está dividido em 3 partes:
@@ -18,15 +18,13 @@ Um ficheiro de comportamento está dividido em 3 partes:
 
 \section{Sintaxe}
 \subsection{Comportamento}
-Um comportamento é definido da seguinte forma:
+Um comportamento é especificado da seguinte forma:
 \begin{lstlisting}
     behavior : [
         tree
     ]
 \end{lstlisting}
-
-Dentro do comportamento, podemos criar a nossa árvore.
-Seguindo a estrutura do capítulo anterior, os nodos podem ser especificados das seguintes formas:
+onde \texttt{tree} é um dos nodos referidos anteriormente, cada um com a sua própria sintaxe (seguindo a estrutura do capítulo anterior):
 \begin{figure}[H]
 \centering
 \begin{subfigure}{0.45\linewidth}
@@ -80,10 +78,22 @@ Seguindo a estrutura do capítulo anterior, os nodos podem ser especificados das
     ]
 \end{lstlisting}
 \end{subfigure}
+\begin{subfigure}{0.45\linewidth}
+\begin{lstlisting}
+    condition : $CONDITION
+
+    action : $ACTION
+\end{lstlisting}
+\end{subfigure}
 \end{figure}
 
+Se repararmos, os \textit{execution nodes} são definidos por um nome antecedido de um `\texttt{\$}', que é uma referência para algo. Neste caso este algo é uma função, que obrigatoriamente tem de estar definida na parte do \textit{código} do ficheiro.
+
+Os \textit{control flow nodes} também podem ser escritos com esta notação, sendo que nome em questão tem de existir no conjunto de \textit{definições} do ficheiro.
+
 \subsection{Definições}
-Basicamente, as definições são nodos etiquetados com um nome, logo a sintaxe é muito parecida:
+As definições são \textit{control flow nodes} etiquetados com um nome.
+A sua sintaxe é bastante semelhante à apresentada em cima:
 \begin{figure}[H]
 \begin{subfigure}{0.45\linewidth}
 \begin{lstlisting}
@@ -135,4 +145,8 @@ Basicamente, as definições são nodos etiquetados com um nome, logo a sintaxe 
 \end{lstlisting}
 \end{subfigure}
 \end{figure}
+
+
 \subsection{Código}
+Nesta parte do ficheiro escrevemos código \textit{Python} que será compilado juntamente com o ficheiro de comportamento.
+Aqui têm de estar definidos quaisquer nodos de execução usados no comportamento ou nas definições.

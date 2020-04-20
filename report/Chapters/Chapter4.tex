@@ -4,3 +4,41 @@
 
 \label{Chapter4} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
+\section{Análise léxica \textit{(tokenization)}}
+A primeira etapa no desenvolvimento de um compilador consiste na criação de um analisador léxico, ou \textit{lexer}, que é responsável por converter uma sequência de caracteres numa sequência de \textit{tokens}.
+Um \textit{token} é uma \textit{string} com um significado atribuído, e pode ser estruturado como um par que contém um nome e um valor opcional.
+
+A seguinte tabela mostra os \textit{tokens} utilizados para esta análise:
+
+
+\begin{center}
+    \begin{tabular}{ |l|l| } 
+        \hline
+            \multicolumn{2}{ |c| }{\textit{Tokens}} \\
+        \hline
+            Nome                & Valor                         \\ \hline
+            literais            & \texttt{({[]}),:\%}           \\ \hline
+            t\_RIGHTARROW       & \texttt{->}                   \\ \hline
+            t\_DOUBLEPERCENTAGE & \texttt{\%\%}                 \\ \hline
+            t\_BEHAVIOR         & \texttt{behavior}             \\ \hline
+            t\_SEQUENCE         & \texttt{sequence}             \\ \hline
+            t\_SELECTOR         & \texttt{selector}             \\ \hline
+            t\_PROBSELECTOR     & \texttt{probselector}         \\ \hline
+            t\_PARALLEL         & \texttt{parallel}             \\ \hline
+            t\_DECORATOR        & \texttt{decorator}            \\ \hline
+            t\_CONDITION        & \texttt{condition}            \\ \hline
+            t\_ACTION           & \texttt{action}               \\ \hline
+            t\_INVERTER         & \texttt{INVERTER}             \\ \hline
+            t\_MAXTRIES         & \texttt{MAXTRIES}             \\ \hline
+            t\_MAXSECONDS       & \texttt{MAXSECONDS}           \\ \hline
+            t\_VAR              & \texttt{\$\textbackslash w+}  \\ \hline
+            t\_NODENAME         & \texttt{\textbackslash b\textbackslash w+\textbackslash b}   \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\section{Análise sintática \textit{(parsing)}}
+
+
+
+\section{Análise semântica}

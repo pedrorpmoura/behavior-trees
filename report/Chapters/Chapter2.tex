@@ -228,10 +228,10 @@ Visto isto, decidimos introduzir um novo nodo: \textit{Probability Selector}.
     \centering
     \begin{behavior}
         [\probselector
-            [\action{Child 1}, edge label = {node [above, sloped] {$P_1$}}],
-            [\action{Child 2}, edge label = {node [above, sloped] {$P_2$}}],
+            [\probnodeaction{$P_1$}{Child 1}],
+            [\probnodeaction{$P_2$}{Child 2}],
             [{\textbf{. . .}}, inner sep=10pt],
-            [\action{Child N}, edge label = {node [above, sloped] {$P_N$}}]
+            [\probnodeaction{$P_N$}{Child N}]
         ]
     \end{behavior}
     \caption{Estrutura de um nodo \textit{Probability Selector}.}
@@ -272,11 +272,11 @@ Visto isto, decidimos introduzir um novo nodo: \textit{Probability Selector}.
     \centering
         \begin{behavior}
             [\probselector
-                [\action{Accept}, edge label = {node [midway, above, sloped] {$P_1$}}],
-                [\action{Reject}, edge label = {node [midway, above, sloped] {$P_2$}}]
+                [\probnodeaction{$P_1$}{Accept}],
+                [\probnodeaction{$P_2$}{Reject}]
             ]
         \end{behavior}
-
+        
         \begin{align*}
             P_1 &= \frac{C}{10} \\
             P_2 &= 1 - \frac{C}{10}
@@ -289,8 +289,6 @@ Visto isto, decidimos introduzir um novo nodo: \textit{Probability Selector}.
     Mesmo não sendo muito correto (porque não sabemos que fatores levam à existência desta possibilidade), é uma aproximação interessante à tal imprevisibilidade que existe na vida real, permitindo a criação de comportamentos ainda mais complexos.
 
 }
-
-
 
 
 
