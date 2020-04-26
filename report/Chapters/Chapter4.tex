@@ -12,27 +12,31 @@ A seguinte tabela mostra os \textit{tokens} utilizados para esta análise:
 
 
 \begin{center}
-    \begin{tabular}{ |l|l| } 
+    \begin{tabular}{ | p {5cm} | p {5cm} | } 
         \hline
-            \multicolumn{2}{ |c| }{\textit{Tokens}} \\
+            \multicolumn{2}{ |c| }{\textit{\textbf{Tokens}}} \\
         \hline
-            Nome                & Valor                         \\ \hline
+            \multicolumn{1}{ |c| }{\textbf{Nome}} & \multicolumn{1}{ |c| }{\textbf{Valor}} \\
+        \hline
+        \hline
             literais            & \texttt{({[]}),:\%}           \\ \hline
             t\_RIGHTARROW       & \texttt{->}                   \\ \hline
-            t\_DOUBLEPERCENTAGE & \texttt{\%\%}                 \\ \hline
-            t\_BEHAVIOR         & \texttt{behavior}             \\ \hline
-            t\_SEQUENCE         & \texttt{sequence}             \\ \hline
-            t\_SELECTOR         & \texttt{selector}             \\ \hline
-            t\_PROBSELECTOR     & \texttt{probselector}         \\ \hline
-            t\_PARALLEL         & \texttt{parallel}             \\ \hline
-            t\_DECORATOR        & \texttt{decorator}            \\ \hline
-            t\_CONDITION        & \texttt{condition}            \\ \hline
-            t\_ACTION           & \texttt{action}               \\ \hline
-            t\_INVERTER         & \texttt{INVERTER}             \\ \hline
-            t\_MAXTRIES         & \texttt{MAXTRIES}             \\ \hline
-            t\_MAXSECONDS       & \texttt{MAXSECONDS}           \\ \hline
-            t\_VAR              & \texttt{\$\textbackslash w+}  \\ \hline
-            t\_NODENAME         & \texttt{\textbackslash b\textbackslash w+\textbackslash b}   \\
+            t\_BEHAVIOR         & \texttt{\textbackslash bbehavior\textbackslash b}     \\ \hline
+            t\_SEQUENCE         & \texttt{\textbackslash bsequence\textbackslash b}     \\ \hline
+            t\_SELECTOR         & \texttt{\textbackslash bselector\textbackslash b}     \\ \hline
+            t\_PROBSELECTOR     & \texttt{\textbackslash bprobselector\textbackslash b} \\ \hline
+            t\_PARALLEL         & \texttt{\textbackslash bparallel\textbackslash b}     \\ \hline
+            t\_DECORATOR        & \texttt{\textbackslash bdecorator\textbackslash b}    \\ \hline
+            t\_CONDITION        & \texttt{\textbackslash bcondition\textbackslash b}    \\ \hline
+            t\_ACTION           & \texttt{\textbackslash baction\textbackslash b}       \\ \hline
+            t\_INVERTER         & \texttt{\textbackslash bINVERTER\textbackslash b}     \\ \hline
+            t\_MAXTRIES         & \texttt{\textbackslash bMAXTRIES\textbackslash b}     \\ \hline
+            t\_MAXSECONDS       & \texttt{\textbackslash bMAXSECONDS\textbackslash b}   \\ \hline
+            t\_INT              & \texttt{\textbackslash d+}                            \\ \hline
+            t\_VAR              & \texttt{\$\textbackslash w+}                          \\ \hline
+            t\_NODENAME         & \texttt{\textbackslash b\textbackslash w+\textbackslash b}   \\ \hline
+            t\_CODE             & \texttt{\%\%(.|\textbackslash n)+} \\
+            
         \hline
     \end{tabular}
 \end{center}
