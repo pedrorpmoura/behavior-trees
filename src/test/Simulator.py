@@ -15,8 +15,36 @@ def condition1(entity):
         return STATE_FAILED
     return STATE_COMPLETE
 
+def playerGoTo(coords):
+    self.player_moving = True
+    self.pathfinding = True
+    self.destination = coords
+    self.path_points = calculatePath()
+
+
+def update():
+    self.behavior_tree.update()
+    if self.pathfinding:
+        movimento = path_points/len(path.points) + self.current_point 
+        self.move(movimento) # isto Ã© que realmente move o jogador
+
+def update():
+    physics()
+    for entity in self.entities:
+        entity.update()
+
+def gameLoop():
+    updateLoop()
+    render()
+
 def action2(entity):
-    pass
+    castle_coords = (80,80,80)
+    if world.playerIsAt(castle_coords):
+        return STATE_COMPLETED
+    
+    world.playerGoTo(castle_coords) # NAO BLOQUEIA
+    return STATE_RUNNING
+
 
 class Simulator:
 
