@@ -25,7 +25,7 @@ class Action(ExecutionNode):
 
         attrs = {
             "name": self.name,
-            "type": "condition",
+            "type": "action",
             "function": self.name,
         }
 

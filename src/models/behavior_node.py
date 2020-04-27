@@ -42,6 +42,11 @@ class Behavior:
         with open('Simulator.template.py', 'r') as f:
             return f.read()
 
+    def to_python_string_test(self, indent = 1):
+        behavior_tree_str = self.root_node.to_python_string(indent)
+
+        behavior_tree_str += "\n" + indent * 4 * ' ' + "ROOT_NODE = {}_NODE".format(self.root_node.name.upper())
+        return behavior_tree_str
 
     def to_python_string(self, indent = 1):
         template_str = self.__get_template()

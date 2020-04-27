@@ -51,7 +51,7 @@ class ProbSelector(ControlFlowNode):
         text += indent * 4 * ' ' + '"children": {}'.format(children_str)
 
         indent -= 1
-        text += indent * 4 * ' ' + '},\n'
+        text += indent * 4 * ' ' + '}\n'
         return text
 
 class ProbNode():

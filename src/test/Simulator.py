@@ -1,19 +1,19 @@
 # -*- encoding: utf8 -*-
 STATE_READY = 0
 STATE_VISITING = 1
-STATE_FAILED = 2
-STATE_RUNNING = 3
-STATE_COMPLETE = 4
+FAILURE = 2
+RUNNING = 3
+SUCCESS = 4
 
 
 def action1(entity):
     entity['we'] -= 10
-    return STATE_COMPLETE
+    return SUCCESS
 
 def condition1(entity):
     if entity['hp'] == 100:
-        return STATE_FAILED
-    return STATE_COMPLETE
+        return FAILURE
+    return SUCCESS
 
 def playerGoTo(coords):
     self.player_moving = True
@@ -40,10 +40,10 @@ def gameLoop():
 def action2(entity):
     castle_coords = (80,80,80)
     if world.playerIsAt(castle_coords):
-        return STATE_COMPLETED
+        return SUCCESS
     
     world.playerGoTo(castle_coords) # NAO BLOQUEIA
-    return STATE_RUNNING
+    return RUNNING
 
 
 class Simulator:
@@ -142,33 +142,34 @@ class Simulator:
         self.print_verbose("[*] Going to Sequence Children %s" % self.current_node["name"])
         return STATE_READY
 
+
     def get_success_next_node(self):
         parent = self.current_node["parent"]
         if parent == None:
-            return None, STATE_COMPLETE
+            return None, SUCCESS
         if parent["type"] == "sequence":
             if len(parent["children"]) == parent["children"].index(self.current_node) + 1:
                 # Done with sequence, lets go up
-                return parent, STATE_COMPLETE
+                return parent, SUCCESS
             self.counter = parent["children"].index(self.current_node) + 1
             return parent["children"][self.counter], STATE_READY
         elif parent["type"] == "selector":
             self.counter = 0
-            return parent, STATE_COMPLETE
+            return parent, SUCCESS
 
 
     def get_failed_next_node(self):
         parent = self.current_node["parent"]
         if parent == None:
-            return None, STATE_FAILED
+            return None, FAILURE
         
         if parent["type"] == "sequence":
             self.counter = 0
-            return parent, STATE_FAILED
+            return parent, FAILURE
         elif parent["type"] == "selector":
             if len(parent["children"]) == parent["children"].index(self.current_node) + 1:
                 # Done with sequence, lets go up
-                return parent, STATE_FAILED
+                return parent, FAILURE
             self.counter = parent["children"].index(self.current_node) + 1
             return parent["children"][self.counter], STATE_READY
 
@@ -184,14 +185,14 @@ class Simulator:
                 self.current_state = self.run_node_sequence()
             elif node_type == "condition" or node_type == "action":
                 self.current_state = self.run_node_executor()
-        elif self.current_state == STATE_COMPLETE:
+        elif self.current_state == SUCCESS:
             # Done, lets go to the next one.
             self.current_node, self.current_state = self.get_success_next_node()
             if self.current_node == None:
                 self.print_verbose("Done!")
             else:
                 self.print_verbose("Completed last stuff, let's proceed to node %s" % self.current_node["name"])
-        elif self.current_state == STATE_FAILED:
+        elif self.current_state == FAILURE:
             # Failed, lets go to the next one.
             self.current_node, self.current_state = self.get_failed_next_node()
             if self.current_node == None:

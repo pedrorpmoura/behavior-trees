@@ -275,7 +275,7 @@ def p_error(p):
 if __name__ == '__main__':
     parser = yacc.yacc()
     import sys
-    file = "test2.txt"
+    file = "text3.txt"
     with open(file, 'r') as f:
         s = f.read()
         behavior = parser.parse(s)
@@ -289,8 +289,10 @@ if __name__ == '__main__':
                 latex_file.write(behavior.to_latex_str())
 
         if "-p" in sys.argv or "--python" in sys.argv:
-            import os
-            filename = os.path.splitext(file)[0]
-            py_output = behavior.to_python_string()
-            with open(filename + ".generated.py", 'w') as python_file:
-                python_file.write(py_output)
+            #import os
+            #filename = os.path.splitext(file)[0]
+            #py_output = behavior.to_python_string()
+            #with open(filename + ".generated.py", 'w') as python_file:
+            #    python_file.write(py_output)
+            with open("out.py", 'w') as python_file:
+                python_file.write(behavior.to_python_string_test())
