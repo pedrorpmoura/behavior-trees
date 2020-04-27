@@ -26,9 +26,9 @@
 \contentsline {subsection}{\numberline {3.2.3}C\IeC {\'o}digo}{10}{subsection.116}% 
 \contentsline {chapter}{\numberline {4}Compilador}{11}{chapter.117}% 
 \contentsline {section}{\numberline {4.1}An\IeC {\'a}lise l\IeC {\'e}xica \textit {(tokenization)}}{11}{section.118}% 
-\contentsline {section}{\numberline {4.2}An\IeC {\'a}lise sint\IeC {\'a}tica \textit {(parsing)}}{11}{section.119}% 
-\contentsline {section}{\numberline {4.3}An\IeC {\'a}lise sem\IeC {\^a}ntica}{11}{section.120}% 
-\contentsline {chapter}{\numberline {5}Caso de Estudo}{12}{chapter.121}% 
-\contentsline {chapter}{\numberline {6}Conclus\IeC {\~a}o}{13}{chapter.122}% 
-\contentsline {chapter}{\numberline {A}Frequently Asked Questions}{14}{appendix.123}% 
-\contentsline {section}{\numberline {A.1}How do I change the colors of links?}{14}{section.124}% 
+\contentsline {section}{\numberline {4.2}An\IeC {\'a}lise sint\IeC {\'a}tica \textit {(parsing)}}{11}{section.120}% 
+\contentsline {section}{\numberline {4.3}An\IeC {\'a}lise sem\IeC {\^a}ntica}{12}{section.161}% 
+\contentsline {chapter}{\numberline {5}Caso de Estudo}{13}{chapter.162}% 
+\contentsline {chapter}{\numberline {6}Conclus\IeC {\~a}o}{14}{chapter.163}% 
+\contentsline {chapter}{\numberline {A}Frequently Asked Questions}{15}{appendix.164}% 
+\contentsline {section}{\numberline {A.1}How do I change the colors of links?}{15}{section.165}% 

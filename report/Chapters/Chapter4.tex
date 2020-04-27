@@ -8,10 +8,10 @@
 A primeira etapa no desenvolvimento de um compilador consiste na criação de um analisador léxico, ou \textit{lexer}, que é responsável por converter uma sequência de caracteres numa sequência de \textit{tokens}.
 Um \textit{token} é uma \textit{string} com um significado atribuído, e pode ser estruturado como um par que contém um nome e um valor opcional.
 
-A seguinte tabela mostra os \textit{tokens} utilizados para esta análise:
+A seguinte tabela de valores mostra os \textit{tokens} utilizados para esta análise:
 
-
-\begin{center}
+\begin{table}[H]
+    \centering
     \begin{tabular}{ | p {5cm} | p {5cm} | } 
         \hline
             \multicolumn{2}{ |c| }{\textit{\textbf{Tokens}}} \\
@@ -20,29 +20,80 @@ A seguinte tabela mostra os \textit{tokens} utilizados para esta análise:
         \hline
         \hline
             literais            & \texttt{({[]}),:\%}           \\ \hline
-            t\_RIGHTARROW       & \texttt{->}                   \\ \hline
-            t\_BEHAVIOR         & \texttt{\textbackslash bbehavior\textbackslash b}     \\ \hline
-            t\_SEQUENCE         & \texttt{\textbackslash bsequence\textbackslash b}     \\ \hline
-            t\_SELECTOR         & \texttt{\textbackslash bselector\textbackslash b}     \\ \hline
-            t\_PROBSELECTOR     & \texttt{\textbackslash bprobselector\textbackslash b} \\ \hline
-            t\_PARALLEL         & \texttt{\textbackslash bparallel\textbackslash b}     \\ \hline
-            t\_DECORATOR        & \texttt{\textbackslash bdecorator\textbackslash b}    \\ \hline
-            t\_CONDITION        & \texttt{\textbackslash bcondition\textbackslash b}    \\ \hline
-            t\_ACTION           & \texttt{\textbackslash baction\textbackslash b}       \\ \hline
-            t\_INVERTER         & \texttt{\textbackslash bINVERTER\textbackslash b}     \\ \hline
-            t\_MAXTRIES         & \texttt{\textbackslash bMAXTRIES\textbackslash b}     \\ \hline
-            t\_MAXSECONDS       & \texttt{\textbackslash bMAXSECONDS\textbackslash b}   \\ \hline
-            t\_INT              & \texttt{\textbackslash d+}                            \\ \hline
-            t\_VAR              & \texttt{\$\textbackslash w+}                          \\ \hline
-            t\_NODENAME         & \texttt{\textbackslash b\textbackslash w+\textbackslash b}   \\ \hline
-            t\_CODE             & \texttt{\%\%(.|\textbackslash n)+} \\
-            
+            RIGHTARROW       & \texttt{->}                   \\ \hline
+            BEHAVIOR         & \texttt{\textbackslash bbehavior\textbackslash b}     \\ \hline
+            SEQUENCE         & \texttt{\textbackslash bsequence\textbackslash b}     \\ \hline
+            SELECTOR         & \texttt{\textbackslash bselector\textbackslash b}     \\ \hline
+            PROBSELECTOR     & \texttt{\textbackslash bprobselector\textbackslash b} \\ \hline
+            PARALLEL         & \texttt{\textbackslash bparallel\textbackslash b}     \\ \hline
+            DECORATOR        & \texttt{\textbackslash bdecorator\textbackslash b}    \\ \hline
+            CONDITION        & \texttt{\textbackslash bcondition\textbackslash b}    \\ \hline
+            ACTION           & \texttt{\textbackslash baction\textbackslash b}       \\ \hline
+            INVERTER         & \texttt{\textbackslash bINVERTER\textbackslash b}     \\ \hline
+            MAXTRIES         & \texttt{\textbackslash bMAXTRIES\textbackslash b}     \\ \hline
+            MAXSECONDS       & \texttt{\textbackslash bMAXSECONDS\textbackslash b}   \\ \hline
+            INT              & \texttt{\textbackslash d+}                            \\ \hline
+            VAR              & \texttt{\$\textbackslash w+}                          \\ \hline
+            NODENAME         & \texttt{\textbackslash b\textbackslash w+\textbackslash b}   \\ \hline
+            CODE             & \texttt{\%\%(.|\textbackslash n)+} \\
         \hline
     \end{tabular}
-\end{center}
+    \caption{Tabela de valores do \textit{lexer}.}
+    \label{tab:4.1}
+\end{table}
+
 
 \section{Análise sintática \textit{(parsing)}}
+A análise sintática é o processo de analizar uma sequência de símbolos consoante uma gramática.
+De uma forma muito simples, uma gramática é um conjunto de regras que nos diz se uma determinada \textit{string} pertence a uma certa linguagem ou se está gramaticalmente incorreta.
 
+Os símbolos podem ser de dois tipos: \textit{terminais} ou \textit{não terminais} (\textit{tokens}).
+Os símbolos terminais, ou \textit{tokens}, são os símbolos elementares da linguagem.
+Os não terminais são substituídos pelos terminais de acordo com as regras de produção da gramática.
+
+Para a nossa linguagem, temos a seguinte gramática, onde os símbolos em minúsculo são os não terminais e os que estão em maiúsculo são os terminais:
+
+\begin{lstlisting}
+    root : behavior CODE
+         | behavior definitions CODE
+         | definition behavior CODE
+
+    behavior : BEHAVIOR ':' '[' node ']'
+
+    node : SEQUENCE ':' '[' nodes ']'
+         | SEQUENCE ':' VAR
+         | SELECTOR ':' '[' nodes ']'
+         | SELECTOR ':' VAR
+         | PROBSELECTOR ':' '[' prob_nodes ']'
+         | PROBSELECTOR ':' VAR
+         | PARALLEL ':' INT '[' nodes ']'
+         | PARALLEL ':' VAR
+         | DECORATOR ':' INVERTER '[' node ']'
+         | DECORATOR ':' MAXTRIES '(' INT ')' '[' node ']'
+         | DECORATOR ':' MAXSECONDS '(' INT ')' '[' node ']'
+         | DECORATOR ':' VAR
+         | CONDITION ':' VAR
+         | ACTION ':' VAR
+    
+    nodes : nodes ',' node
+          | node
+    
+    prob_nodes : prob_nodes ',' prob_node
+               | prob_node
+    
+    prob_node : VAR RIGHTARROW node
+
+    definitions : definitions definition
+               | definition
+
+    definition : SEQUENCE NODENAME ':' '[' nodes ']'
+              | SELECTOR NODENAME ':' '[' nodes ']'
+              | PROBSELECTOR NODENAME ':' '[' prob_nodes ']'
+              | PARALLEL NODENAME ':' INT '[' nodes ']'
+              | DECORATOR NODENAME ':' INVERTER '[' node ']'
+              | DECORATOR NODENAME ':' MAXTRIES '(' INT ')' '[' node ']'
+              | DECORATOR NODENAME ':' MAXSECONDS '(' INT ')' '[' node ']'
+\end{lstlisting}
 
 
 \section{Análise semântica}

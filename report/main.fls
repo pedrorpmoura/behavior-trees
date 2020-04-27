@@ -340,6 +340,8 @@ INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/csquotes/csquotes.def
 INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/csquotes/csquotes.def
 INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/csquotes/csquotes.cfg
 INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/csquotes/csquotes.cfg
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/courier.sty
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/courier.sty
 INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/hyperref.sty
 INPUT /usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
@@ -523,9 +525,11 @@ INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Figures/PACMAN.
 OUTPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Chapters/Chapter3.aux
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Chapters/Chapter3.tex
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Chapters/Chapter3.tex
-INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/base/t1cmtt.fd
-INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/base/t1cmtt.fd
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/jknappen/ec/ectt1095.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/t1pcr.fd
+INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/psnfss/t1pcr.fd
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/courier/pcrr8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm
 OUTPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Chapters/Chapter4.aux
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Chapters/Chapter4.tex
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Chapters/Chapter4.tex
@@ -538,7 +542,9 @@ INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Chapters/Chapte
 OUTPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Appendices/AppendixA.aux
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Appendices/AppendixA.tex
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Appendices/AppendixA.tex
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/jknappen/ec/ectt1000.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr8t.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/courier/pcrr8t.vf
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.aux
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Chapters/Chapter1.aux
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/Chapters/Chapter1.aux
@@ -558,6 +564,7 @@ INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.out
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.out
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.run.xml
 OUTPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/report/main.run.xml
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/base/8r.enc
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
@@ -588,5 +595,4 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfti1000.pf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfti1200.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sfti2074.pfb
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb
-INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb
