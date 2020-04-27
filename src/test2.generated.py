@@ -6,82 +6,61 @@ STATE_RUNNING = 3
 STATE_COMPLETE = 4
 
 
-def action1(entity):
-    entity['we'] -= 10
-    return STATE_COMPLETE
 
-def condition1(entity):
-    if entity['hp'] == 100:
-        return STATE_FAILED
-    return STATE_COMPLETE
-
-def playerGoTo(coords):
-    self.player_moving = True
-    self.pathfinding = True
-    self.destination = coords
-    self.path_points = calculatePath()
-
-
-def update():
-    self.behavior_tree.update()
-    if self.pathfinding:
-        movimento = path_points/len(path.points) + self.current_point 
-        self.move(movimento) # isto Ã© que realmente move o jogador
-
-def update():
-    physics()
-    for entity in self.entities:
-        entity.update()
-
-def gameLoop():
-    updateLoop()
-    render()
-
-def action2(entity):
-    castle_coords = (80,80,80)
-    if world.playerIsAt(castle_coords):
-        return STATE_COMPLETED
+def action1(x):
+    if x == 2:
+        return True
     
-    world.playerGoTo(castle_coords) # NAO BLOQUEIA
-    return STATE_RUNNING
+    return False
 
+
+def action2(x):
+
+    if x == 2:
+        return True
+    
+    return False
+
+
+def condition1(x):
+    return 1 == 2
 
 class Simulator:
 
     CONDITION1_NODE = {
-        "name": "condition1", 
-        "type" : "condition", 
-        "function": "condition1", 
-    }
+        "function": "condition1",
+        "type": "condition",
+        "name": "condition1",
+    },
 
     ACTION1_NODE = {
+        "function": "action1",
+        "type": "condition",
         "name": "action1",
-        "type": "action", 
-        "function": "action1", 
-    }
-    
-    ACTION2_NODE = {
-        "name": "action2",
-        "type": "action", 
-        "function": "action2", 
-    }
+    },
 
-    SELECTOR1_NODE = { 
-        "name": "selector1",
-        "type" : "selector", 
+    ACTION2_NODE = {
+        "function": "action2",
+        "type": "condition",
+        "name": "action2",
+    },
+
+    SELECTOR0_NODE = {
+        "type": "selector",
+        "name": "selector0",
         "children": [
-            ACTION2_NODE
-        ], 
-    }
+            ACTION2_NODE,
+        ]
+    },
 
     SEL_NODE = {
+        "type": "selector",
         "name": "sel",
-        "type" : "selector", 
-        "children" : [
+        "children": [
             ACTION1_NODE,
-            SELECTOR1_NODE,
-        ], 
-    }
+            SELECTOR0_NODE,
+        ]
+    },
 
     SEQ2_NODE = {
         "type": "sequence",
@@ -90,7 +69,7 @@ class Simulator:
             CONDITION1_NODE,
             SEL_NODE,
         ]
-    }
+    },
 
     ROOT_NODE = SEQ2_NODE
 

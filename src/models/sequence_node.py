@@ -6,8 +6,7 @@ class Sequence(ControlFlowNode):
     """
     
     def __init__(self, name, children):
-        super().__init__(name, children)
-
+        super(Sequence, self).__init__(name, children)
 
     def __str__(self):
         text = "sequence: " + str(self.name) + " [\n"
@@ -22,4 +21,32 @@ class Sequence(ControlFlowNode):
         for child in self.children:
             text += child.to_latex_str(indent=indent+1)
         text += indent * 4 * ' ' + "]\n"
+        return text
+
+    def to_python_string(self, indent):
+
+        text = ""
+        children_str = "[\n"
+        for child in self.children:
+            text += child.to_python_string(indent) + "\n"
+            children_str += (indent + 2) * 4 * ' ' + "{}_NODE,\n".format(child.name.upper())
+
+        children_str += ((indent + 1) * 4 * ' ') + "]\n"
+
+        text += indent * 4 * ' ' 
+        text += "%s_NODE = {\n" % (self.name.upper())
+        indent += 1
+
+        attrs = {
+            "name": self.name,
+            "type": "sequence",
+        }
+
+        for key,value in attrs.items():
+            text += indent * 4 * ' ' + '"{}": "{}",\n'.format(key, value)
+
+        text += indent * 4 * ' ' + '"children": {}'.format(children_str)
+
+        indent -= 1
+        text += indent * 4 * ' ' + '},\n'
         return text

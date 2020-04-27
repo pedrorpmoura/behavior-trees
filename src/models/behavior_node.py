@@ -38,6 +38,20 @@ class Behavior:
     def fill_definitions(self, definitions):
         self.root_node.verify_definitions(definitions)
 
+    def __get_template(self):
+        with open('Simulator.template.py', 'r') as f:
+            return f.read()
+
+
+    def to_python_string(self, indent = 1):
+        template_str = self.__get_template()
+        behavior_tree_str = self.root_node.to_python_string(indent)
+
+        behavior_tree_str += "\n" + indent * 4 * ' ' + "ROOT_NODE = {}_NODE".format(self.root_node.name.upper())
+        final_str = template_str.replace("{CODE}", self.code_str)
+        final_str = final_str.replace("{TREE}", behavior_tree_str)
+        return final_str
+
 
     def to_latex_str(self):
         return "\\documentclass{article}\n" + \

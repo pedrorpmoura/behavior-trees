@@ -7,7 +7,7 @@ class ControlFlowNode(Node):
     """
 
     def __init__(self, name, children):
-        super().__init__(name)
+        super(ControlFlowNode, self).__init__(name)
         self.children = children
     
 

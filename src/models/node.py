@@ -1,4 +1,4 @@
-class Node:
+class Node(object):
     """
     Class that represents a node in a behavior tree.
     """

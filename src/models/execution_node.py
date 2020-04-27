@@ -6,7 +6,7 @@ class ExecutionNode(Node):
     """
 
     def __init__(self, name):
-        super().__init__(name)
+        super(ExecutionNode, self).__init__(name)
         self.code_function = None
 
     def verify_definitions(self, definitions):
