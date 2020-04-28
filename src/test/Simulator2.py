@@ -1,9 +1,9 @@
-READY   = 0
-SUCCESS = 1
-FAILURE = 2
-RUNNING = 3
+READY   = 'READY'
+SUCCESS = 'SUCCESS'
+FAILURE = 'FAILURE'
+RUNNING = 'RUNNING'
 
-
+import json
 
 
 CONDITION1_NODE = {
@@ -32,7 +32,7 @@ SEL_NODE = {
     "type": "selector",
     "children": [
         ACTION1_NODE,
-        CONDITION1_NODE
+        ACTION2_NODE,
     ],
     "state": READY
 }
@@ -73,25 +73,27 @@ class Simulator:
             return self.run_condition_node(tree)
 
     def run_action_node(self, tree):
-        return SUCCESS 
+        tree['state'] = SUCCESS
+        return tree['state'] 
 
     def run_condition_node(self, tree):
-        return FAILURE
+        tree['state'] = RUNNING
+        return tree['state']
 
     def run_sequence_node(self, tree):
         for c in tree['children']:
-            returned_state = self.run(c)
-            if returned_state != SUCCESS:
-                return returned_state
+            c['state'] = self.run(c)
+            if c['state'] != SUCCESS:
+                return c['state']
         
         return SUCCESS
 
 
     def run_selector_node(self, tree):
         for c in tree['children']:
-            returned_state = self.run(c)
-            if returned_state != FAILURE:
-                return returned_state
+            c['state'] = self.run(c)
+            if c['state'] != FAILURE:
+                return c['state']
         
         return FAILURE
 
@@ -108,4 +110,5 @@ class Simulator:
 
 S = Simulator(ROOT_NODE, {})
 S.tick()
-print(S.tree['state'])
+tree = json.dumps(S.tree, indent = 2)
+print(tree)

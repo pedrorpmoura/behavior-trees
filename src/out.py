@@ -6,13 +6,13 @@
 
     ACTION1_NODE = {
         "name": "action1",
-        "type": "condition",
+        "type": "action",
         "function": "action1",
     },
 
     ACTION2_NODE = {
         "name": "action2",
-        "type": "condition",
+        "type": "action",
         "function": "action2",
     },
 

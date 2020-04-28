@@ -1,0 +1,34 @@
+running SEQUENCE node
+running CONDITION node
+{
+ "name": "seq2",
+ "type": "sequence",
+ "children": [
+  {
+   "name": "condition1",
+   "type": "condition",
+   "function": "condition1",
+   "state": "RUNNING"
+  },
+  {
+   "name": "sel",
+   "type": "selector",
+   "children": [
+    {
+     "name": "action1",
+     "type": "action",
+     "function": "action1",
+     "state": "READY"
+    },
+    {
+     "name": "condition1",
+     "type": "condition",
+     "function": "condition1",
+     "state": "RUNNING"
+    }
+   ],
+   "state": "READY"
+  }
+ ],
+ "state": "RUNNING"
+}
