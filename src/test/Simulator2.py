@@ -72,14 +72,17 @@ class Simulator:
         if tree['type'] == 'condition':
             return self.run_condition_node(tree)
 
+
     def run_action_node(self, tree):
         tree['state'] = SUCCESS
         return tree['state'] 
+
 
     def run_condition_node(self, tree):
         tree['state'] = RUNNING
         return tree['state']
 
+    
     def run_sequence_node(self, tree):
         for c in tree['children']:
             c['state'] = self.run(c)
