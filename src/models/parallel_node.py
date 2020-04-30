@@ -11,7 +11,7 @@ class Parallel(ControlFlowNode):
     
 
     def __str__(self):
-        text = "sequence: " + str(self.name) + " " + str(self.success_rate) + " [\n"
+        text = "parallel: " + str(self.name) + " " + str(self.success_rate) + " [\n"
         for child in self.children:
             text += "\t" + str(child).replace('\n', '\n\t') + "\n"
         text += "]"
@@ -42,6 +42,7 @@ class Parallel(ControlFlowNode):
         attrs = {
             "name": self.name,
             "type": "parallel",
+            "success_rate": self.success_rate
         }
 
         for key,value in attrs.items():
