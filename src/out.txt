@@ -1,6 +1,0 @@
-sequence: $seq [
-	condition: $condition1
-	selector: $sel [
-		action: $action1
-	]
-]

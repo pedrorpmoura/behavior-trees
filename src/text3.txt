@@ -1,5 +1,8 @@
 behavior : [
-    sequence : $seq2
+    parallel : 1 [
+        action: $action1,
+        action: $action2
+    ]
 ]
 
 
