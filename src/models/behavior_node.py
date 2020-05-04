@@ -65,6 +65,8 @@ class Behavior:
             "\\usepackage{tikz}\n" + \
             "\\usepackage{forest}\n" + \
             "\\usepackage{../report/behaviortrees}\n" + \
+            "\\usetikzlibrary{shapes.geometric}\n" + \
+            "\\usetikzlibrary{decorations.pathmorphing}\n" + \
             "\\begin{document}\n" + \
             "\\begin{behavior}\n" + (" " * 4) + \
             "[\\rootnode\n" + self.root_node.to_latex_str(indent=2) + \
