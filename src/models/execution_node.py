@@ -7,10 +7,11 @@ class ExecutionNode(Node):
 
     def __init__(self, name):
         super(ExecutionNode, self).__init__(name)
+        self.name = self.name[1:]
         self.code_function = None
 
     def verify_definitions(self, definitions):
-        self.name = self.name[1:]
+        pass
 
     def check_execution_nodes(self, function_list):
         if not self.name in function_list:

@@ -1,38 +1,20 @@
 behavior : [
-    parallel : 1 [
-        action: $action1,
-        action: $action2
+    prob_selector : [
+        $expression1 -> action : $action1,
+        $expression2 -> action : $action1
     ]
-]
-
-
-sequence seq2 : [
-    condition: $condition1,
-    selector: $sel
-]
-
-
-selector sel : [
-    action: $action1,
-    action: $action2
 ]
 
 %%
 
+def expression1():
+    return 1
+
+def expression2():
+    return 1
+    
 def action1(x):
     if x == 2:
         return True
     
     return False
-
-
-def action2(x):
-
-    if x == 2:
-        return True
-    
-    return False
-
-
-def condition1(x):
-    return 1 == 2

@@ -37,5 +37,5 @@ class Condition(ExecutionNode):
             text += indent * 4 * ' ' + '"{}": "{}",\n'.format(key, value)
 
         indent -= 1
-        text += indent * 4 * ' ' + '},\n'
+        text += indent * 4 * ' ' + '}\n'
         return text

@@ -4,75 +4,91 @@ FAILURE = 'FAILURE'
 RUNNING = 'RUNNING'
 
 import json
+import numpy as np
 
 
-CONDITION1_NODE = {
-    "name": "condition1",
-    "type": "condition",
-    "function": "condition1",
-    "state": READY
+def expression1(entity):
+    return entity['guts'] / 10
+
+def expression2(entity):
+    return 1 - entity['guts'] / 10
+    
+def action1(x):
+    if x == 2:
+        return True
+    
+    return False
+
+EXPRESSION1 = {
+    "name": "expression1",
+    "type": "expression",
+    "function": "expression1",
 }
 
 ACTION1_NODE = {
     "name": "action1",
     "type": "action",
     "function": "action1",
-    "state": READY
+}
+
+EXPRESSION2 = {
+    "name": "expression2",
+    "type": "expression",
+    "function": "expression2",
+}
+
+ACTION1_NODE = {
+    "name": "action1",
+    "type": "action",
+    "function": "action1",
 }
 
 ACTION2_NODE = {
     "name": "action2",
     "type": "action",
-    "function": "action2",
-    "state": READY
+    "function": "action1",
 }
 
-SEL_NODE = {
-    "name": "sel",
-    "type": "selector",
+PROB_SELECTOR0_NODE = {
+    "name": "prob_selector0",
+    "type": "prob_selector",
     "children": [
         ACTION1_NODE,
         ACTION2_NODE,
     ],
-    "state": READY
+    "probs": [
+        EXPRESSION1,
+        EXPRESSION2,
+    ]
 }
 
-SEQ2_NODE = {
-    "name": "seq2",
-    "type": "sequence",
-    "children": [
-        CONDITION1_NODE,
-        SEL_NODE
-    ],
-    "state": READY
-}
-
-PARALLEL0_NODE = {
-    "name": "parallel0",
-    "type": "parallel",
-    "success_rate": "2",
-    "children": [
-        ACTION1_NODE,
-        ACTION2_NODE,
-        CONDITION1_NODE
-    ],
-    "state": READY
-}
-
-ROOT_NODE = PARALLEL0_NODE
+ROOT_NODE = PROB_SELECTOR0_NODE
 
 class Simulator:
 
     def __init__(self, tree, entity):
         self.tree = tree
+        self.introduce_states(self.tree)
         self.entity = entity
-    
+
+    def introduce_states(self, tree):
+        tree['state'] = READY
+        if tree['type'] == 'action':
+            pass
+        elif tree['type'] == 'condition':
+            pass
+        else:
+            for c in tree['children']:
+                self.introduce_states(c)
+
+
     def tick(self):
         self.tree['state'] = self.run(self.tree)
+        
 
 
     def run(self, tree):
-        index = 0
+        index = None
 
         if tree['type'] == 'action':
             return self.run_action_node(tree)
@@ -93,15 +109,17 @@ class Simulator:
             if tree['type'] == 'parallel':
                 return self.run_parallel_node(tree, int(tree['success_rate']))
 
+            if tree['type'] == 'prob_selector':
+                return self.run_prob_selector_node(tree, index)
+
         
 
 
     def run_action_node(self, tree):
-
         if tree['name'] == 'action1':
-            tree['state'] = FAILURE
+            tree['state'] = RUNNING
         else: 
-            tree['state'] = FAILURE
+            tree['state'] = SUCCESS
 
         return tree['state'] 
 
@@ -112,6 +130,9 @@ class Simulator:
 
     
     def run_sequence_node(self, tree, child_index):
+        if child_index == None:
+            child_index = 0
+
         for c in tree['children'][child_index:]:
             c['state'] = self.run(c)
             if c['state'] != SUCCESS:
@@ -121,6 +142,9 @@ class Simulator:
 
 
     def run_selector_node(self, tree, child_index):
+        if child_index == None:
+            child_index = 0
+
         for c in tree['children'][child_index:]:
             c['state'] = self.run(c)
             if c['state'] != FAILURE:
@@ -129,9 +153,33 @@ class Simulator:
         return FAILURE
 
 
-    def run_prob_selector_node(self):
-        pass
+    def run_prob_selector_node(self, tree, child_index):
+        if child_index != None:
+            c = tree['children'][child_index]
+            c['state'] = self.run(c)
+            if c['state'] != FAILURE:
+                return c['state']
 
+        executed_probs = []
+        for p in tree['probs']:
+            executed_probs.append(globals()[p['function']](self.entity))
+        
+        children_indexes = list(range(len(tree['children'])))
+        children_indexes = list(np.random.choice(children_indexes, len(children_indexes), 
+            replace = False, p = executed_probs))
+
+
+        for i in children_indexes:
+            tree['children'][i]['state'] = self.run(tree['children'][i])
+            if tree['children'][i]['state'] != FAILURE:
+                return tree['children'][i]['state']
+        
+        return FAILURE
+        
+
+            
+            
+            
     def run_parallel_node(self, tree, M):
         N = len(tree['children'])
         success = 0
@@ -169,6 +217,12 @@ class Simulator:
     def print_tree(self, tree):
         print(json.dumps(tree, indent = 2))
 
-S = Simulator(ROOT_NODE, {})
-S.tick()
-S.print_tree(S.tree)
+
+
+S = Simulator(ROOT_NODE, {'guts': 9})
+i = 3
+while i > 0:
+    S.tick()
+    print(S.tree['state'])
+    #S.print_tree(S.tree)
+    i -= 1
