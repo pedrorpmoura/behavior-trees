@@ -72,17 +72,21 @@ class Simulator:
         self.entity = entity
 
     def introduce_states(self, tree):
-        tree['state'] = READY
-        if tree['type'] == 'action':
-            pass
-        elif tree['type'] == 'condition':
-            pass
-        else:
-            for c in tree['children']:
-                self.introduce_states(c)
+        if 'state' not in tree:
+            tree['state'] = READY
+        
+        if tree['state'] != RUNNING:
+            tree['state'] = READY
+
+            if tree['type'] == 'action' or tree['type'] == 'condition':
+                pass
+            else:
+                for c in tree['children']:
+                    self.introduce_states(c)
 
 
     def tick(self):
+        self.introduce_states(self.tree)
         self.tree['state'] = self.run(self.tree)
         
 
@@ -167,12 +171,12 @@ class Simulator:
         children_indexes = list(range(len(tree['children'])))
         children_indexes = list(np.random.choice(children_indexes, len(children_indexes), 
             replace = False, p = executed_probs))
-
-
+        
         for i in children_indexes:
-            tree['children'][i]['state'] = self.run(tree['children'][i])
             if tree['children'][i]['state'] != FAILURE:
-                return tree['children'][i]['state']
+                tree['children'][i]['state'] = self.run(tree['children'][i])
+                if tree['children'][i]['state'] != FAILURE:
+                    return tree['children'][i]['state']
         
         return FAILURE
         
@@ -197,6 +201,7 @@ class Simulator:
             return FAILURE
         
         return RUNNING
+
 
     def run_decorator_node(self):
         pass
@@ -223,6 +228,6 @@ S = Simulator(ROOT_NODE, {'guts': 9})
 i = 3
 while i > 0:
     S.tick()
-    print(S.tree['state'])
-    #S.print_tree(S.tree)
+    #print(S.tree['state'])
+    S.print_tree(S.tree)
     i -= 1
