@@ -4,15 +4,24 @@
 \usepackage{tikz}
 \usepackage{forest}
 \usepackage{../report/behaviortrees}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{decorations.pathmorphing}
 \begin{document}
 \begin{behavior}
     [\rootnode
-        [\sequence
-            [\condition{condition1}]
-            [\selector
+        [\probselector
+            [\probnodesequence{$e1$}
+                [\action{action1}]
+                [\action{action1}]
+                [\action{action1}]
+            ]
+            [\probnodeparallel{$e2$}{$10$}
                 [\action{action1}]
                 [\selector
-                    [\action{action2}]
+                    [\action{action1}]
+                    [\probselector
+                        [\probnodeaction{$e1$}{action1}                        ]
+                    ]
                 ]
             ]
         ]

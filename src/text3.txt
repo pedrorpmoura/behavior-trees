@@ -1,16 +1,27 @@
 behavior : [
     prob_selector : [
-        $expression1 -> action : $action1,
-        $expression2 -> action : $action1
+        $e1 -> sequence : [
+            action: $action1,
+            action: $action1,
+            action: $action1
+        ],
+        $e2 -> parallel : 10 [
+            action : $action1,
+            selector : [
+                action : $action1,
+                prob_selector : [
+                    $e1 -> action : $action1
+                ]
+            ]
+        ]
     ]
 ]
 
 %%
-
-def expression1():
+def e1():
     return 1
 
-def expression2():
+def e2():
     return 1
     
 def action1(x):
