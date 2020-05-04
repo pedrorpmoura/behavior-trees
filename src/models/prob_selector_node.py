@@ -1,4 +1,10 @@
 from models.control_flow_node import ControlFlowNode
+from models.action_node import Action
+from models.condition_node import Condition
+from models.sequence_node import Sequence
+from models.selector_node import Selector
+from models.parallel_node import Parallel
+from models.decorator_node import Decorator
 
 class ProbSelector(ControlFlowNode):
     """
@@ -82,9 +88,24 @@ class ProbNode():
         return True
 
     def to_latex_str(self, indent):
-        text = indent * 4 * ' ' 
-        text += "\\probnode{$" + str(self.expression) + "$}"
-        text += self.to_latex_str(indent=indent)[(indent*4) + 1:-2]
+        text = indent * 4 * ' '
+        #print(isinstance(self.node, Action))
+        if isinstance(self.node, Action):
+            text += "[\\probnodeaction{$" + str(self.expression) + "$}{" + self.node.name + "}\n"
+        elif isinstance(self.node, Action):
+            text += "[\\probnodecondition{$" + str(self.expression) + "$}{" + self.node.name + "}\n"
+        elif isinstance(self.node, Sequence):
+            text += "[\\probnodesequence{$" + str(self.expression) + "$}\n"
+            for child in self.node.children:
+                text += child.to_latex_str(indent=indent+1)
+        elif isinstance(self.node, Selector):
+            text += "[\\probnodeselector{$" + str(self.expression) + "$}\n"
+            for child in self.node.children:
+                text += child.to_latex_str(indent=indent+1)
+        elif isinstance(self.node, Parallel):
+            text += "[\\probnodeparallel{$" + str(self.expression) + "$}{$" + str(self.node.success_rate) +"$}\n"
+            for child in self.node.children:
+                text += child.to_latex_str(indent=indent+1)
         text += indent * 4 * ' ' + "]\n"
         return text
 
