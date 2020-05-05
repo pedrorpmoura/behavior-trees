@@ -1,9 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1588632968 "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.tex" "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.pdf" "behavior" 1588633635
-  "../report/behaviortrees.sty" 1587477019 3906 3feb912453ac176bbb40ca4f8e97bda2 ""
-  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.aux" 1588632971 8 a94a2480d3289e625eea47cd1b285758 ""
-  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.tex" 1588633635 805 208d3c16b9c6d7a171f93a5096b15713 ""
-  "/dev/null" 1588633635 0 d41d8cd98f00b204e9800998ecf8427e ""
+["pdflatex"] 1588687757 "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.tex" "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.pdf" "behavior" 1588687760
+  "../report/behaviortrees.sty" 1588687709 3914 80d76702c2084e833ebbcafb8ac335c0 ""
+  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.aux" 1588687760 8 a94a2480d3289e625eea47cd1b285758 ""
+  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.tex" 1588687756 899 e9b3c0f2e9e25ff6fe0084244f4387ab ""
+  "/dev/null" 1588687759 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/usr/local/texlive/2019/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2019/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -152,11 +152,11 @@
   "/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1557342064 3277517 23507ed665b4dd9046f0f2a94bbef2be ""
   "/usr/local/texlive/2019/texmf-var/web2c/pdftex/pdflatex.fmt" 1562257513 4259635 b90538ef47e9b6a7eb5435939c4195a6 ""
   "/usr/local/texlive/2019/texmf.cnf" 1557341546 577 d150fef99ac436ad1156e86b0892f6ef ""
-  "behavior.aux" 1588632971 8 a94a2480d3289e625eea47cd1b285758 "pdflatex"
-  "behavior.tex" 1588633635 805 208d3c16b9c6d7a171f93a5096b15713 ""
+  "behavior.aux" 1588687760 8 a94a2480d3289e625eea47cd1b285758 "pdflatex"
+  "behavior.tex" 1588687756 899 e9b3c0f2e9e25ff6fe0084244f4387ab ""
   (generated)
+  "behavior.log"
+  "behavior.pdf"
   "behavior.aux"
   "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.pdf"
-  "behavior.pdf"
   "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/src/behavior.log"
-  "behavior.log"

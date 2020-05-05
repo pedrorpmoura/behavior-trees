@@ -7,62 +7,57 @@ import json
 import numpy as np
 
 
-def expression1(entity):
-    return entity['guts'] / 10
 
-def expression2(entity):
-    return 1 - entity['guts'] / 10
-    
-def action1(x):
-    if x == 2:
-        return True
-    
-    return False
 
-EXPRESSION1 = {
-    "name": "expression1",
-    "type": "expression",
-    "function": "expression1",
+def full_hp(entity):
+    return entity['hp'] == 100
+
+def sub_hp(entity):
+    entity['hp'] -= 10
+
+def add_hp(entity):
+    entity['hp'] += 10
+
+
+FULL_HP_NODE = {
+    "name": "full_hp",
+    "type": "condition",
+    "function": "full_hp",
 }
 
-ACTION1_NODE = {
-    "name": "action1",
+SUB_HP_NODE = {
+    "name": "sub_hp",
     "type": "action",
-    "function": "action1",
+    "function": "sub_hp",
 }
 
-EXPRESSION2 = {
-    "name": "expression2",
-    "type": "expression",
-    "function": "expression2",
-}
-
-ACTION1_NODE = {
-    "name": "action1",
-    "type": "action",
-    "function": "action1",
-}
-
-ACTION2_NODE = {
-    "name": "action2",
-    "type": "action",
-    "function": "action1",
-}
-
-PROB_SELECTOR0_NODE = {
-    "name": "prob_selector0",
-    "type": "prob_selector",
+SEQUENCE0_NODE = {
+    "name": "sequence0",
+    "type": "sequence",
     "children": [
-        ACTION1_NODE,
-        ACTION2_NODE,
-    ],
-    "probs": [
-        EXPRESSION1,
-        EXPRESSION2,
+        FULL_HP_NODE,
+        SUB_HP_NODE,
     ]
 }
 
-ROOT_NODE = PROB_SELECTOR0_NODE
+
+ADD_HP_NODE = {
+    "name": "add_hp",
+    "type": "action",
+    "function": "add_hp",
+}
+
+
+SELECTOR0_NODE = {
+    "name": "selector0",
+    "type": "selector",
+    "children": [
+        SEQUENCE0_NODE,
+        ADD_HP_NODE,
+    ]
+}
+
+ROOT_NODE = SELECTOR0_NODE
 
 class Simulator:
 
@@ -116,21 +111,18 @@ class Simulator:
             if tree['type'] == 'prob_selector':
                 return self.run_prob_selector_node(tree, index)
 
-        
-
 
     def run_action_node(self, tree):
-        if tree['name'] == 'action1':
-            tree['state'] = RUNNING
-        else: 
-            tree['state'] = SUCCESS
-
-        return tree['state'] 
+        globals()[tree['function']](self.entity)
+        return SUCCESS
 
 
     def run_condition_node(self, tree):
-        tree['state'] = SUCCESS
-        return tree['state']
+        result = globals()[tree['function']](self.entity)
+        if result:
+            return SUCCESS
+        else:
+            return FAILURE
 
     
     def run_sequence_node(self, tree, child_index):
@@ -224,10 +216,12 @@ class Simulator:
 
 
 
-S = Simulator(ROOT_NODE, {'guts': 9})
-i = 3
+S = Simulator(ROOT_NODE, {'hp': 95})
+i = 1
 while i > 0:
     S.tick()
     #print(S.tree['state'])
     S.print_tree(S.tree)
     i -= 1
+
+    print(S.entity)

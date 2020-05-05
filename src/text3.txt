@@ -1,31 +1,20 @@
 behavior : [
-    prob_selector : [
-        $e1 -> sequence : [
-            action: $action1,
-            action: $action1,
-            action: $action1
+    selector : [
+        sequence : [
+            condition : $full_hp,
+            action : $sub_hp
         ],
-        $e2 -> parallel : 10 [
-            action : $action1,
-            selector : [
-                action : $action1,
-                prob_selector : [
-                    $e1 -> action : $action1
-                ]
-            ]
-        ]
+        action : $add_hp
     ]
 ]
 
-%%
-def e1():
-    return 1
 
-def e2():
-    return 1
-    
-def action1(x):
-    if x == 2:
-        return True
-    
-    return False
+%%
+def full_hp(entity):
+    return entity['hp'] == 100
+
+def sub_hp(entity):
+    entity['hp'] -= 10
+
+def add_hp(entity):
+    entity['hp'] += 10

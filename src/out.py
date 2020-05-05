@@ -1,52 +1,47 @@
 
+def full_hp(entity):
+    return entity['hp'] == 100
 
-def expression1():
-    return 1
+def sub_hp(entity):
+    entity['hp'] -= 10
 
-def expression2():
-    return 1
-    
-def action1(x):
-    if x == 2:
-        return True
-    
-    return False
+def add_hp(entity):
+    entity['hp'] += 10
 
-    EXPRESSION1 = {
-        "name": "expression1",
-        "type": "expression",
-        "function": "expression1",
+    FULL_HP_NODE = {
+        "name": "full_hp",
+        "type": "condition",
+        "function": "full_hp",
     }
 
-    ACTION1_NODE = {
-        "name": "action1",
+    SUB_HP_NODE = {
+        "name": "sub_hp",
         "type": "action",
-        "function": "action1",
+        "function": "sub_hp",
     }
 
-    EXPRESSION2 = {
-        "name": "expression2",
-        "type": "expression",
-        "function": "expression2",
-    }
-
-    ACTION1_NODE = {
-        "name": "action1",
-        "type": "action",
-        "function": "action1",
-    }
-
-    PROB_SELECTOR0_NODE = {
-        "name": "prob_selector0",
-        "type": "prob_selector",
+    SEQUENCE0_NODE = {
+        "name": "sequence0",
+        "type": "sequence",
         "children": [
-            ACTION1_NODE,
-            ACTION1_NODE,
-        ],
-        "probs": [
-            EXPRESSION1,
-            EXPRESSION2,
+            FULL_HP_NODE,
+            SUB_HP_NODE,
         ]
     }
 
-    ROOT_NODE = PROB_SELECTOR0_NODE
+    ADD_HP_NODE = {
+        "name": "add_hp",
+        "type": "action",
+        "function": "add_hp",
+    }
+
+    SELECTOR0_NODE = {
+        "name": "selector0",
+        "type": "selector",
+        "children": [
+            SEQUENCE0_NODE,
+            ADD_HP_NODE,
+        ]
+    }
+
+    ROOT_NODE = SELECTOR0_NODE

@@ -92,20 +92,25 @@ class ProbNode():
         #print(isinstance(self.node, Action))
         if isinstance(self.node, Action):
             text += "[\\probnodeaction{$" + str(self.expression) + "$}{" + self.node.name + "}\n"
-        elif isinstance(self.node, Action):
+
+        elif isinstance(self.node, Condition):
             text += "[\\probnodecondition{$" + str(self.expression) + "$}{" + self.node.name + "}\n"
+
         elif isinstance(self.node, Sequence):
             text += "[\\probnodesequence{$" + str(self.expression) + "$}\n"
             for child in self.node.children:
                 text += child.to_latex_str(indent=indent+1)
+
         elif isinstance(self.node, Selector):
             text += "[\\probnodeselector{$" + str(self.expression) + "$}\n"
             for child in self.node.children:
                 text += child.to_latex_str(indent=indent+1)
+
         elif isinstance(self.node, Parallel):
             text += "[\\probnodeparallel{$" + str(self.expression) + "$}{$" + str(self.node.success_rate) +"$}\n"
             for child in self.node.children:
                 text += child.to_latex_str(indent=indent+1)
+                
         text += indent * 4 * ' ' + "]\n"
         return text
 
