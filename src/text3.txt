@@ -1,22 +1,33 @@
 behavior : [
-    selector : [
-        sequence : [
-            condition : $full_hp,
-            action : $sub_hp
+    sequence : [
+        selector : [
+            condition: $door_found,
+            action: $find_door
         ],
-        decorator: MAXTRIES(20) [
-            action : $add_hp
-        ]
+        selector : [
+            action: $open_door,
+            action: $picklock_door
+        ],
+        action : $enter
     ]
 ]
 
 
 %%
-def full_hp(entity):
-    return entity['hp'] == 100
+def player_close(entity):
+    return player.position in entity.reachable_positions()
 
-def sub_hp(entity):
-    entity['hp'] -= 10
+def chase_player(entity):
+    entity.chase(player)
+    return RUNNING
 
-def add_hp(entity):
-    entity['hp'] += 10
+
+def open_door():
+    if key in entity.inventory:
+        return SUCCESS
+    else:
+        return FAILURE
+
+def patrol_castle(entity):
+    entity.patrol()
+    return RUNNING

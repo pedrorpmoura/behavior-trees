@@ -6,9 +6,11 @@ class ControlFlowNode(Node):
     Class that represents a control flow node.
     """
 
-    def __init__(self, name, children):
+    def __init__(self, name, children, memory = False):
         super(ControlFlowNode, self).__init__(name)
         self.children = children
+        print(self.children)
+        self.memory = memory
     
 
     def verify_definitions(self, definitions):
@@ -21,6 +23,7 @@ class ControlFlowNode(Node):
         
         for child in self.children:
             child.verify_definitions(definitions)
+
 
     def check_execution_nodes(self, function_list):
         for child in self.children:

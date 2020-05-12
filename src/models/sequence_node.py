@@ -5,8 +5,8 @@ class Sequence(ControlFlowNode):
     Class that represents a sequence node.
     """
     
-    def __init__(self, name, children):
-        super(Sequence, self).__init__(name, children)
+    def __init__(self, name, children, memory = False):
+        super(Sequence, self).__init__(name, children, memory)
 
     def __str__(self):
         text = "sequence: " + str(self.name) + " [\n"
@@ -40,6 +40,7 @@ class Sequence(ControlFlowNode):
         attrs = {
             "name": self.name,
             "type": "sequence",
+            "memory": self.memory
         }
 
         for key,value in attrs.items():

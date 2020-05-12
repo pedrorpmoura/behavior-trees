@@ -11,8 +11,8 @@ class ProbSelector(ControlFlowNode):
     Class that represents a prob_selector node.
     """
 
-    def __init__(self, name, children):
-        super().__init__(name, children)
+    def __init__(self, name, children, memory = False):
+        super().__init__(name, children, memory)
     
     def __str__(self):
         text = "prob_selector: " + str(self.name) + " [\n"
@@ -49,6 +49,7 @@ class ProbSelector(ControlFlowNode):
         attrs = {
             "name": self.name,
             "type": "prob_selector",
+            "memory": self.memory
         }
 
         for key,value in attrs.items():

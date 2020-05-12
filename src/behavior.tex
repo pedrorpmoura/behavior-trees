@@ -9,14 +9,16 @@
 \begin{document}
 \begin{behavior}
     [\rootnode
-        [\selector
-            [\sequence
-                [\condition{full hp}]
-                [\action{sub hp}]
+        [\sequence
+            [\selector
+                [\condition{door found}]
+                [\action{find door}]
             ]
-            [\maxtries{20}
-                [\action{add hp}]
+            [\selector
+                [\action{open door}]
+                [\action{picklock door}]
             ]
+            [\action{enter}]
         ]
     ]
 \end{behavior}

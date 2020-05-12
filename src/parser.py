@@ -81,6 +81,23 @@ def p_node_sequence2(p):
     p[0] = Sequence(p[3], [])
 
 
+def p_node_memory_sequence1(p):
+    '''
+    node : MEMORY SEQUENCE ':' '[' nodes ']'
+    '''
+    global current_indexes
+    p[0] = Sequence("sequence" + str(current_indexes['sequence']), p[5], memory = True) # list of nodes
+    current_indexes['sequence'] += 1
+
+
+def p_node_memory_sequence2(p):
+    '''
+    node : MEMORY SEQUENCE ':' VAR
+    '''
+    p[0] = Sequence(p[4], [], memory = True)
+
+
+
 def p_node_selector1(p):
     '''
     node : SELECTOR ':' '[' nodes ']'
@@ -95,6 +112,22 @@ def p_node_selector2(p):
     node : SELECTOR ':' VAR
     '''
     p[0] = Selector(p[3], [])
+
+
+def p_node_memory_selector1(p):
+    '''
+    node : MEMORY SELECTOR ':' '[' nodes ']'
+    '''
+    global current_indexes
+    p[0] = Selector("selector" + str(current_indexes['selector']), p[5], memory = True) # list of nodes
+    current_indexes['selector'] += 1
+
+
+def p_node_memory_selector2(p):
+    '''
+    node : MEMORY SELECTOR ':' VAR
+    '''
+    p[0] = Selector(p[4], [], memory = True)
 
 
 def p_node_prob_selector1(p):
@@ -113,6 +146,22 @@ def p_node_prob_selector2(p):
     p[0] = ProbSelector(p[3], [])
 
 
+def p_node_memory_prob_selector1(p):
+    '''
+    node : MEMORY PROBSELECTOR ':' '[' prob_nodes ']'
+    '''
+    global current_indexes
+    p[0] = ProbSelector("prob_selector" + str(current_indexes['prob_selector']), p[5], memory = True) # list of nodes
+    current_indexes['prob_selector'] += 1
+
+
+def p_node_memory_prob_selector2(p):
+    '''
+    node : MEMORY PROBSELECTOR ':' VAR
+    '''
+    p[0] = ProbSelector(p[4], [], memory = True)
+
+
 def p_node_parallel1(p):
     '''
     node : PARALLEL ':' INT '[' nodes ']'
@@ -127,6 +176,22 @@ def p_node_parallel2(p):
     node : PARALLEL ':' VAR
     '''
     p[0] = Parallel(p[3], [], None)
+
+
+def p_node_memory_parallel1(p):
+    '''
+    node : MEMORY PARALLEL ':' INT '[' nodes ']'
+    '''
+    global current_indexes
+    p[0] = Parallel("parallel" + str(current_indexes['parallel']), p[6], p[4], memory = True)
+    current_indexes['parallel'] += 1
+
+
+def p_node_memory_parallel2(p):
+    '''
+    node : MEMORY PARALLEL ':' VAR
+    '''
+    p[0] = Parallel(p[4], [], None, memory = True)
 
 
 def p_node_decorator11(p):

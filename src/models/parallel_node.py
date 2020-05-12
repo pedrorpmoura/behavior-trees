@@ -5,8 +5,8 @@ class Parallel(ControlFlowNode):
     Class that represents a parallel node.
     """
 
-    def __init__(self, name, children, success_rate):
-        super().__init__(name, children)
+    def __init__(self, name, children, success_rate, memory = False):
+        super().__init__(name, children, memory)
         self.success_rate = success_rate
     
 
@@ -42,7 +42,8 @@ class Parallel(ControlFlowNode):
         attrs = {
             "name": self.name,
             "type": "parallel",
-            "success_rate": self.success_rate
+            "success_rate": self.success_rate,
+            "memory": self.memory
         }
 
         for key,value in attrs.items():

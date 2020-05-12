@@ -14,9 +14,11 @@ def full_hp(entity):
 
 def sub_hp(entity):
     entity['hp'] -= 10
+    return SUCCESS
 
 def add_hp(entity):
     entity['hp'] += 10
+    return SUCCESS
 
 
 FULL_HP_NODE = {
@@ -34,26 +36,33 @@ SUB_HP_NODE = {
 SEQUENCE0_NODE = {
     "name": "sequence0",
     "type": "sequence",
+    "memory": "True",
     "children": [
         FULL_HP_NODE,
         SUB_HP_NODE,
     ]
 }
 
-
 ADD_HP_NODE = {
     "name": "add_hp",
     "type": "action",
     "function": "add_hp",
 }
-
+INVERTER0_NODE = {
+    "name": "inverter0",
+    "type": "inverter",
+    "children": [
+        ADD_HP_NODE,
+    ]
+}
 
 SELECTOR0_NODE = {
     "name": "selector0",
     "type": "selector",
+    "memory": "False",
     "children": [
         SEQUENCE0_NODE,
-        ADD_HP_NODE,
+        INVERTER0_NODE,
     ]
 }
 
@@ -113,8 +122,8 @@ class Simulator:
 
 
     def run_action_node(self, tree):
-        globals()[tree['function']](self.entity)
-        return SUCCESS
+        return globals()[tree['function']](self.entity)
+        
 
 
     def run_condition_node(self, tree):
@@ -126,9 +135,12 @@ class Simulator:
 
     
     def run_sequence_node(self, tree, child_index):
-        if child_index == None:
+        if child_index is None:
             child_index = 0
-
+        
+        if not tree['memory']:
+            child_index = 0
+        
         for c in tree['children'][child_index:]:
             c['state'] = self.run(c)
             if c['state'] != SUCCESS:
@@ -138,9 +150,12 @@ class Simulator:
 
 
     def run_selector_node(self, tree, child_index):
-        if child_index == None:
+        if child_index is None:
             child_index = 0
 
+        if not tree['memory']:
+            child_index = 0
+        
         for c in tree['children'][child_index:]:
             c['state'] = self.run(c)
             if c['state'] != FAILURE:
@@ -150,11 +165,12 @@ class Simulator:
 
 
     def run_prob_selector_node(self, tree, child_index):
-        if child_index != None:
-            c = tree['children'][child_index]
-            c['state'] = self.run(c)
-            if c['state'] != FAILURE:
-                return c['state']
+        if tree['memory']:
+            if child_index is not None:
+                c = tree['children'][child_index]
+                c['state'] = self.run(c)
+                if c['state'] != FAILURE:
+                    return c['state']
 
         executed_probs = []
         for p in tree['probs']:
@@ -171,9 +187,7 @@ class Simulator:
                     return tree['children'][i]['state']
         
         return FAILURE
-        
-
-            
+          
             
             
     def run_parallel_node(self, tree, M):
@@ -230,8 +244,8 @@ class Simulator:
 
 
 
-S = Simulator(ROOT_NODE, {'hp': 95})
-i = 1
+S = Simulator(ROOT_NODE, {'hp': 100})
+i = 2
 while i > 0:
     S.tick()
     #print(S.tree['state'])

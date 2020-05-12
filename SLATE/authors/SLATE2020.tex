@@ -80,6 +80,27 @@ These achievements will be illustrated using a concrete game as a case study.
 
 \section{Introduction}
 \label{sec:introduction}
+
+In some point of the video-game history, NPCs were introduced. 
+With them came the need to describe behaviors.
+And with this behaviors came the need of the existence of a formalismm so that they can be properly specified.
+
+
+As time passed by, various approaches were proposed and used. Finite state machines, hierarchical state machines and decision trees are some examples. 
+However some companies decided that it was easy to humans to understand behaviors instead of states, so originated behavior trees used to model NPCS.
+It was first used in games like Halo, Bioshock, and Spore, and then other gaming companies saw the potencial, and now they are being used in game environments such as PyGame, Unreal Engine and Unity that are a majority of the platforms used to create games.
+In recent days it expanded to be used in Artificial Inteligence and in Robotics
+
+
+
+-----------------------------
+
+
+
+Behavior trees became popular for their development paradigm: being able to create a complex behavior by only programming the NPC's actions and then designing a tree structure (usually through drag and drop) whose leaf nodes are actions and whose inner nodes determine the NPC's decision making. Behavior trees are visually intuitive and easy to design, test, and debug, and provide more modularity, scalability, and reusability than other behavior creation methods.
+
+Over the years, the diverse implementations of behavior trees kept improving both in efficiency and capabilities to satisfy the demands of the industry, until they evolved into event-driven behavior trees[15]. Event-driven behavior trees solved some scalability issues of classical behavior trees by changing how the tree internally handles its execution, and by introducing a new type of node that can react to events and abort running nodes. Nowadays, the concept of event-driven behavior tree is a standard and used in most of the implementations, even though they are still called "behavior trees" for simplicity.
+
 - Motivation
 - Design goals, ir direto ao assunto
 

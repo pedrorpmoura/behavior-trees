@@ -24,6 +24,7 @@ tokens = (
     'INVERTER',
     'MAXTRIES',
     'MAXSECONDS',
+    'MEMORY',
 
      # variables
     'INT',
@@ -46,6 +47,7 @@ t_ACTION        = r'\baction\b'
 t_INVERTER      = r'\bINVERTER\b'
 t_MAXTRIES      = r'\bMAXTRIES\b'
 t_MAXSECONDS    = r'\bMAXSECONDS\b'
+t_MEMORY        = r'\bmemory\b'
 t_VAR           = r'\$\w+'
 t_NODENAME      = r'\b\w+\b'
 
@@ -71,7 +73,7 @@ lexer = lex.lex()
 lexer.input(
     """
     behavior : [ 
-        sequence: [
+        memory sequence: [
             condition : $CONDITION2,
             parallel : 10 [
                 action : $ACTION1,

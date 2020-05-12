@@ -23,6 +23,7 @@ def add_hp(entity):
     SEQUENCE0_NODE = {
         "name": "sequence0",
         "type": "sequence",
+        "memory": "True",
         "children": [
             FULL_HP_NODE,
             SUB_HP_NODE,
@@ -34,10 +35,9 @@ def add_hp(entity):
         "type": "action",
         "function": "add_hp",
     }
-    MAX_TRIES0_NODE = {
-        "name": "max_tries0",
-        "type": "max_tries",
-        "tries": "20",
+    INVERTER0_NODE = {
+        "name": "inverter0",
+        "type": "inverter",
         "children": [
             ADD_HP_NODE,
         ]
@@ -46,9 +46,10 @@ def add_hp(entity):
     SELECTOR0_NODE = {
         "name": "selector0",
         "type": "selector",
+        "memory": "False",
         "children": [
             SEQUENCE0_NODE,
-            MAX_TRIES0_NODE,
+            INVERTER0_NODE,
         ]
     }
 

@@ -5,8 +5,8 @@ class Selector(ControlFlowNode):
     Class that represents a selector node.
     """
 
-    def __init__(self, name, children):
-        super(Selector, self).__init__(name, children)
+    def __init__(self, name, children, memory = False):
+        super(Selector, self).__init__(name, children, memory)
 
     def __str__(self):
         text = "selector: " + str(self.name) + " [\n"
@@ -39,6 +39,7 @@ class Selector(ControlFlowNode):
         attrs = {
             "name": self.name,
             "type": "selector",
+            "memory": self.memory
         }
 
         for key,value in attrs.items():
