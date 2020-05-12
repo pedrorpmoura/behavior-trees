@@ -195,7 +195,21 @@ class Simulator:
         return RUNNING
 
 
-    def run_decorator_node(self):
+    def run_inverter_node(self, tree):
+        child = tree['children'][0]
+
+        child['state'] = self.run(child)
+        if child['state'] == SUCCESS:
+            return FAILURE
+        
+        if child['state'] == FAILURE:
+            return SUCCESS
+
+        return RUNNING
+
+
+    def run_max_tries_node(self, tree):
+        
         pass
 
 

@@ -34,13 +34,21 @@ def add_hp(entity):
         "type": "action",
         "function": "add_hp",
     }
+    MAX_TRIES0_NODE = {
+        "name": "max_tries0",
+        "type": "max_tries",
+        "tries": "20",
+        "children": [
+            ADD_HP_NODE,
+        ]
+    }
 
     SELECTOR0_NODE = {
         "name": "selector0",
         "type": "selector",
         "children": [
             SEQUENCE0_NODE,
-            ADD_HP_NODE,
+            MAX_TRIES0_NODE,
         ]
     }
 

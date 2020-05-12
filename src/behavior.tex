@@ -9,23 +9,13 @@
 \begin{document}
 \begin{behavior}
     [\rootnode
-        [\probselector
-            [\probnodesequence{$e1$}
-                [\action{action1}]
-                [\action{action1}]
-                [\action{action1}]
+        [\selector
+            [\sequence
+                [\condition{full hp}]
+                [\action{sub hp}]
             ]
-            [\probnodeparallel{$e2$}{$2$}
-                [\action{action1}]
-                [\selector
-                    [\condition{condition1}]
-                    [\probselector
-                        [\probnodeaction{$e1$}{action1}
-                        ]
-                        [\probnodecondition{$e2$}{condition1}
-                        ]
-                    ]
-                ]
+            [\maxtries{20}
+                [\action{add hp}]
             ]
         ]
     ]

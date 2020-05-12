@@ -24,6 +24,7 @@ class Decorator(ControlFlowNode):
         text += indent * 4 * ' ' + "]\n"
         return text
 
+
 class Inverter(Decorator):
     """
     Class that represents an inverter node.
@@ -47,6 +48,37 @@ class Inverter(Decorator):
         text += indent * 4 * ' ' + "]\n"
         return text
 
+    
+    def to_python_string(self, indent):
+
+        text = ""
+        children_str = "[\n"
+
+        child = self.children[0]
+        text += child.to_python_string(indent)
+        children_str += (indent + 2) * 4 * ' ' + "{}_NODE,\n".format(child.name.upper())
+
+        children_str += ((indent + 1) * 4 * ' ') + "]\n"
+
+        text += indent * 4 * ' ' 
+        text += "%s_NODE = {\n" % (self.name.upper())
+        indent += 1
+
+        attrs = {
+            "name": self.name,
+            "type": "inverter",
+        }
+
+        for key,value in attrs.items():
+            text += indent * 4 * ' ' + '"{}": "{}",\n'.format(key, value)
+
+        text += indent * 4 * ' ' + '"children": {}'.format(children_str)
+
+        indent -= 1
+        text += indent * 4 * ' ' + '}\n'
+        return text
+
+
 
 class MaxTries(Decorator):
     """
@@ -66,10 +98,40 @@ class MaxTries(Decorator):
 
     def to_latex_str(self, indent):
         text = indent * 4 * ' ' 
-        text += "[\\maxtries\n"
+        text += "[\\maxtries{" + str(self.N) + "}\n"
         for child in self.children:
             text += child.to_latex_str(indent=indent+1)
         text += indent * 4 * ' ' + "]\n"
+        return text
+    
+
+    def to_python_string(self, indent):
+        text = ""
+        children_str = "[\n"
+
+        child = self.children[0]
+        text += child.to_python_string(indent)
+        children_str += (indent + 2) * 4 * ' ' + "{}_NODE,\n".format(child.name.upper())
+
+        children_str += ((indent + 1) * 4 * ' ') + "]\n"
+
+        text += indent * 4 * ' ' 
+        text += "%s_NODE = {\n" % (self.name.upper())
+        indent += 1
+
+        attrs = {
+            "name": self.name,
+            "type": "max_tries",
+            "tries": self.N
+        }
+
+        for key,value in attrs.items():
+            text += indent * 4 * ' ' + '"{}": "{}",\n'.format(key, value)
+
+        text += indent * 4 * ' ' + '"children": {}'.format(children_str)
+
+        indent -= 1
+        text += indent * 4 * ' ' + '}\n'
         return text
 
 

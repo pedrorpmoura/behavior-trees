@@ -4,7 +4,9 @@ behavior : [
             condition : $full_hp,
             action : $sub_hp
         ],
-        action : $add_hp
+        decorator: MAXTRIES(20) [
+            action : $add_hp
+        ]
     ]
 ]
 
