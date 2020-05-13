@@ -35,8 +35,18 @@
     ?,\controlflownodestyle
 }
 
+\newcommand{\memoryselector}{
+    ?^*, \controlflownodestyle
+}
+
 \newcommand{\probnodeselector}[1]{
     ?,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle,
+}
+
+\newcommand{\probnodememoryselector}[1]{
+    ?^*,
     edge label = {node [midway, above, sloped] {#1}},
     \controlflownodestyle,
 }
@@ -47,8 +57,20 @@
     for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
 }
 
+\newcommand{\memoryprobselector}{
+    $?^*_{P}$, 
+    \controlflownodestyle,
+    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
+}
+
 \newcommand{\probnodeprobselector}[1]{
     $?_{P}$,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle,
+    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
+}
+\newcommand{\probnodememoryprobselector}[1]{
+    $?^*_{P}$,
     edge label = {node [midway, above, sloped] {#1}},
     \controlflownodestyle,
     for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
@@ -59,8 +81,19 @@
     \controlflownodestyle
 }
 
+\newcommand{\memorysequence}{
+    $\rightarrow^*$,
+    \controlflownodestyle
+}
+
 \newcommand{\probnodesequence}[1]{
     $\rightarrow$,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle
+}
+
+\newcommand{\probnodememorysequence}[1]{
+    $\rightarrow^*$,
     edge label = {node [midway, above, sloped] {#1}},
     \controlflownodestyle
 }
@@ -96,7 +129,7 @@
     I, \decoratorstyle
 }
 
-\newcommand{\probinverter}[1] {
+\newcommand{\probnodeinverter}[1] {
     I,
     edge label = {node [midway, above, sloped] {#1}},
     \decoratorstyle

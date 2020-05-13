@@ -70,28 +70,28 @@ def t_error(t):
 
 lexer = lex.lex()
 
-lexer.input(
-    """
-    behavior : [ 
-        memory sequence: [
-            condition : $CONDITION2,
-            parallel : 10 [
-                action : $ACTION1,
-                action : $ACTION2
-            ]
-        ],
-        prob_selector : [
-            $EXPRESSION1 -> sequence : [
-            condition : $CONDITION1
-            ],
-            $EXPRESSION2 -> sequence : [
-                action: $action1
-            ]
-        ]
-    ]s
-    """
-)
-
+#lexer.input(
+#    """
+#    behavior : [ 
+#        memory sequence: [
+#            condition : $CONDITION2,
+#            parallel : 10 [
+#                action : $ACTION1,
+#                action : $ACTION2
+#            ]
+#        ],
+#        prob_selector : [
+#            $EXPRESSION1 -> sequence : [
+#            condition : $CONDITION1
+#            ],
+#            $EXPRESSION2 -> sequence : [
+#                action: $action1
+#            ]
+#        ]
+#    ]
+#    """
+#)
+#
 #while True:
 #    tok = lexer.token()
 #    if not tok:

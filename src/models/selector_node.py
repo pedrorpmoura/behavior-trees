@@ -17,7 +17,12 @@ class Selector(ControlFlowNode):
             
     def to_latex_str(self, indent):
         text = indent * 4 * ' ' 
-        text += "[\\selector\n"
+        if not self.memory:
+            text += "[\\selector\n"
+        else:
+            text += "[\\memoryselector\n"
+
+            
         for child in self.children:
             text += child.to_latex_str(indent=indent+1)
         text += indent * 4 * ' ' + "]\n"

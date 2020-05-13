@@ -9,16 +9,24 @@
 \begin{document}
 \begin{behavior}
     [\rootnode
-        [\sequence
-            [\selector
-                [\condition{door found}]
-                [\action{find door}]
+        [\memorysequence
+            [\condition{cond1}]
+            [\probselector
+                [\probnodeaction{$e1$}{action1}
+                ]
+                [\probnodememoryprobselector{$e2$}
+                    [\probnodeselector{$e3$}
+                        [\condition{cond2}]
+                        [\condition{cond3}]
+                    ]
+                    [\probnodeparallel{$e4$}{$1$}
+                        [\inverter
+                            [\action{action2}]
+                        ]
+                        [\action{action3}]
+                    ]
+                ]
             ]
-            [\selector
-                [\action{open door}]
-                [\action{picklock door}]
-            ]
-            [\action{enter}]
         ]
     ]
 \end{behavior}

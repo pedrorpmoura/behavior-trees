@@ -4,7 +4,7 @@ from models.condition_node import Condition
 from models.sequence_node import Sequence
 from models.selector_node import Selector
 from models.parallel_node import Parallel
-from models.decorator_node import Decorator
+from models.decorator_node import Inverter
 
 class ProbSelector(ControlFlowNode):
     """
@@ -23,7 +23,11 @@ class ProbSelector(ControlFlowNode):
 
     def to_latex_str(self, indent):
         text = indent * 4 * ' ' 
-        text += "[\\probselector\n"
+        if not self.memory :
+            text += "[\\probselector\n"
+        else:
+            text += "[\\memoryprobselector\n"
+
         for child in self.children:
             text += child.to_latex_str(indent=indent+1)
         text += indent * 4 * ' ' + "]\n"
@@ -98,19 +102,40 @@ class ProbNode():
             text += "[\\probnodecondition{$" + str(self.expression) + "$}{" + self.node.name + "}\n"
 
         elif isinstance(self.node, Sequence):
-            text += "[\\probnodesequence{$" + str(self.expression) + "$}\n"
+            if not self.node.memory:
+                text += "[\\probnodesequence{$" + str(self.expression) + "$}\n"
+            else:
+                text += "[\\probnodememorysequence{$" + str(self.expression) + "$}\n"
+
             for child in self.node.children:
                 text += child.to_latex_str(indent=indent+1)
 
         elif isinstance(self.node, Selector):
-            text += "[\\probnodeselector{$" + str(self.expression) + "$}\n"
+            if not self.node.memory:
+                text += "[\\probnodeselector{$" + str(self.expression) + "$}\n"
+            else:
+                text += "[\\probnodememoryselector{$" + str(self.expression) + "$}\n"
             for child in self.node.children:
                 text += child.to_latex_str(indent=indent+1)
+
+        elif isinstance(self.node, ProbSelector):
+            if not self.node.memory:
+                text += "[\\probnodeprobselector{$" + str(self.expression) + "$}\n"
+            else:
+                text += "[\\probnodememoryprobselector{$" + str(self.expression) + "$}\n"
+            
+            for child in self.node.children:
+                text += child.to_latex_str(indent=indent+1)
+
 
         elif isinstance(self.node, Parallel):
             text += "[\\probnodeparallel{$" + str(self.expression) + "$}{$" + str(self.node.success_rate) +"$}\n"
             for child in self.node.children:
                 text += child.to_latex_str(indent=indent+1)
+        
+        elif isinstance(self.node, Inverter):
+            text += "[\\probnodeinverter{$" + str(self.expression) + "$\n}"
+            text += self.node.children[0].to_latex_str(indent=indent+1)
                 
         text += indent * 4 * ' ' + "]\n"
         return text

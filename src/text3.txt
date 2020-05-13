@@ -1,33 +1,25 @@
 behavior : [
-    sequence : [
-        selector : [
-            condition: $door_found,
-            action: $find_door
-        ],
-        selector : [
-            action: $open_door,
-            action: $picklock_door
-        ],
-        action : $enter
+    memory sequence : [
+        condition : $cond1,
+        prob_selector : [
+            $e1 -> action : $action1,
+            $e2 -> memory prob_selector : [
+                $e3 -> selector : [
+                    condition : $cond2,
+                    condition : $cond3
+                ],
+                $e4 -> parallel : 1 [
+                    decorator : INVERTER [
+                        action : $action2
+                    ],
+                    action : $action3
+                ]
+            ]
+        ]
     ]
 ]
 
-
 %%
-def player_close(entity):
-    return player.position in entity.reachable_positions()
 
-def chase_player(entity):
-    entity.chase(player)
-    return RUNNING
-
-
-def open_door():
-    if key in entity.inventory:
-        return SUCCESS
-    else:
-        return FAILURE
-
-def patrol_castle(entity):
-    entity.patrol()
-    return RUNNING
+def cond1(entity):
+    return True
