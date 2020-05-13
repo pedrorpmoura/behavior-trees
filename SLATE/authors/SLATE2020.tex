@@ -81,25 +81,27 @@ These achievements will be illustrated using a concrete game as a case study.
 \section{Introduction}
 \label{sec:introduction}
 
-In some point of the video-game history, NPCs were introduced. 
+At some point in the video-game history, NPCs were introduced. 
 With them came the need to describe behaviors.
-And with this behaviors came the need of the existence of a formalismm so that they can be properly specified.
+And with this behaviors came the need of the existence of a formalism so that they can be properly specified.
+
+As time passed by, various approaches were proposed and used, like finite and hierarchical state machines.
+These are state-based behaviors, that is, the behaviors are described through states.
+Altough this is a clear and simplistic way to represent and visualize small behaviors, it becomes unsustainable when dealing with bigger and more complex behaviors.
+Some time later, a new and more powerful concept was introduced: using tasks instead of states to describe behaviors.
+This concept is incorporated in what we call behavior trees.
+
+Behavior trees were first used in the videogame industry in the development of the game \textit{Halo 2}, released in 2004.
+The idea is that people create a complex behavior by only programming actions (or tasks) and then design a tree structure whose leaf nodes are actions and the inner nodes determine the NPC's decision making.
+Not only these provide an easy and intuitive way of visualizing and designing behaviors, they also provide a good way to work with scalability through modularity, solving the biggest issue from state-based design.
+Since then, multiple gaming companies adopted this concept and, in recent years, behavior trees are also being used in areas like Artificial Inteligence and Robotics.
+
+This paper focuses in the specification and processing of these behavior trees.
+For this purpose, it will be introduced an DSL, and a compiler that can generate a \LaTeX\ diagram to visualize and a Python module to implement the described behavior.
+
+These achievements will be illustrated using a concrete game as a case study.
 
 
-As time passed by, various approaches were proposed and used. Finite state machines, hierarchical state machines and decision trees are some examples. 
-However some companies decided that it was easy to humans to understand behaviors instead of states, so originated behavior trees used to model NPCS.
-It was first used in games like Halo, Bioshock, and Spore, and then other gaming companies saw the potencial, and now they are being used in game environments such as PyGame, Unreal Engine and Unity that are a majority of the platforms used to create games.
-In recent days it expanded to be used in Artificial Inteligence and in Robotics
-
-
-
------------------------------
-
-
-
-Behavior trees became popular for their development paradigm: being able to create a complex behavior by only programming the NPC's actions and then designing a tree structure (usually through drag and drop) whose leaf nodes are actions and whose inner nodes determine the NPC's decision making. Behavior trees are visually intuitive and easy to design, test, and debug, and provide more modularity, scalability, and reusability than other behavior creation methods.
-
-Over the years, the diverse implementations of behavior trees kept improving both in efficiency and capabilities to satisfy the demands of the industry, until they evolved into event-driven behavior trees[15]. Event-driven behavior trees solved some scalability issues of classical behavior trees by changing how the tree internally handles its execution, and by introducing a new type of node that can react to events and abort running nodes. Nowadays, the concept of event-driven behavior tree is a standard and used in most of the implementations, even though they are still called "behavior trees" for simplicity.
 
 - Motivation
 - Design goals, ir direto ao assunto
