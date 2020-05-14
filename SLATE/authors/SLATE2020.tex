@@ -11,6 +11,11 @@
 
 %\graphicspath{{./graphics/}}%helpful if your graphic files are in another directory
 
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{behaviortrees}
+\usepackage{float}
+
 \bibliographystyle{plainurl}% the mandatory bibstyle
 
 \def\bht{BhTSL}
@@ -114,23 +119,79 @@ The paper is organized as followed: section \ref{sec:state-of-the-art}.
 Formally, a BT is a tree whose internal nodes are called control flow nodes and leafs are called execution nodes.
 
 % descrever a execução
-Each node returns one of the following three states to its parent: \textbf{SUCCESS}, \textbf{FAILURE} or \textbf{RUNNING}.
+Each node returns one of the following three states to its parent: \texttt{SUCCESS}, \texttt{FAILURE} or \texttt{RUNNING}.
 
 \subsection{Control Flow Nodes}
 Control flow nodes are structural nodes, that is, they don't have any impact in the state of the system. They only control the way the subsequent tree is traversed.
 In the classical formulation, there are 4 types of control flow nodes: \textbf{Sequence}, \textbf{Selector}, \textbf{Parallel} and \textbf{Decorator}.
 
 A sequence node visits its children in order, starting with the first, and advancing for the next one if the previous succeeded.
-In case a child fails, the node returns FAILURE.
-If all children succeed, it returns SUCCESS.
-And if a child returns RUNNING, the node also returns RUNNING.
+Returns:
+\begin{itemize}
+    \item \texttt{SUCCESS} - if all children succeed;
+    \item \texttt{FAILURE} - if a child fails;
+    \item \texttt{RUNNING} - if a child returns \texttt{RUNNING}.
+\end{itemize}
 
-\begin{figure}
-    
+\begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\sequence
+            [\action{Child 1}]
+            [\action{Child 2}]
+            [{\textbf{. . .}}, inner sep=10pt]
+            [\action{Child N}]
+        ]
+    \end{behavior}
+    \caption{Sequence node.}
+    \label{fig:sequence}
+\end{figure}
+
+Like the sequence, the selector node also visits its children in order, but it only advances if the child that is being executed returns FAILURE.
+Returns:
+\begin{itemize}
+    \item \texttt{SUCCESS} - if a child succeeds;
+    \item \texttt{FAILURE} - if all children fails;
+    \item \texttt{RUNNING} - if a child returns \texttt{RUNNING}.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\selector
+            [\action{Child 1}]
+            [\action{Child 2}]
+            [{\textbf{. . .}}, inner sep=10pt]
+            [\action{Child N}]
+        ]
+    \end{behavior}
+    \caption{Selector node.}
+    \label{fig:selector}
 \end{figure}
 
 
+A parallel node, as the name implies, visits its children in parallel.
+Additionally, it has a parameter $M$ that acts as a success rate.
+For $N$ children and $M \leq N$, it returns:
+\begin{itemize}
+    \item \texttt{SUCCESS} - if $M$ children succeed;
+    \item \texttt{FAILURE} - if $N - M + 1$ children fail;
+    \item \texttt{RUNNING} - otherwise.
+\end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\parallel{M}
+            [\action{Child 1}]
+            [\action{Child 2}]
+            [{\textbf{. . .}}, inner sep=10pt]
+            [\action{Child N}]
+        ]
+    \end{behavior}
+    \caption{Parallel node.}
+    \label{fig:parallel}
+\end{figure}
 
 
 
