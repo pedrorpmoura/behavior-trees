@@ -1,25 +1,59 @@
 behavior : [
     memory sequence : [
         condition : $cond1,
-        prob_selector : [
-            $e1 -> action : $action1,
-            $e2 -> memory prob_selector : [
-                $e3 -> selector : [
-                    condition : $cond2,
-                    condition : $cond3
-                ],
-                $e4 -> parallel : 1 [
-                    decorator : INVERTER [
-                        action : $action2
-                    ],
-                    action : $action3
-                ]
-            ]
-        ]
+        prob_selector : $prob
     ]
 ]
 
+prob_selector prob : [
+    $e1 -> action : $action3,
+    $e2 -> memory prob_selector : [
+        $e3 -> selector : [
+            condition : $cond1,
+            condition : $cond1
+        ],
+        $e4 -> parallel : $paral
+    ]
+]
+
+parallel paral : 1 [
+    decorator : INVERTER [
+        action : $action2
+    ],
+    action : $action3
+]
+
+
 %%
+
 
 def cond1(entity):
     return True
+
+def cond2(entity):
+    return True
+
+def cond3(entity):
+    return True
+
+
+def e1(entity):
+    return 0.5
+
+def e2(entity):
+    return 0.5
+
+def e3(entity):
+    return 0.5
+
+def e4(entity):
+    return 0.5
+
+def action1(entity):
+    return RUNNING
+
+def action2(entity):
+    return RUNNING
+
+def action3(entity):
+    return RUNNING

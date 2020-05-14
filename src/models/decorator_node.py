@@ -6,8 +6,8 @@ class Decorator(ControlFlowNode):
     Class that represents a decorator node. 
     """
 
-    def __init__(self, name, children):        
-        super().__init__(name, children)
+    def __init__(self, name, children, reference=None):        
+        super().__init__(name, children, reference)
 
     def __str__(self):
         text = "decorator: " + str(self.name) + " [\n"
@@ -30,8 +30,8 @@ class Inverter(Decorator):
     Class that represents an inverter node.
     """
 
-    def __init__(self, name, children):
-        super().__init__(name, children)
+    def __init__(self, name, children, reference=None):
+        super().__init__(name, children, reference)
     
     def __str__(self):
         text = "inverter: " + str(self.name) + " [\n"

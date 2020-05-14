@@ -11,8 +11,8 @@ class ProbSelector(ControlFlowNode):
     Class that represents a prob_selector node.
     """
 
-    def __init__(self, name, children, memory = False):
-        super().__init__(name, children, memory)
+    def __init__(self, name, children, memory = False, reference=None):
+        super().__init__(name, children, memory, reference)
     
     def __str__(self):
         text = "prob_selector: " + str(self.name) + " [\n"
@@ -91,6 +91,9 @@ class ProbNode():
             return child_result
         
         return True
+
+    def verify_definitions(self, definitions):
+        self.node.verify_definitions(definitions)
 
     def to_latex_str(self, indent):
         text = indent * 4 * ' '

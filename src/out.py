@@ -1,46 +1,77 @@
 
-def full_hp(entity):
-    return entity['hp'] == 100
 
-def sub_hp(entity):
-    entity['hp'] -= 10
 
-def add_hp(entity):
-    entity['hp'] += 10
+def cond1(entity):
+    return True
 
-    FULL_HP_NODE = {
-        "name": "full_hp",
+def cond2(entity):
+    return True
+
+def cond3(entity):
+    return True
+
+
+def e1(entity):
+    return 0.5
+
+def e2(entity):
+    return 0.5
+
+def e3(entity):
+    return 0.5
+
+def e4(entity):
+    return 0.5
+
+def action1(entity):
+    return RUNNING
+
+def action2(entity):
+    return RUNNING
+
+def action3(entity):
+    return RUNNING
+
+    CONDITION0_NODE = {
+        "name": "condition0",
         "type": "condition",
-        "function": "full_hp",
+        "function": "cond1",
     }
 
-    SUB_HP_NODE = {
-        "name": "sub_hp",
+    E1 = {
+        "name": "e1",
+        "type": "expression",
+        "function": "e1",
+    }
+
+    ACTION0_NODE = {
+        "name": "action0",
         "type": "action",
-        "function": "sub_hp",
+        "function": "action3",
     }
 
-    SEQUENCE0_NODE = {
-        "name": "sequence0",
-        "type": "sequence",
-        "memory": "True",
-        "children": [
-            FULL_HP_NODE,
-            SUB_HP_NODE,
-        ]
+    E2 = {
+        "name": "e2",
+        "type": "expression",
+        "function": "e2",
     }
 
-    ADD_HP_NODE = {
-        "name": "add_hp",
-        "type": "action",
-        "function": "add_hp",
+    E3 = {
+        "name": "e3",
+        "type": "expression",
+        "function": "e3",
     }
-    INVERTER0_NODE = {
-        "name": "inverter0",
-        "type": "inverter",
-        "children": [
-            ADD_HP_NODE,
-        ]
+
+    CONDITION1_NODE = {
+        "name": "condition1",
+        "type": "condition",
+        "function": "cond1",
+    }
+
+    CONDITION2_NODE = {
+        "name": "condition2",
+        "type": "condition",
+        "function": "cond1",
     }
 
     SELECTOR0_NODE = {
@@ -48,9 +79,83 @@ def add_hp(entity):
         "type": "selector",
         "memory": "False",
         "children": [
-            SEQUENCE0_NODE,
-            INVERTER0_NODE,
+            CONDITION1_NODE,
+            CONDITION2_NODE,
         ]
     }
 
-    ROOT_NODE = SELECTOR0_NODE
+    E4 = {
+        "name": "e4",
+        "type": "expression",
+        "function": "e4",
+    }
+
+    ACTION1_NODE = {
+        "name": "action1",
+        "type": "action",
+        "function": "action2",
+    }
+    INVERTER0_NODE = {
+        "name": "inverter0",
+        "type": "inverter",
+        "children": [
+            ACTION1_NODE,
+        ]
+    }
+
+    ACTION2_NODE = {
+        "name": "action2",
+        "type": "action",
+        "function": "action3",
+    }
+
+    PARALLEL0_NODE = {
+        "name": "parallel0",
+        "type": "parallel",
+        "success_rate": "1",
+        "memory": "False",
+        "children": [
+            INVERTER0_NODE,
+            ACTION2_NODE,
+        ]
+    }
+
+    PROB_SELECTOR1_NODE = {
+        "name": "prob_selector1",
+        "type": "prob_selector",
+        "memory": "True",
+        "children": [
+            SELECTOR0_NODE,
+            PARALLEL0_NODE,
+        ],
+        "probs": [
+            E3,
+            E4,
+        ]
+    }
+
+    PROB_SELECTOR0_NODE = {
+        "name": "prob_selector0",
+        "type": "prob_selector",
+        "memory": "False",
+        "children": [
+            ACTION0_NODE,
+            PROB_SELECTOR1_NODE,
+        ],
+        "probs": [
+            E1,
+            E2,
+        ]
+    }
+
+    SEQUENCE0_NODE = {
+        "name": "sequence0",
+        "type": "sequence",
+        "memory": "True",
+        "children": [
+            CONDITION0_NODE,
+            PROB_SELECTOR0_NODE,
+        ]
+    }
+
+    ROOT_NODE = SEQUENCE0_NODE

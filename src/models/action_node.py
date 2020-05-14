@@ -5,8 +5,8 @@ class Action(ExecutionNode):
     Class that represents an action node.
     """
 
-    def __init__(self, name):
-        super(Action, self).__init__(name)
+    def __init__(self, name, reference=None):
+        super(Action, self).__init__(name, reference)
 
     def __str__(self):
         return "action: " + self.name
@@ -14,7 +14,10 @@ class Action(ExecutionNode):
     def to_latex_str(self, indent):
         text = indent * 4 * ' ' 
         text += "[\\action{"
-        text += self.name.replace("_", " ")
+        if self.reference:
+            text += self.reference.replace("_", " ")
+        else:
+            text += self.name.replace("_", " ")
         text += "}]\n"
         return text
 
@@ -26,7 +29,7 @@ class Action(ExecutionNode):
         attrs = {
             "name": self.name,
             "type": "action",
-            "function": self.name,
+            "function": self.reference,
         }
 
         for key,value in attrs.items():

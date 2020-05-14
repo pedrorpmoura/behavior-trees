@@ -5,8 +5,8 @@ class Parallel(ControlFlowNode):
     Class that represents a parallel node.
     """
 
-    def __init__(self, name, children, success_rate, memory = False):
-        super().__init__(name, children, memory)
+    def __init__(self, name, children, success_rate, memory = False, reference=None):
+        super().__init__(name, children, memory, reference)
         self.success_rate = success_rate
     
 
@@ -54,3 +54,16 @@ class Parallel(ControlFlowNode):
         indent -= 1
         text += indent * 4 * ' ' + '}\n'
         return text
+
+    def verify_definitions(self, definitions):
+        for definition in definitions:
+            if not self.reference:
+                continue
+
+            if self.reference == definition.name:
+                self.children = definition.children
+                self.success_rate = definition.success_rate
+                definitions.remove(definition)
+        
+        for child in self.children:
+            child.verify_definitions(definitions)

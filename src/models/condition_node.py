@@ -8,8 +8,8 @@ class Condition(ExecutionNode):
     #def __init__(self, name):
     #    ExecutionNode.__init__(self, name)
     
-    def __init__(self, name):
-        super(Condition, self).__init__(name)
+    def __init__(self, name, reference=None):
+        super(Condition, self).__init__(name, reference)
     
     def __str__(self):
         return "condition: " + self.name
@@ -17,7 +17,10 @@ class Condition(ExecutionNode):
     def to_latex_str(self, indent):
         text = indent * 4 * ' ' 
         text += "[\\condition{"
-        text += self.name.replace("_", " ")
+        if self.reference:
+            text += self.reference.replace("_", " ")
+        else:
+            text += self.name.replace("_", " ")
         text += "}]\n"
         return text
 
@@ -30,7 +33,7 @@ class Condition(ExecutionNode):
         attrs = {
             "name": self.name,
             "type": "condition",
-            "function": self.name,
+            "function": self.reference,
         }
 
         for key,value in attrs.items():

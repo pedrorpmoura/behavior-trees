@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "ACTION BEHAVIOR CODE CONDITION DECORATOR DOUBLEPERCENTAGE INT INVERTER MAXSECONDS MAXTRIES MEMORY NODENAME PARALLEL PROBSELECTOR RIGHTARROW SELECTOR SEQUENCE VAR\n    root : behavior CODE\n    \n    root : behavior definitions CODE\n    \n    root : definitions behavior CODE\n    \n    behavior : BEHAVIOR ':' '[' node ']'\n    \n    node : SEQUENCE ':' '[' nodes ']'\n    \n    node : SEQUENCE ':' VAR\n    \n    node : MEMORY SEQUENCE ':' '[' nodes ']'\n    \n    node : MEMORY SEQUENCE ':' VAR\n    \n    node : SELECTOR ':' '[' nodes ']'\n    \n    node : SELECTOR ':' VAR\n    \n    node : MEMORY SELECTOR ':' '[' nodes ']'\n    \n    node : MEMORY SELECTOR ':' VAR\n    \n    node : PROBSELECTOR ':' '[' prob_nodes ']'\n    \n    node : PROBSELECTOR ':' VAR\n    \n    node : MEMORY PROBSELECTOR ':' '[' prob_nodes ']'\n    \n    node : MEMORY PROBSELECTOR ':' VAR\n    \n    node : PARALLEL ':' INT '[' nodes ']'\n    \n    node : PARALLEL ':' VAR\n    \n    node : MEMORY PARALLEL ':' INT '[' nodes ']'\n    \n    node : MEMORY PARALLEL ':' VAR\n    \n    node : DECORATOR ':' INVERTER '[' node ']'\n    \n    node : DECORATOR ':' MAXTRIES '(' INT ')' '[' node ']'\n    \n    node : DECORATOR ':' MAXSECONDS '(' INT ')' '[' node ']'\n    \n    node : DECORATOR ':' VAR\n    \n    node : CONDITION ':' VAR\n    \n    node : ACTION ':' VAR\n    \n    nodes : nodes ',' node\n          | node\n    \n    prob_nodes : prob_nodes ',' prob_node\n               | prob_node\n    \n    prob_node : VAR RIGHTARROW node\n    \n    definitions : definitions definition\n               | definition \n    \n    definition : SEQUENCE NODENAME ':' '[' nodes ']'\n    \n    definition : SELECTOR NODENAME ':' '[' nodes ']'\n    \n    definition : PROBSELECTOR NODENAME ':' '[' prob_nodes ']'\n    \n    definition : PARALLEL NODENAME ':' INT '[' nodes ']'\n    \n    definition : DECORATOR NODENAME ':' INVERTER '[' node ']'\n    \n    definition : DECORATOR NODENAME ':' MAXTRIES '(' INT ')' '[' node ']'\n    \n    definition : DECORATOR NODENAME ':' MAXSECONDS '(' INT ')' '[' node ']'\n    "
+_lr_signature = "ACTION BEHAVIOR CODE CONDITION DECORATOR DOUBLEPERCENTAGE INT INVERTER MAXSECONDS MAXTRIES MEMORY NODENAME PARALLEL PROBSELECTOR RIGHTARROW SELECTOR SEQUENCE VAR\n    root : behavior CODE\n    \n    root : behavior definitions CODE\n    \n    root : definitions behavior CODE\n    \n    behavior : BEHAVIOR ':' '[' node ']'\n    \n    node : SEQUENCE ':' '[' nodes ']'\n    \n    node : SEQUENCE ':' VAR\n    \n    node : MEMORY SEQUENCE ':' '[' nodes ']'\n    \n    node : MEMORY SEQUENCE ':' VAR\n    \n    node : SELECTOR ':' '[' nodes ']'\n    \n    node : SELECTOR ':' VAR\n    \n    node : MEMORY SELECTOR ':' '[' nodes ']'\n    \n    node : MEMORY SELECTOR ':' VAR\n    \n    node : PROBSELECTOR ':' '[' prob_nodes ']'\n    \n    node : PROBSELECTOR ':' VAR\n    \n    node : MEMORY PROBSELECTOR ':' '[' prob_nodes ']'\n    \n    node : MEMORY PROBSELECTOR ':' VAR\n    \n    node : PARALLEL ':' INT '[' nodes ']'\n    \n    node : PARALLEL ':' VAR\n    \n    node : DECORATOR ':' INVERTER '[' node ']'\n    \n    node : DECORATOR ':' MAXTRIES '(' INT ')' '[' node ']'\n    \n    node : DECORATOR ':' MAXSECONDS '(' INT ')' '[' node ']'\n    \n    node : DECORATOR ':' VAR\n    \n    node : CONDITION ':' VAR\n    \n    node : ACTION ':' VAR\n    \n    nodes : nodes ',' node\n          | node\n    \n    prob_nodes : prob_nodes ',' prob_node\n               | prob_node\n    \n    prob_node : VAR RIGHTARROW node\n    \n    definitions : definitions definition\n               | definition \n    \n    definition : SEQUENCE NODENAME ':' '[' nodes ']'\n    \n    definition : SELECTOR NODENAME ':' '[' nodes ']'\n    \n    definition : PROBSELECTOR NODENAME ':' '[' prob_nodes ']'\n    \n    definition : PARALLEL NODENAME ':' INT '[' nodes ']'\n    \n    definition : DECORATOR NODENAME ':' INVERTER '[' node ']'\n    \n    definition : DECORATOR NODENAME ':' MAXTRIES '(' INT ')' '[' node ']'\n    \n    definition : DECORATOR NODENAME ':' MAXSECONDS '(' INT ')' '[' node ']'\n    "
     
-_lr_action_items = {'BEHAVIOR':([0,3,5,14,85,87,88,113,114,143,144,],[4,4,-33,-32,-34,-35,-36,-37,-38,-39,-40,]),'SEQUENCE':([0,2,3,5,12,14,23,31,38,39,45,63,64,67,73,85,86,87,88,90,96,98,106,107,113,114,121,128,129,141,142,143,144,],[6,6,6,-33,6,-32,30,47,30,30,-4,30,30,30,30,-34,30,-35,-36,30,30,30,30,30,-37,-38,30,30,30,30,30,-39,-40,]),'SELECTOR':([0,2,3,5,12,14,23,31,38,39,45,63,64,67,73,85,86,87,88,90,96,98,106,107,113,114,121,128,129,141,142,143,144,],[7,7,7,-33,7,-32,32,48,32,32,-4,32,32,32,32,-34,32,-35,-36,32,32,32,32,32,-37,-38,32,32,32,32,32,-39,-40,]),'PROBSELECTOR':([0,2,3,5,12,14,23,31,38,39,45,63,64,67,73,85,86,87,88,90,96,98,106,107,113,114,121,128,129,141,142,143,144,],[8,8,8,-33,8,-32,33,49,33,33,-4,33,33,33,33,-34,33,-35,-36,33,33,33,33,33,-37,-38,33,33,33,33,33,-39,-40,]),'PARALLEL':([0,2,3,5,12,14,23,31,38,39,45,63,64,67,73,85,86,87,88,90,96,98,106,107,113,114,121,128,129,141,142,143,144,],[9,9,9,-33,9,-32,34,50,34,34,-4,34,34,34,34,-34,34,-35,-36,34,34,34,34,34,-37,-38,34,34,34,34,34,-39,-40,]),'DECORATOR':([0,2,3,5,12,14,23,38,39,45,63,64,67,73,85,86,87,88,90,96,98,106,107,113,114,121,128,129,141,142,143,144,],[10,10,10,-33,10,-32,35,35,35,-4,35,35,35,35,-34,35,-35,-36,35,35,35,35,35,-37,-38,35,35,35,35,35,-39,-40,]),'$end':([1,11,21,22,],[0,-1,-2,-3,]),'CODE':([2,5,12,13,14,45,85,87,88,113,114,143,144,],[11,-33,21,22,-32,-4,-34,-35,-36,-37,-38,-39,-40,]),':':([4,16,17,18,19,20,30,32,33,34,35,36,37,47,48,49,50,],[15,24,25,26,27,28,46,51,52,53,54,55,56,69,70,71,72,]),'NODENAME':([6,7,8,9,10,],[16,17,18,19,20,]),'[':([15,24,25,26,41,42,46,51,52,69,70,71,77,79,102,115,116,136,137,],[23,38,39,40,63,64,67,73,75,96,98,100,106,107,121,128,129,141,142,]),'MEMORY':([23,38,39,63,64,67,73,86,90,96,98,106,107,121,128,129,141,142,],[31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,]),'CONDITION':([23,38,39,63,64,67,73,86,90,96,98,106,107,121,128,129,141,142,],[36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,]),'ACTION':([23,38,39,63,64,67,73,86,90,96,98,106,107,121,128,129,141,142,],[37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,]),'INT':([27,53,65,66,72,108,109,],[41,77,93,94,102,126,127,]),'INVERTER':([28,54,],[42,79,]),'MAXTRIES':([28,54,],[43,80,]),'MAXSECONDS':([28,54,],[44,81,]),']':([29,57,58,59,60,61,68,74,76,78,82,83,84,91,92,95,97,99,101,103,104,105,110,111,112,117,118,119,120,122,123,124,125,130,131,132,133,134,135,138,139,140,145,146,147,148,],[45,85,-28,87,88,-30,-6,-10,-14,-18,-24,-25,-26,113,114,117,-8,-12,-16,-20,122,123,-27,-29,-31,-5,130,131,132,-9,-13,134,135,-7,-11,-15,140,-17,-21,143,144,-19,147,148,-22,-23,]),'VAR':([40,46,51,52,53,54,55,56,69,70,71,72,75,89,100,],[62,68,74,76,78,82,83,84,97,99,101,103,62,62,62,]),'(':([43,44,80,81,],[65,66,108,109,]),',':([57,58,59,60,61,68,74,76,78,82,83,84,91,95,97,99,101,103,104,105,110,111,112,117,118,119,120,122,123,124,130,131,132,133,134,135,140,147,148,],[86,-28,86,89,-30,-6,-10,-14,-18,-24,-25,-26,86,86,-8,-12,-16,-20,86,89,-27,-29,-31,-5,86,86,89,-9,-13,86,-7,-11,-15,86,-17,-21,-19,-22,-23,]),'RIGHTARROW':([62,],[90,]),')':([93,94,126,127,],[115,116,136,137,]),}
+_lr_action_items = {'BEHAVIOR':([0,3,5,14,83,85,86,109,110,136,137,],[4,4,-31,-30,-32,-33,-34,-35,-36,-37,-38,]),'SEQUENCE':([0,2,3,5,12,14,23,31,38,39,45,62,63,66,71,83,84,85,86,88,94,96,102,103,109,110,123,124,134,135,136,137,],[6,6,6,-31,6,-30,30,47,30,30,-4,30,30,30,30,-32,30,-33,-34,30,30,30,30,30,-35,-36,30,30,30,30,-37,-38,]),'SELECTOR':([0,2,3,5,12,14,23,31,38,39,45,62,63,66,71,83,84,85,86,88,94,96,102,103,109,110,123,124,134,135,136,137,],[7,7,7,-31,7,-30,32,48,32,32,-4,32,32,32,32,-32,32,-33,-34,32,32,32,32,32,-35,-36,32,32,32,32,-37,-38,]),'PROBSELECTOR':([0,2,3,5,12,14,23,31,38,39,45,62,63,66,71,83,84,85,86,88,94,96,102,103,109,110,123,124,134,135,136,137,],[8,8,8,-31,8,-30,33,49,33,33,-4,33,33,33,33,-32,33,-33,-34,33,33,33,33,33,-35,-36,33,33,33,33,-37,-38,]),'PARALLEL':([0,2,3,5,12,14,23,38,39,45,62,63,66,71,83,84,85,86,88,94,96,102,103,109,110,123,124,134,135,136,137,],[9,9,9,-31,9,-30,34,34,34,-4,34,34,34,34,-32,34,-33,-34,34,34,34,34,34,-35,-36,34,34,34,34,-37,-38,]),'DECORATOR':([0,2,3,5,12,14,23,38,39,45,62,63,66,71,83,84,85,86,88,94,96,102,103,109,110,123,124,134,135,136,137,],[10,10,10,-31,10,-30,35,35,35,-4,35,35,35,35,-32,35,-33,-34,35,35,35,35,35,-35,-36,35,35,35,35,-37,-38,]),'$end':([1,11,21,22,],[0,-1,-2,-3,]),'CODE':([2,5,12,13,14,45,83,85,86,109,110,136,137,],[11,-31,21,22,-30,-4,-32,-33,-34,-35,-36,-37,-38,]),':':([4,16,17,18,19,20,30,32,33,34,35,36,37,47,48,49,],[15,24,25,26,27,28,46,50,51,52,53,54,55,68,69,70,]),'NODENAME':([6,7,8,9,10,],[16,17,18,19,20,]),'[':([15,24,25,26,41,42,46,50,51,68,69,70,75,77,111,112,130,131,],[23,38,39,40,62,63,66,71,73,94,96,98,102,103,123,124,134,135,]),'MEMORY':([23,38,39,62,63,66,71,84,88,94,96,102,103,123,124,134,135,],[31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,31,]),'CONDITION':([23,38,39,62,63,66,71,84,88,94,96,102,103,123,124,134,135,],[36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,]),'ACTION':([23,38,39,62,63,66,71,84,88,94,96,102,103,123,124,134,135,],[37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,37,]),'INT':([27,52,64,65,104,105,],[41,75,91,92,121,122,]),'INVERTER':([28,53,],[42,77,]),'MAXTRIES':([28,53,],[43,78,]),'MAXSECONDS':([28,53,],[44,79,]),']':([29,56,57,58,59,60,67,72,74,76,80,81,82,89,90,93,95,97,99,100,101,106,107,108,113,114,115,116,117,118,119,120,125,126,127,128,129,132,133,138,139,140,141,],[45,83,-26,85,86,-28,-6,-10,-14,-18,-22,-23,-24,109,110,113,-8,-12,-16,117,118,-25,-27,-29,-5,125,126,127,-9,-13,128,129,-7,-11,-15,-17,-19,136,137,140,141,-20,-21,]),'VAR':([40,46,50,51,52,53,54,55,68,69,70,73,87,98,],[61,67,72,74,76,80,81,82,95,97,99,61,61,61,]),'(':([43,44,78,79,],[64,65,104,105,]),',':([56,57,58,59,60,67,72,74,76,80,81,82,89,93,95,97,99,100,101,106,107,108,113,114,115,116,117,118,119,125,126,127,128,129,140,141,],[84,-26,84,87,-28,-6,-10,-14,-18,-22,-23,-24,84,84,-8,-12,-16,84,87,-25,-27,-29,-5,84,84,87,-9,-13,84,-7,-11,-15,-17,-19,-20,-21,]),'RIGHTARROW':([61,],[88,]),')':([91,92,121,122,],[111,112,130,131,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'root':([0,],[1,]),'behavior':([0,3,],[2,13,]),'definitions':([0,2,],[3,12,]),'definition':([0,2,3,12,],[5,5,14,14,]),'node':([23,38,39,63,64,67,73,86,90,96,98,106,107,121,128,129,141,142,],[29,58,58,58,92,58,58,110,112,58,58,58,125,58,138,139,145,146,]),'nodes':([38,39,63,67,73,96,98,106,121,],[57,59,91,95,104,118,119,124,133,]),'prob_nodes':([40,75,100,],[60,105,120,]),'prob_node':([40,75,89,100,],[61,61,111,61,]),}
+_lr_goto_items = {'root':([0,],[1,]),'behavior':([0,3,],[2,13,]),'definitions':([0,2,],[3,12,]),'definition':([0,2,3,12,],[5,5,14,14,]),'node':([23,38,39,62,63,66,71,84,88,94,96,102,103,123,124,134,135,],[29,57,57,57,90,57,57,106,108,57,57,57,120,132,133,138,139,]),'nodes':([38,39,62,66,71,94,96,102,],[56,58,89,93,100,114,115,119,]),'prob_nodes':([40,73,98,],[59,101,116,]),'prob_node':([40,73,87,98,],[60,60,107,60,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,44 +27,42 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> root","S'",1,None,None,None),
-  ('root -> behavior CODE','root',2,'p_root1','parser.py',30),
-  ('root -> behavior definitions CODE','root',3,'p_root2','parser.py',40),
-  ('root -> definitions behavior CODE','root',3,'p_root3','parser.py',51),
-  ('behavior -> BEHAVIOR : [ node ]','behavior',5,'p_behavior','parser.py',63),
-  ('node -> SEQUENCE : [ nodes ]','node',5,'p_node_sequence1','parser.py',70),
-  ('node -> SEQUENCE : VAR','node',3,'p_node_sequence2','parser.py',79),
-  ('node -> MEMORY SEQUENCE : [ nodes ]','node',6,'p_node_memory_sequence1','parser.py',86),
-  ('node -> MEMORY SEQUENCE : VAR','node',4,'p_node_memory_sequence2','parser.py',95),
-  ('node -> SELECTOR : [ nodes ]','node',5,'p_node_selector1','parser.py',103),
-  ('node -> SELECTOR : VAR','node',3,'p_node_selector2','parser.py',112),
-  ('node -> MEMORY SELECTOR : [ nodes ]','node',6,'p_node_memory_selector1','parser.py',119),
-  ('node -> MEMORY SELECTOR : VAR','node',4,'p_node_memory_selector2','parser.py',128),
-  ('node -> PROBSELECTOR : [ prob_nodes ]','node',5,'p_node_prob_selector1','parser.py',135),
-  ('node -> PROBSELECTOR : VAR','node',3,'p_node_prob_selector2','parser.py',144),
-  ('node -> MEMORY PROBSELECTOR : [ prob_nodes ]','node',6,'p_node_memory_prob_selector1','parser.py',151),
-  ('node -> MEMORY PROBSELECTOR : VAR','node',4,'p_node_memory_prob_selector2','parser.py',160),
-  ('node -> PARALLEL : INT [ nodes ]','node',6,'p_node_parallel1','parser.py',167),
-  ('node -> PARALLEL : VAR','node',3,'p_node_parallel2','parser.py',176),
-  ('node -> MEMORY PARALLEL : INT [ nodes ]','node',7,'p_node_memory_parallel1','parser.py',183),
-  ('node -> MEMORY PARALLEL : VAR','node',4,'p_node_memory_parallel2','parser.py',192),
-  ('node -> DECORATOR : INVERTER [ node ]','node',6,'p_node_decorator11','parser.py',199),
-  ('node -> DECORATOR : MAXTRIES ( INT ) [ node ]','node',9,'p_node_decorator12','parser.py',208),
-  ('node -> DECORATOR : MAXSECONDS ( INT ) [ node ]','node',9,'p_node_decorator13','parser.py',217),
-  ('node -> DECORATOR : VAR','node',3,'p_node_decorator2','parser.py',226),
-  ('node -> CONDITION : VAR','node',3,'p_node_condition','parser.py',233),
-  ('node -> ACTION : VAR','node',3,'p_node_action','parser.py',240),
-  ('nodes -> nodes , node','nodes',3,'p_nodes','parser.py',247),
-  ('nodes -> node','nodes',1,'p_nodes','parser.py',248),
-  ('prob_nodes -> prob_nodes , prob_node','prob_nodes',3,'p_prob_nodes','parser.py',258),
-  ('prob_nodes -> prob_node','prob_nodes',1,'p_prob_nodes','parser.py',259),
-  ('prob_node -> VAR RIGHTARROW node','prob_node',3,'p_prob_node','parser.py',269),
-  ('definitions -> definitions definition','definitions',2,'p_definitions','parser.py',278),
-  ('definitions -> definition','definitions',1,'p_definitions','parser.py',279),
-  ('definition -> SEQUENCE NODENAME : [ nodes ]','definition',6,'p_definition_sequence','parser.py',289),
-  ('definition -> SELECTOR NODENAME : [ nodes ]','definition',6,'p_definition_selector','parser.py',296),
-  ('definition -> PROBSELECTOR NODENAME : [ prob_nodes ]','definition',6,'p_definition_prob_selector','parser.py',303),
-  ('definition -> PARALLEL NODENAME : INT [ nodes ]','definition',7,'p_definition_parallel','parser.py',310),
-  ('definition -> DECORATOR NODENAME : INVERTER [ node ]','definition',7,'p_definition_decorator1','parser.py',317),
-  ('definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ]','definition',10,'p_definition_decorator2','parser.py',324),
-  ('definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ]','definition',10,'p_definition_decorator3','parser.py',331),
+  ('root -> behavior CODE','root',2,'p_root1','parser.py',31),
+  ('root -> behavior definitions CODE','root',3,'p_root2','parser.py',41),
+  ('root -> definitions behavior CODE','root',3,'p_root3','parser.py',52),
+  ('behavior -> BEHAVIOR : [ node ]','behavior',5,'p_behavior','parser.py',64),
+  ('node -> SEQUENCE : [ nodes ]','node',5,'p_node_sequence1','parser.py',71),
+  ('node -> SEQUENCE : VAR','node',3,'p_node_sequence2','parser.py',80),
+  ('node -> MEMORY SEQUENCE : [ nodes ]','node',6,'p_node_memory_sequence1','parser.py',87),
+  ('node -> MEMORY SEQUENCE : VAR','node',4,'p_node_memory_sequence2','parser.py',96),
+  ('node -> SELECTOR : [ nodes ]','node',5,'p_node_selector1','parser.py',106),
+  ('node -> SELECTOR : VAR','node',3,'p_node_selector2','parser.py',115),
+  ('node -> MEMORY SELECTOR : [ nodes ]','node',6,'p_node_memory_selector1','parser.py',124),
+  ('node -> MEMORY SELECTOR : VAR','node',4,'p_node_memory_selector2','parser.py',133),
+  ('node -> PROBSELECTOR : [ prob_nodes ]','node',5,'p_node_prob_selector1','parser.py',140),
+  ('node -> PROBSELECTOR : VAR','node',3,'p_node_prob_selector2','parser.py',149),
+  ('node -> MEMORY PROBSELECTOR : [ prob_nodes ]','node',6,'p_node_memory_prob_selector1','parser.py',158),
+  ('node -> MEMORY PROBSELECTOR : VAR','node',4,'p_node_memory_prob_selector2','parser.py',167),
+  ('node -> PARALLEL : INT [ nodes ]','node',6,'p_node_parallel1','parser.py',175),
+  ('node -> PARALLEL : VAR','node',3,'p_node_parallel2','parser.py',184),
+  ('node -> DECORATOR : INVERTER [ node ]','node',6,'p_node_decorator11','parser.py',193),
+  ('node -> DECORATOR : MAXTRIES ( INT ) [ node ]','node',9,'p_node_decorator12','parser.py',202),
+  ('node -> DECORATOR : MAXSECONDS ( INT ) [ node ]','node',9,'p_node_decorator13','parser.py',211),
+  ('node -> DECORATOR : VAR','node',3,'p_node_decorator2','parser.py',220),
+  ('node -> CONDITION : VAR','node',3,'p_node_condition','parser.py',229),
+  ('node -> ACTION : VAR','node',3,'p_node_action','parser.py',237),
+  ('nodes -> nodes , node','nodes',3,'p_nodes','parser.py',246),
+  ('nodes -> node','nodes',1,'p_nodes','parser.py',247),
+  ('prob_nodes -> prob_nodes , prob_node','prob_nodes',3,'p_prob_nodes','parser.py',257),
+  ('prob_nodes -> prob_node','prob_nodes',1,'p_prob_nodes','parser.py',258),
+  ('prob_node -> VAR RIGHTARROW node','prob_node',3,'p_prob_node','parser.py',268),
+  ('definitions -> definitions definition','definitions',2,'p_definitions','parser.py',277),
+  ('definitions -> definition','definitions',1,'p_definitions','parser.py',278),
+  ('definition -> SEQUENCE NODENAME : [ nodes ]','definition',6,'p_definition_sequence','parser.py',288),
+  ('definition -> SELECTOR NODENAME : [ nodes ]','definition',6,'p_definition_selector','parser.py',295),
+  ('definition -> PROBSELECTOR NODENAME : [ prob_nodes ]','definition',6,'p_definition_prob_selector','parser.py',302),
+  ('definition -> PARALLEL NODENAME : INT [ nodes ]','definition',7,'p_definition_parallel','parser.py',309),
+  ('definition -> DECORATOR NODENAME : INVERTER [ node ]','definition',7,'p_definition_decorator1','parser.py',316),
+  ('definition -> DECORATOR NODENAME : MAXTRIES ( INT ) [ node ]','definition',10,'p_definition_decorator2','parser.py',323),
+  ('definition -> DECORATOR NODENAME : MAXSECONDS ( INT ) [ node ]','definition',10,'p_definition_decorator3','parser.py',330),
 ]
