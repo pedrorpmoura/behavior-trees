@@ -13,7 +13,6 @@
 
 \bibliographystyle{plainurl}% the mandatory bibstyle
 
-
 \def\bht{BhTSL}
 \title{\bht, Behavior Trees Specification and Processing} %TODO Please add
 
@@ -32,7 +31,7 @@
 
 \ccsdesc[100]{\textcolor{red}{Replace ccsdesc macro with valid one}} %TODO mandatory: Please choose ACM 2012 classifications from https://dl.acm.org/ccs/ccs_flat.cfm 
 
-\keywords{Game development, Behavior trees, DSL, NPC, Code generation} %TODO mandatory; please add comma-separated list of keywords
+\keywords{Game development, Behavior trees (BT), DSL, NPC, Code generation} %TODO mandatory; please add comma-separated list of keywords
 
 \acknowledgements{I want to thank \dots}%optional
 
@@ -80,7 +79,7 @@ These achievements will be illustrated using a concrete game as a case study.
 \section{Introduction}
 \label{sec:introduction}
 
-At some point in the video-game history, NPCs were introduced. 
+At some point in the video-game history, NPCs (Non-Playable Characters) were introduced. 
 With them came the need to describe behaviors.
 And with this behaviors came the need of the existence of a formalism so that they can be properly specified.
 
@@ -90,23 +89,58 @@ Altough this is a clear and simplistic way to represent and visualize small beha
 Some time later, a new and more powerful concept was introduced: using tasks instead of states to describe behaviors.
 This concept is incorporated in what we call behavior trees.
 
-Behavior trees were first used in the videogame industry in the development of the game \textit{Halo 2}, released in 2004.
+Behavior trees (BT) were first used in the videogame industry in the development of the game \textit{Halo 2}, released in 2004 \cite{Cuadrado2018,ColOgr2018}.
 The idea is that people create a complex behavior by only programming actions (or tasks) and then design a tree structure whose leaf nodes are actions and the inner nodes determine the NPC's decision making.
 Not only these provide an easy and intuitive way of visualizing and designing behaviors, they also provide a good way to work with scalability through modularity, solving the biggest issue from state-based design.
-Since then, multiple gaming companies adopted this concept and, in recent years, behavior trees are also being used in areas like Artificial Inteligence and Robotics.
+Since then, multiple gaming companies adopted this concept and, in recent years, behavior trees are also being used in different areas like Artificial Inteligence and Robotics.
 
-This paper focuses in the specification and processing of these behavior trees.
-For this purpose, it will be introduced an DSL, and a compiler that can generate a \LaTeX\ diagram to visualize and a Python module to implement the described behavior.
+% Motivação
+In this context, we felt that it could be useful to have a DSL to specify BTs independently of application area and the programming language chosen for the implementation.
+The language must be compact and easy to use but it should be expressive enough to be applied to real situations.
+In that sense a new kind of node was included, as will be described.
 
-These achievements will be illustrated using a concrete game as a case study.
+% Design goals
+This paper will introduce the DSL designed and the compiler implemented to translate it to a programming language, in this case Python.
+Additionally, the compiler also generates \LaTeX\ diagrams to produce graphical documentation for each BT specified.
 
+XXX (TODO) game will be described in our language as a case study to illustrate all the achievements attained.
 
+% Estrutura do artigo
+The paper is organized as followed: section \ref{sec:state-of-the-art}.
 
-- Motivation
-- Design goals, ir direto ao assunto
 
 \section{State of the Art}
 \label{sec:state-of-the-art}
+Formally, a BT is a tree whose internal nodes are called control flow nodes and leafs are called execution nodes.
+
+% descrever a execução
+Each node returns one of the following three states to its parent: \textbf{SUCCESS}, \textbf{FAILURE} or \textbf{RUNNING}.
+
+\subsection{Control Flow Nodes}
+Control flow nodes are structural nodes, that is, they don't have any impact in the state of the system. They only control the way the subsequent tree is traversed.
+In the classical formulation, there are 4 types of control flow nodes: \textbf{Sequence}, \textbf{Selector}, \textbf{Parallel} and \textbf{Decorator}.
+
+A sequence node visits its children in order, starting with the first, and advancing for the next one if the previous succeeded.
+In case a child fails, the node returns FAILURE.
+If all children succeed, it returns SUCCESS.
+And if a child returns RUNNING, the node also returns RUNNING.
+
+\begin{figure}
+    
+\end{figure}
+
+
+
+
+
+
+
+
+
+Alongar a definição de BT. Básicos.
+
+Ferramentas que utilizam.
+
 
 In this area there is some interesting projects that utilize Behavior trees as the main focus to describe their NPCs. 
 In the gaming industry there are several engines that are utilized to produce games, this engines saw the potencial of incorporating Behavior Trees as a method of describing the behavior of NPCs.
@@ -136,5 +170,7 @@ The root node does not have a parent the other nodes have exatly one parent.
 
 \section{Conclusion}
 \label{sec:conclusion}
+
+\bibliography{behavior_trees}
 
 \end{document}

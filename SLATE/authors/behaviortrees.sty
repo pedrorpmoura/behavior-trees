@@ -1,0 +1,218 @@
+
+%----------------------------------------------------------------------------------------
+%   REQUIRED PACKAGES
+%----------------------------------------------------------------------------------------
+
+\RequirePackage{tikz}
+\RequirePackage{forest}
+\RequirePackage{amsmath,amssymb,amsthm}
+%----------------------------------------------------------------------------------------
+%   COMMANDS
+%----------------------------------------------------------------------------------------
+
+
+\newcommand{\nodestyle}{
+    regular polygon,
+    regular polygon sides=4,
+    draw,
+    minimum size=12mm,
+    inner sep=0pt,
+    thick
+}
+
+\newcommand{\controlflownodestyle}{
+    \nodestyle,
+    fill=lightgray
+}
+
+
+\newcommand{\rootnode}{
+    $\varnothing$,\nodestyle,fill=green!20
+}
+
+% CONTROL FLOW NODES
+\newcommand{\selector}{
+    ?,\controlflownodestyle
+}
+
+\newcommand{\memoryselector}{
+    ?^*, \controlflownodestyle
+}
+
+\newcommand{\probnodeselector}[1]{
+    ?,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle,
+}
+
+\newcommand{\probnodememoryselector}[1]{
+    ?^*,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle,
+}
+
+\newcommand{\probselector}{
+    $?_{P}$, 
+    \controlflownodestyle,
+    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
+}
+
+\newcommand{\memoryprobselector}{
+    $?^*_{P}$, 
+    \controlflownodestyle,
+    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
+}
+
+\newcommand{\probnodeprobselector}[1]{
+    $?_{P}$,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle,
+    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
+}
+\newcommand{\probnodememoryprobselector}[1]{
+    $?^*_{P}$,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle,
+    for children = {edge={->, decorate,decoration={snake,amplitude=.3mm,segment length=2mm,post length=1mm}}}
+}
+
+\newcommand{\sequence}{
+    $\rightarrow$,
+    \controlflownodestyle
+}
+
+\newcommand{\memorysequence}{
+    $\rightarrow^*$,
+    \controlflownodestyle
+}
+
+\newcommand{\probnodesequence}[1]{
+    $\rightarrow$,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle
+}
+
+\newcommand{\probnodememorysequence}[1]{
+    $\rightarrow^*$,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle
+}
+
+
+\renewcommand{\parallel}[1] {
+    $\rightrightarrows_{\scalebox{0.5}{$#1$}}$,
+    \controlflownodestyle
+}
+
+\newcommand{\probnodeparallel}[2]{
+    $\rightrightarrows_{\scalebox{0.5}{$#2$}}$,
+    edge label = {node [midway, above, sloped] {#1}},
+    \controlflownodestyle
+}
+
+
+\newcommand{\decoratorstyle} {
+    diamond,
+    draw,
+    fill=lightgray,
+    minimum size = 12mm,
+    thick
+}
+
+
+\newcommand{\decorator}[1]{
+    #1, \decoratorstyle
+}
+
+% pre-defined decorators
+\newcommand{\inverter}{
+    I, \decoratorstyle
+}
+
+\newcommand{\probnodeinverter}[1] {
+    I,
+    edge label = {node [midway, above, sloped] {#1}},
+    \decoratorstyle
+}
+
+\newcommand{\maxtries}[1]{
+    $#1_{tries}$, \decoratorstyle
+}
+
+
+% EXECUTION NODES
+\newcommand{\action}[1] {
+    #1,
+    rectangle,
+    draw,
+    inner sep=7pt
+}
+
+\newcommand{\probnodeaction}[2]{
+    #2,
+    rectangle,
+    draw,
+    inner sep=7pt,
+    edge label = {node [midway, above, sloped] {#1}},
+}
+
+\newcommand{\condition}[1] {
+    #1,
+    rounded rectangle,
+    draw,
+    inner sep=7pt
+}
+
+\newcommand{\probnodecondition}[2]{
+    #2,
+    rounded rectangle,
+    draw,
+    inner sep=7pt,
+    edge label = {node [midway, above, sloped] {#1}}
+}
+%----------------------------------------------------------------------------------------
+%   ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+\newenvironment{behavior}{
+    \bracketset{action character = @}
+    \forestset{
+        default preamble = {
+            for tree = {edge = {->}, l = 20mm, s sep = 8mm, parent anchor=south, child anchor=north}
+        }
+    }
+    \forest
+    @+
+}{
+    \endforest
+}
+
+
+%----------------------------------------------------------------------------------------
+%   EXAMPLE
+%----------------------------------------------------------------------------------------
+%\begin{behavior}
+%    [\rootnode
+%        [\selector
+%            [\probselector
+%                [\action{Freeze}]
+%                [\sequence
+%                    [\condition{Can move?}]
+%                    [\condition{Path free?}]
+%                    [\action{Move}]
+%                ]
+%            ] 
+%            [\parallel
+%                [\action{First}]
+%                [\action{Second}]
+%                [\action{Third}]
+%            ]
+%        ]
+%    ]
+%\end{behavior}
+
+
+
+\endinput
+%%
+%% End of file `mypackage.sty'.
