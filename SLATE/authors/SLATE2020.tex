@@ -67,7 +67,7 @@
 In the context of game development, there is always the need for describing behaviors for various entities, whether NPCs or even the world itself.
 That need requires a formalism to describe properly such behaviors.
 
-As gaming industry has been growing, many approaches were proposed.
+As the gaming industry has been growing, many approaches were proposed.
 First, finite state machines were used and evolved to hierarchical state machines.
 As this wasn't enough, a more powerful concept appeared.
 Instead of using states for describing behaviors, people started to use tasks.
@@ -86,7 +86,7 @@ These achievements will be illustrated using a concrete game as a case study.
 
 At some point in the video-game history, NPCs (Non-Playable Characters) were introduced. 
 With them came the need to describe behaviors.
-And with this behaviors came the need of the existence of a formalism so that they can be properly specified.
+And with these behaviors came the need of the existence of a formalism so that they can be properly specified.
 
 As time passed by, various approaches were proposed and used, like finite and hierarchical state machines.
 These are state-based behaviors, that is, the behaviors are described through states.
@@ -119,7 +119,9 @@ The paper is organized as followed: section \ref{sec:state-of-the-art}.
 Formally, a BT is a tree whose internal nodes are called control flow nodes and leafs are called execution nodes.
 
 % descrever a execução
-Each node returns one of the following three states to its parent: \texttt{SUCCESS}, \texttt{FAILURE} or \texttt{RUNNING}.
+A behavior tree executes by peridiocally sending ticks to its children, in order to traverse the entire tree.
+Each node, upon a tick call, returns one of the following three states to its parent: \texttt{SUCCESS} if the node was executed with success; \texttt{FAILURE} if the execution failed; or \texttt{RUNNING} if it could not finish the execution by the end of the tick.
+A tick always tries to traverse the entire tree, even if a node returned \texttt{RUNNING}.
 
 \subsection{Control Flow Nodes}
 Control flow nodes are structural nodes, that is, they don't have any impact in the state of the system. They only control the way the subsequent tree is traversed.
@@ -194,26 +196,62 @@ For $N$ children and $M \leq N$, it returns:
 \end{figure}
 
 
+A decorator is a special node that has an only one child, and uses a policy (set of rules) to manipulate the return status of its child, or the way it ticks it.
+Some examples of decorator nodes are:
+\begin{enumerate}
+    \item \textbf{Inverter} - inverts the \texttt{SUCCESS}/\texttt{FAILURE} return status of the child;
+    \item \textbf{Max-$N$-Times} - the child can only fail $N$ times.
+    After that it only returns \texttt{FAILURE} without ticking the child.
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\decorator{$\delta$},
+            [\action{Child}]
+        ]
+    \end{behavior}
+    \caption{\textit{Decorator} with policy $\delta$.}
+    \label{fig:decorator}
+\end{figure}
+
+
+\subsection{Execution Nodes}
+Execution nodes are the simplest, yet the more powerful. They are the ones that have access to the state of the system, and can update it.
+There are two types of execution nodes: \textbf{Action} and \textbf{Condition}.
+
+
+Upon the execution of a tick, an action node runs a chunk of code that can return either \texttt{SUCCESS}, \texttt{FAILURE} or \texttt{RUNNING}
+
+\begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\action{Action}]
+    \end{behavior}
+    \caption{\textit{Action} node.}
+    \label{fig:action}
+\end{figure}
+
+
+The condition node verifies a proposition, returning \texttt{SUCCESS}/\texttt{FAILURE} if the proposition is/is not valid.
+This node never returns \texttt{RUNNING}.
+\begin{figure}[H]
+    \centering
+    \begin{behavior}
+        [\condition{Condition}]
+    \end{behavior}
+    \caption{\textit{Condition} node.}
+    \label{fig:condition}
+\end{figure}
 
 
 
-
-Alongar a definição de BT. Básicos.
-
-Ferramentas que utilizam.
-
-
-In this area there is some interesting projects that utilize Behavior trees as the main focus to describe their NPCs. 
-In the gaming industry there are several engines that are utilized to produce games, this engines saw the potencial of incorporating Behavior Trees as a method of describing the behavior of NPCs.
+In the gaming industry there is some interesting projects that use tools based on Behavior trees as the main focus to describe NPCs behaviors.
 Two major engines that use Behavior Trees are Unreal Engine and Unity, in their case they chose to go user friendly and utilize graphical design to represent the trees.
+The nodes mentioned before are all implemented in the engines.
+To design behaviors trees in this engines, you just need to start from the root node and then choose what type of node you want to utilize next, its drag and drop.
+In the case of the execution nodes in case of being utilized the suer needds to specify the action or the condition that they want to implement in the node.
 
-To better understand how does a behavior tree work, its composed of control flow nodes and leafs named execution nodes.
-Each node linked its called parent and child. 
-The root node does not have a parent the other nodes have exatly one parent.
-
--FICAMOS AQUI
-
-- conceitos básicos
 
 \section{Architecture and Specification}
 \label{sec:arc-spec}
