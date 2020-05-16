@@ -451,9 +451,14 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/lm/lmbsy10.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/lm/lmbsy7.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/lm/lmbsy5.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/lm/ec-lmri9.tfm
-INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/SLATE2020.bbl
-INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/SLATE2020.bbl
+INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/architecture.png
+INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/architecture.png
+INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/architecture.png
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/lm/ec-lmbxi10.tfm
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/lm/ec-lmbx9.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/public/lm/ec-lmtt9.tfm
+INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/SLATE2020.bbl
+INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/SLATE2020.bbl
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/SLATE2020.aux
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/SLATE2020.out
 INPUT /Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/authors/SLATE2020.out
@@ -464,6 +469,8 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmbx10.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmbx12.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmbx9.pfb
+INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmbxi10.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi10.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmmi9.pfb
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/type1/public/lm/lmr10.pfb

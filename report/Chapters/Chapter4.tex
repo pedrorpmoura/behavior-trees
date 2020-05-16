@@ -62,10 +62,16 @@ Para a nossa linguagem, temos a seguinte gramática, onde os símbolos em minús
 
     node : SEQUENCE ':' '[' nodes ']'
          | SEQUENCE ':' VAR
+         | MEMORY SEQUENCE ':' '[' nodes ']'
+         | MEMORY SEQUENCE ':' VAR
          | SELECTOR ':' '[' nodes ']'
          | SELECTOR ':' VAR
+         | MEMORY SELECTOR ':' '[' nodes ']'
+         | MEMORY SELECTOR ':' VAR
          | PROBSELECTOR ':' '[' prob_nodes ']'
          | PROBSELECTOR ':' VAR
+         | MEMORY PROBSELECTOR ':' '[' prob_nodes ']'
+         | MEMORY PROBSELECTOR ':' VAR
          | PARALLEL ':' INT '[' nodes ']'
          | PARALLEL ':' VAR
          | DECORATOR ':' INVERTER '[' node ']'
