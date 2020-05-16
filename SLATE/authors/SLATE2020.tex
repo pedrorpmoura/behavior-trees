@@ -111,17 +111,17 @@ Additionally, the compiler also generates \LaTeX\ diagrams to produce graphical 
 XXX (TODO) game will be described in our language as a case study to illustrate all the achievements attained.
 
 % Estrutura do artigo
-The paper is organized as followed: section \ref{sec:state-of-the-art}.
+The paper is organized as followed: Concepts \ref{sec:concepts} State of the Art \ref{sec:state-of-the-art} Architecture and Specification \ref{sec:arc-spec} Tools \ref{sec:tools} Example \ref{sec:example} Conclusion \ref{sec:conclusion} .
 
 
-\section{State of the Art}
-\label{sec:state-of-the-art}
+\section{Concepts}
+\label{sec:concepts}
 Formally, a BT is a tree whose internal nodes are called control flow nodes and leafs are called execution nodes.
 
 % descrever a execução
 A behavior tree executes by peridiocally sending ticks to its children, in order to traverse the entire tree.
 Each node, upon a tick call, returns one of the following three states to its parent: \texttt{SUCCESS} if the node was executed with success; \texttt{FAILURE} if the execution failed; or \texttt{RUNNING} if it could not finish the execution by the end of the tick.
-A tick always tries to traverse the entire tree, even if a node returned \texttt{RUNNING}.
+In the last case, the next tick will traverse the tree until it reaches the running execution node, and will try again to run it.
 
 \subsection{Control Flow Nodes}
 Control flow nodes are structural nodes, that is, they don't have any impact in the state of the system. They only control the way the subsequent tree is traversed.
@@ -149,7 +149,7 @@ Returns:
     \label{fig:sequence}
 \end{figure}
 
-Like the sequence, the selector node also visits its children in order, but it only advances if the child that is being executed returns FAILURE.
+Like the sequence, the selector node also visits its children in order, but it only advances if the child that is being executed returns \texttt{FAILURE}.
 Returns:
 \begin{itemize}
     \item \texttt{SUCCESS} - if a child succeeds;
@@ -245,30 +245,64 @@ This node never returns \texttt{RUNNING}.
 \end{figure}
 
 
+% Memory
+\subsection{Control Flow Nodes with memory}
+Sometimes, when a node returns \texttt{RUNNING}, we want it to remember which nodes he already executed, so that the next tick doesn't execute them again.
+We call this nodes with memory.
+And they are represented by adding a $\_^*$ to the symbols mentioned previously.
+This is only sintatic sugar because we can also represent these nodes with a non-memory BT, but that will not be discussed here.
 
+Please note that, while we avoid the re-execution of nodes with this type of node, we also lose the reactivity that this re-execution provides.
+
+\section{State of The Art}
+\label{sec:state-of-the-art}
 In the gaming industry there is some interesting projects that use tools based on Behavior trees as the main focus to describe NPCs behaviors.
-Two major engines that use Behavior Trees are Unreal Engine and Unity, in their case they chose to go user friendly and utilize graphical design to represent the trees.
-The nodes mentioned before are all implemented in the engines.
-To design behaviors trees in this engines, you just need to start from the root node and then choose what type of node you want to utilize next, its drag and drop.
-In the case of the execution nodes in case of being utilized the suer needds to specify the action or the condition that they want to implement in the node.
+Unreal Engine and Unity are two examples of major game engines that use them.
+In their case, instead of a language, they offer a graphical user interface (GUI) to specify the BTs, through a drag and drop tactic.
+Upon the creation of an execution node, the programmer needs to specify the action or condition that will be executed.
+The nodes mentioned before are all implemented in these engines, along with some extensions.
+All the nodes that were mentioned before are implemented in both of these engines, along with some extensions.
 
+In addition to game engines, there are also frameworks like Java Behavior Trees for Java and Owyl for Python that implement BTs.
+In this case, they work as a normal library.
 
 \section{Architecture and Specification}
 \label{sec:arc-spec}
 
-- Gramática
-- Especificação
+- DIAGRAMA DA ARQUITETURA
 
+\subsection{DSL}
+
+\subsubsection{File structure}
+In our language, each file represents one and only one behavior.
+A file is divided in 3 components:
+\begin{itemize}
+    \item \textit{Behavior} - main behavior tree;
+    \item \textit{Definitions} (optional) - node definitions that can be referenced in other nodes or in the main BT;
+    \item \textit{Code} - Python code where are described the execution nodes, and other code that the programmer wishes to add.
+\end{itemize}
+
+\subsubsection{Syntax}
+Meter exemplo
+
+\subsection{Compiler}
+\subsubsection{Lexical analysis}
+
+\subsubsection{Syntatic analysis}
+
+\subsubsection{Semantic analysis}
 
 \section{Tools}
 \label{sec:tools}
-- processador
 
 \section{Example}
 \label{sec:example}
 
+
 \section{Conclusion}
 \label{sec:conclusion}
+
+-- Ver com professores
 
 \bibliography{behavior_trees}
 
