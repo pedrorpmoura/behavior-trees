@@ -1,0 +1,36 @@
+behavior : [
+    sequence : [
+        condition : $cond1,
+        condition : $cond2
+        memory selector : [
+            parallel : $par1,
+            prob_selector : $prob1
+        ]
+    ]
+]
+
+parallel par1 : 10 [
+    action : $action1,
+    action : $action2
+]
+
+prob_selector prob1 : [
+    $e1 -> decoraror : INVERTER [
+        action : $action1
+    ],
+    $e2 -> action : $action2
+]
+
+%%
+
+def action1(entity):
+    pass
+
+def action2(entity):
+    pass
+
+def cond1(entity):
+    pass
+
+def cond2(entity):
+    pass
