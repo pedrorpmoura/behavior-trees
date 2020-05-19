@@ -131,7 +131,7 @@ In the last case, the next tick will traverse the tree until it reaches the runn
 Control flow nodes are structural nodes, that is, they don't have any impact in the state of the system. They only control the way the subsequent tree is traversed.
 In the classical formulation, there are 4 types of control flow nodes: \textbf{Sequence}, \textbf{Selector}, \textbf{Parallel} and \textbf{Decorator}.
 
-A sequence node visits its children in order, starting with the first, and advancing for the next one if the previous succeeded.
+A sequence node (figure \ref{fig:sequence}) visits its children in order, starting with the first, and advancing for the next one if the previous succeeded.
 Returns:
 \begin{itemize}
     \item \texttt{SUCCESS} - if all children succeed;
@@ -307,7 +307,7 @@ This node never returns \texttt{RUNNING}.
             ]
         \end{behavior}
         \caption{Parallel node.}
-        \label{fig:sequence}
+        \label{fig:parallel}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
@@ -372,7 +372,7 @@ A probability selector node is like a normal selector node, but instead of visit
 \end{figure}
 
 
-\subsubsection{File structure}
+\subsubsection{Syntax}
 In our language, each file represents one and only one behavior.
 A file is divided in 3 components:
 \begin{itemize}
@@ -381,7 +381,6 @@ A file is divided in 3 components:
     \item \textit{Code} - Python code where are described the execution nodes, and other code that the programmer wishes to add.
 \end{itemize}
 
-\subsubsection{Syntax}
 \begin{lstlisting}
 behavior : [
     sequence : [
@@ -424,6 +423,7 @@ def cond2(entity):
 \subsection{Compiler}
 \subsubsection{Lexical analysis}
 The first step in the development of a compiler is the lexical analysis, that converts a char sequence in a token sequence.
+The token table can be seen in the appendix.
 The following table shows which tokens are utilized in our compiler:
 \begin{table}[H]
     \centering
@@ -503,6 +503,11 @@ Syntatic analysis, or parsing, it the process of analyzing a string of symbols c
 \end{lstlisting}
 
 \subsubsection{Semantic analysis}
+- validação
+- redeclarações
+- uso de variaveis nao declaraveis
+
+
 
 \section{Tools}
 \label{sec:tools}

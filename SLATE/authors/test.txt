@@ -15,7 +15,7 @@ parallel par1 : 10 [
 ]
 
 prob_selector prob1 : [
-    $e1 -> decoraror : INVERTER [
+    $e1 -> decorator : INVERTER [
         action : $action1
     ],
     $e2 -> action : $action2
