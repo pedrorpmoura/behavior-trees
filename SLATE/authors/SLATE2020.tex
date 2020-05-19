@@ -20,6 +20,8 @@
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{decorations.pathmorphing}
 
+\usepackage{appendix}
+
 \bibliographystyle{plainurl}% the mandatory bibstyle
 
 \def\bht{BhTSL}
@@ -139,21 +141,8 @@ Returns:
     \item \texttt{RUNNING} - if a child returns \texttt{RUNNING}.
 \end{itemize}
 
-%\begin{figure}[H]
-%    \centering
-%    \begin{behavior}
-%        [\sequence
-%            [\action{Child 1}]
-%            [\action{Child 2}]
-%            [{\textbf{. . .}}, inner sep=10pt]
-%            [\action{Child N}]
-%        ]
-%    \end{behavior}
-%    \caption{Sequence node.}
-%    \label{fig:sequence}
-%\end{figure}
 
-Like the sequence, the selector node also visits its children in order, but it only advances if the child that is being executed returns \texttt{FAILURE}.
+Like the sequence, the selector node (figure \ref{fig:selector}) also visits its children in order, but it only advances if the child that is being executed returns \texttt{FAILURE}.
 Returns:
 \begin{itemize}
     \item \texttt{SUCCESS} - if a child succeeds;
@@ -161,22 +150,8 @@ Returns:
     \item \texttt{RUNNING} - if a child returns \texttt{RUNNING}.
 \end{itemize}
 
-%\begin{figure}[H]
-%    \centering
-%    \begin{behavior}
-%        [\selector
-%            [\action{Child 1}]
-%            [\action{Child 2}]
-%            [{\textbf{. . .}}, inner sep=10pt]
-%            [\action{Child N}]
-%        ]
-%    \end{behavior}
-%    \caption{Selector node.}
-%    \label{fig:selector}
-%\end{figure}
 
-
-A parallel node, as the name implies, visits its children in parallel.
+A parallel node (figure \ref{fig:parallel}), as the name implies, visits its children in parallel.
 Additionally, it has a parameter $M$ that acts as a success rate.
 For $N$ children and $M \leq N$, it returns:
 \begin{itemize}
@@ -185,22 +160,9 @@ For $N$ children and $M \leq N$, it returns:
     \item \texttt{RUNNING} - otherwise.
 \end{itemize}
 
-%\begin{figure}[H]
-%    \centering
-%    \begin{behavior}
-%        [\parallel{M}
-%            [\action{Child 1}]
-%            [\action{Child 2}]
-%            [{\textbf{. . .}}, inner sep=10pt]
-%            [\action{Child N}]
-%        ]
-%    \end{behavior}
-%    \caption{Parallel node.}
-%    \label{fig:parallel}
-%\end{figure}
 
 
-A decorator is a special node that has an only one child, and uses a policy (set of rules) to manipulate the return status of its child, or the way it ticks it.
+A decorator (figure \ref{fig:decorator}) is a special node that has an only one child, and uses a policy (set of rules) to manipulate the return status of its child, or the way it ticks it.
 Some examples of decorator nodes are:
 \begin{enumerate}
     \item \textbf{Inverter} - inverts the \texttt{SUCCESS}/\texttt{FAILURE} return status of the child;
@@ -208,48 +170,19 @@ Some examples of decorator nodes are:
     After that it only returns \texttt{FAILURE} without ticking the child.
 \end{enumerate}
 
-%\begin{figure}[H]
-%    \centering
-%    \begin{behavior}
-%        [\decorator{$\delta$},
-%            [\action{Child}]
-%        ]
-%    \end{behavior}
-%    \caption{\textit{Decorator} with policy $\delta$.}
-%    \label{fig:decorator}
-%\end{figure}
-
-
 \subsection{Execution Nodes}
 Execution nodes are the simplest, yet the more powerful. They are the ones that have access to the state of the system, and can update it.
 There are two types of execution nodes: \textbf{Action} and \textbf{Condition}.
 
 
-Upon the execution of a tick, an action node runs a chunk of code that can return either \texttt{SUCCESS}, \texttt{FAILURE} or \texttt{RUNNING}
-
-%\begin{figure}[H]
-%    \centering
-%    \begin{behavior}
-%        [\action{Action}]
-%    \end{behavior}
-%    \caption{\textit{Action} node.}
-%    \label{fig:action}
-%\end{figure}
+Upon the execution of a tick, an action node (figure \ref{fig:action}) runs a chunk of code that can return either \texttt{SUCCESS}, \texttt{FAILURE} or \texttt{RUNNING}
 
 
-The condition node verifies a proposition, returning \texttt{SUCCESS}/\texttt{FAILURE} if the proposition is/is not valid.
+The condition node (figure \ref{fig:condition}) verifies a proposition, returning \texttt{SUCCESS}/\texttt{FAILURE} if the proposition is/is not valid.
 This node never returns \texttt{RUNNING}.
-%\begin{figure}[H]
-%    \centering
-%    \begin{behavior}
-%        [\condition{Condition}]
-%    \end{behavior}
-%    \caption{\textit{Condition} node.}
-%    \label{fig:condition}
-%\end{figure}
 
 
-\begin{figure}
+\begin{figure}[H]
     \begin{subfigure}{.5\textwidth}
         \centering
         \captionsetup{justification=centering}
@@ -381,6 +314,7 @@ A file is divided in 3 components:
     \item \textit{Code} - Python code where are described the execution nodes, and other code that the programmer wishes to add.
 \end{itemize}
 
+Up next, we have an example of a specification in our DSL:
 \begin{lstlisting}
 behavior : [
     sequence : [
@@ -418,43 +352,18 @@ def cond1(entity):
 
 def cond2(entity):
     pass
+
+def e1(entity):
+    pass
+
+def e2(entity):
+    pass
 \end{lstlisting}
 
 \subsection{Compiler}
 \subsubsection{Lexical analysis}
 The first step in the development of a compiler is the lexical analysis, that converts a char sequence in a token sequence.
-The token table can be seen in the appendix.
-The following table shows which tokens are utilized in our compiler:
-\begin{table}[H]
-    \centering
-    \begin{tabular}{ | p {5cm} | p {5cm} | } 
-        \hline
-            \multicolumn{2}{ |c| }{\textit{\textbf{Tokens}}} \\
-        \hline
-            \multicolumn{1}{ |c| }{\textbf{Name}} & \multicolumn{1}{ |c| }{\textbf{Value}} \\
-        \hline
-        \hline
-            literals         & \texttt{({[]}),:\%}           \\ \hline
-            RIGHTARROW       & \texttt{->}                   \\ \hline
-            BEHAVIOR         & \texttt{\textbackslash bbehavior\textbackslash b}     \\ \hline
-            SEQUENCE         & \texttt{\textbackslash bsequence\textbackslash b}     \\ \hline
-            SELECTOR         & \texttt{\textbackslash bselector\textbackslash b}     \\ \hline
-            PROBSELECTOR     & \texttt{\textbackslash bprobselector\textbackslash b} \\ \hline
-            PARALLEL         & \texttt{\textbackslash bparallel\textbackslash b}     \\ \hline
-            DECORATOR        & \texttt{\textbackslash bdecorator\textbackslash b}    \\ \hline
-            CONDITION        & \texttt{\textbackslash bcondition\textbackslash b}    \\ \hline
-            ACTION           & \texttt{\textbackslash baction\textbackslash b}       \\ \hline
-            INVERTER         & \texttt{\textbackslash bINVERTER\textbackslash b}     \\ \hline
-            MEMORY           & \texttt{\textbackslash bmemory\textbackslash b}       \\ \hline
-            INT              & \texttt{\textbackslash d+}                            \\ \hline
-            VAR              & \texttt{\$\textbackslash w+}                          \\ \hline
-            NODENAME         & \texttt{\textbackslash b\textbackslash w+\textbackslash b}   \\ \hline
-            CODE             & \texttt{\%\%(.|\textbackslash n)+} \\
-        \hline
-    \end{tabular}\\
-    \caption{Lexical analysis' tokens.}
-    \label{tab:tokens}
-\end{table} 
+The tokens' table can be seen in the appendix.
 
 \subsubsection{Syntatic analysis}
 Syntatic analysis, or parsing, it the process of analyzing a string of symbols conforming the rules of a grammar. Here we have the grammar used in our DSL:
@@ -503,6 +412,7 @@ Syntatic analysis, or parsing, it the process of analyzing a string of symbols c
 \end{lstlisting}
 
 \subsubsection{Semantic analysis}
+
 - validação
 - redeclarações
 - uso de variaveis nao declaraveis
@@ -527,5 +437,45 @@ Additionally, we created a \LaTeX\ stylesheet to draw the specified trees. This 
 -- Ver com professores
 
 \bibliography{behavior_trees}
+
+\newpage
+\begin{appendices}
+
+\section{Appendix}
+The following table shows which tokens are utilized in our compiler:
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ | p {5cm} | p {5cm} | } 
+        \hline
+            \multicolumn{2}{ |c| }{\textit{\textbf{Tokens}}} \\
+        \hline
+            \multicolumn{1}{ |c| }{\textbf{Name}} & \multicolumn{1}{ |c| }{\textbf{Value}} \\
+        \hline
+        \hline
+            literals         & \texttt{({[]}),:\%}           \\ \hline
+            RIGHTARROW       & \texttt{->}                   \\ \hline
+            BEHAVIOR         & \texttt{\textbackslash bbehavior\textbackslash b}     \\ \hline
+            SEQUENCE         & \texttt{\textbackslash bsequence\textbackslash b}     \\ \hline
+            SELECTOR         & \texttt{\textbackslash bselector\textbackslash b}     \\ \hline
+            PROBSELECTOR     & \texttt{\textbackslash bprobselector\textbackslash b} \\ \hline
+            PARALLEL         & \texttt{\textbackslash bparallel\textbackslash b}     \\ \hline
+            DECORATOR        & \texttt{\textbackslash bdecorator\textbackslash b}    \\ \hline
+            CONDITION        & \texttt{\textbackslash bcondition\textbackslash b}    \\ \hline
+            ACTION           & \texttt{\textbackslash baction\textbackslash b}       \\ \hline
+            INVERTER         & \texttt{\textbackslash bINVERTER\textbackslash b}     \\ \hline
+            MEMORY           & \texttt{\textbackslash bmemory\textbackslash b}       \\ \hline
+            INT              & \texttt{\textbackslash d+}                            \\ \hline
+            VAR              & \texttt{\$\textbackslash w+}                          \\ \hline
+            NODENAME         & \texttt{\textbackslash b\textbackslash w+\textbackslash b}   \\ \hline
+            CODE             & \texttt{\%\%(.|\textbackslash n)+} \\
+        \hline
+    \end{tabular}\\
+    \caption{Lexical analysis' tokens.}
+    \label{tab:tokens}
+\end{table}
+
+
+\end{appendices}
+
 
 \end{document}
