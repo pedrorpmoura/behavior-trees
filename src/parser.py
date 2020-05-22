@@ -32,7 +32,6 @@ def p_root1(p):
     '''
     behavior = Behavior(p[1])
     behavior.set_code(p[2])
-    #print(str(behavior))
     #print(behavior.to_latex_str())
     p[0] = behavior
 
@@ -43,7 +42,6 @@ def p_root2(p):
     behavior = Behavior(p[1])
     behavior.fill_definitions(p[2])
     behavior.set_code(p[3])
-    #print(str(behavior))
     #print(behavior.to_latex_str())
     p[0] = behavior
 
@@ -54,7 +52,6 @@ def p_root3(p):
     behavior = Behavior(p[2], p[3])
     behavior.fill_definitions(p[1])
     behavior.set_code(p[3])
-    #print(str(behavior))
     #print(behavior.to_latex_str())
     p[0] = behavior
 
@@ -339,7 +336,7 @@ def p_error(p):
 if __name__ == '__main__':
     parser = yacc.yacc()
     import sys
-    file = "text3.txt"
+    file = "slate.txt"
     with open(file, 'r') as f:
         s = f.read()
         behavior = parser.parse(s)
@@ -359,4 +356,4 @@ if __name__ == '__main__':
             #with open(filename + ".generated.py", 'w') as python_file:
             #    python_file.write(py_output)
             with open("out.py", 'w') as python_file:
-                python_file.write(behavior.to_python_string_test())
+                python_file.write(behavior.to_python_string())

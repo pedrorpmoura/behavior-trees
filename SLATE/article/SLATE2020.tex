@@ -100,7 +100,7 @@ Altough this is a clear and simplistic way to represent and visualize small beha
 Some time later, a new and more powerful concept was introduced: using tasks instead of states to describe behaviors.
 This concept is incorporated in what we call behavior trees.
 
-Behavior trees (BT) were first used in the videogame industry in the development of the game \textit{Halo 2}, released in 2004 \cite{Cuadrado2018,ColOgr2018}.
+Behavior trees (BT) were first used in the videogame industry in the development of the game \textit{Halo 2}, released in 2004 \cite{Cuadrado2018}.
 The idea is that people create a complex behavior by only programming actions (or tasks) and then design a tree structure whose leaf nodes are actions and the inner nodes determine the NPC's decision making.
 Not only these provide an easy and intuitive way of visualizing and designing behaviors, they also provide a good way to work with scalability through modularity, solving the biggest issue from state-based design.
 Since then, multiple gaming companies adopted this concept and, in recent years, behavior trees are also being used in different areas like Artificial Inteligence and Robotics.
@@ -114,14 +114,20 @@ In that sense a new kind of node was included, as will be described.
 This paper will introduce the DSL designed and the compiler implemented to translate it to a programming language, in this case Python.
 Additionally, the compiler also generates \LaTeX\ diagrams to produce graphical documentation for each BT specified.
 
-XXX (TODO) game will be described in our language as a case study to illustrate all the achievements attained.
+A small example will be described in our language as a case study to illustrate all the achievements attained.
 
 % Estrutura do artigo
-The paper is organized as followed: Concepts \ref{sec:concepts} State of the Art \ref{sec:state-of-the-art} Architecture and Specification \ref{sec:arc-spec} Tools \ref{sec:tools} Example \ref{sec:example} Conclusion \ref{sec:conclusion} .
-
+The paper is organized as follow: Concepts and State of the Art frameworks are presented in Section \ref{sec:concepts}.
+Architecture and language specification are proposed in Section \ref{sec:arc-spec}.
+Compiler development is discussed in Section \ref{sec:tool_development}.
+An illustrative example is presented in Section \ref{sec:example}, before concluding the paper in Section \ref{sec:conclusion}.
+The paper also includes two appendices, one for tokens' table and another for the example specification.
 
 \section{Concepts}
 \label{sec:concepts}
+
+This section will be built based on references \cite{ColOgr2018,Simpson2014,MilFunge2009}.
+
 Formally, a BT is a tree whose internal nodes are called control flow nodes and leafs are called execution nodes.
 
 % descrever a execução
@@ -265,29 +271,36 @@ This is only sintatic sugar because we can also represent these nodes with a non
 
 Please note that, while we avoid the re-execution of nodes with this type of node, we also lose the reactivity that this re-execution provides.
 
-\section{State of The Art}
-\label{sec:state-of-the-art}
+\subsection{State of The Art}
+\label{subsec:state-of-the-art}
 In the gaming industry there is some interesting projects that use tools based on Behavior trees as the main focus to describe NPCs behaviors.
-Unreal Engine and Unity are two examples of major game engines that use them.
+Unreal Engine \cite{UnrealEngine} and Unity\footnote{\raggedright\url{https://unity.com}} are two examples of major game engines that use them.
 In their case, instead of a language, they offer a graphical user interface (GUI) to specify the BTs, through a drag and drop tactic.
 Upon the creation of an execution node, the programmer needs to specify the action or condition that will be executed.
 The nodes mentioned before are all implemented in these engines, along with some extensions.
 All the nodes that were mentioned before are implemented in both of these engines, along with some extensions.
 
-In addition to game engines, there are also frameworks like Java Behavior Trees for Java and Owyl for Python that implement BTs.
+In addition to game engines, there are also frameworks like Java Behavior Trees\footnote{\url{https://github.com/gaia-ucm/jbt}} for Java and Owyl\footnote{\url{https://github.com/eykd/owyl}} for Python that implement BTs.
 In this case, they work as a normal library.
 
 \section{Architecture and Specification}
 \label{sec:arc-spec}
-
+In this section, it will be explained the general architecture of our system to process BTs, that is depicted in Figure \ref{fig:architecture}. After introducing its modules, one subsection is devoted to the DSL design.
 \begin{figure}[H]
     \includegraphics[width=\columnwidth]{architecture.png}
     \caption{System's architecture.}
+    \label{fig:architecture}
 \end{figure}
 
-\subsection{DSL}
+The input for our system, \texttt{DSL - Specification}, is a text file describing the behavior which should follow the language's standard.
+The compiler, which is represented as the green rounded rectangle in our architeture diagram, is composed by the following modules: a \texttt{Lexer}, a \texttt{Parser} and a \texttt{Parsed Tree Generator}.
+This generator has two sub-generators.
+The \texttt{Latex Generator}, that is responsible for the generation of the \LaTeX\ representing the behavior.
+And the other, \texttt{Python Generator}, generates the Python file representing the behavior according to a template, so that it can be later imported to an application.
 
-Before we start describing the DSL, we will introduce a new node, called \textbf{Probability Selector}, that will provide us with an extension to behavior specification.
+\subsection{BhTSL}
+
+Before we start describing the DSL, we will introduce a new node, called \textbf{Probability Selector} (figure \ref{fig:prob_selector}), that will provide us with an extension to behavior specification.
 
 A probability selector node is like a normal selector node, but instead of visiting its children from left to right, it visits them randomly, taking into account that each child has a probability, defined by the user, of being chosen first.
 
@@ -302,6 +315,7 @@ A probability selector node is like a normal selector node, but instead of visit
         ]
     \end{behavior}
     \caption{Probability Selector node.}
+    \label{fig:prob_selector}
 \end{figure}
 
 
@@ -360,12 +374,13 @@ def e2(entity):
     pass
 \end{lstlisting}
 
-\subsection{Compiler}
-\subsubsection{Lexical analysis}
+\section{Tool development}
+\label{sec:tool_development}
+\subsection{Lexical analysis}
 The first step in the development of a compiler is the lexical analysis, that converts a char sequence in a token sequence.
 The tokens' table can be seen in the appendix.
 
-\subsubsection{Syntatic analysis}
+\subsection{Syntatic analysis}
 Syntatic analysis, or parsing, it the process of analyzing a string of symbols conforming the rules of a grammar. Here we have the grammar used in our DSL:
 \begin{lstlisting}
     root : behavior CODE
@@ -411,25 +426,63 @@ Syntatic analysis, or parsing, it the process of analyzing a string of symbols c
         | DECORATOR NODENAME ':' INVERTER '[' node ']'
 \end{lstlisting}
 
-\subsubsection{Semantic analysis}
-
-- validação
-- redeclarações
-- uso de variaveis nao declaraveis
-
+\subsection{Semantic analysis}
+Semantically, the compiler checks for non-declarable variables and variable redeclaration.
+A variable can only be accessed if it is declared, either in the \textit{definitions} section (if it represents a control flow node), or in the \textit{code} section (execution node).
+Additionally, a variable can only be declared one time, to avoid ambiguity in the memory access by the processor.
 
 
-\section{Tools}
-\label{sec:tools}
+\subsection{Code generator}
+The compiler can generate two different outputs: a \LaTeX\ file, that provides a diagram for the BT specified; and a Python file, that contains the functions that implement the specified behavior.
+
+
+
+\subsection{Implementation}
 All the project was made using Python.
 For the compiler, we used the PLY (Python Lex-Yacc) library, which is an implementation of the lex and yacc parsing tools for Python.
 As for the generator, only some standard libraries were used.
 
-Additionally, we created a \LaTeX\ stylesheet to draw the specified trees. This stylesheet is used in the \LaTeX\ generator.
+Additionally, we created a \LaTeX\ library, \texttt{behaviortrees.sty}, to draw the specified trees. This library is used in the \LaTeX\ generator.
 
 \section{Example}
 \label{sec:example}
+In this section it will be presented an example to show how to specify a behavior in our language.
 
+Suppose that, in our game, we want to have a guard that patrols a house.
+The guard has the following behavior: while he is patrolling, if he sees the player, activates an alarm and then, depending on the level of courage he has, decides (based on probabilities) whether he runs away or fights the player.
+In case of running away, he constantly checks if he still sees the player, returning to patrolling in case he doesn't. If he still sees it, he keeps running.
+The same thing happens when he choses to fight the player, only this time he checks if the player is already dead or not.
+
+An example specification for this behavior can be seen in the appendix \ref{appendix:example_specification}.
+Figure \ref{fig:example} shows the diagram of this specification after compiling it to \LaTeX.
+\begin{figure}
+    \centering
+    \begin{behavior}
+        [\rootnode
+            [\selector
+                [\memorysequence
+                    [\condition{sees player}]
+                    [\action{activate alarm}]
+                    [\memoryprobselector
+                        [\probnodesequence{$e1$}
+                            [\inverter
+                                [\condition{player dead}]
+                            ]
+                            [\action{fight player}]
+                        ]
+                        [\probnodesequence{$e2$}
+                            [\condition{sees player}]
+                            [\action{run}]
+                        ]
+                    ]
+                ]
+                [\action{patrol}]
+            ]
+        ]
+    \end{behavior}
+    \caption{Example.}
+    \label{fig:example}
+\end{figure}
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -441,7 +494,7 @@ Additionally, we created a \LaTeX\ stylesheet to draw the specified trees. This 
 \newpage
 \begin{appendices}
 
-\section{Appendix}
+\section{Tokens' table}
 The following table shows which tokens are utilized in our compiler:
 \begin{table}[H]
     \centering
@@ -473,6 +526,89 @@ The following table shows which tokens are utilized in our compiler:
     \caption{Lexical analysis' tokens.}
     \label{tab:tokens}
 \end{table}
+
+\section{Example Specification}
+\label{appendix:example_specification}
+
+In this section it is shown the functions that are used in our example.
+\begin{lstlisting}
+behavior : [
+    selector : [
+        memory sequence : [
+            condition : $sees_player,
+            action : $activate_alarm,
+            memory prob_selector : [
+                $e1 -> sequence : [
+                    decorator : INVERTER [
+                        condition : $player_dead
+                    ],
+                    action : $fight_player
+                ],
+                $e2 -> sequence : [
+                    condition : $sees_player,
+                    action : $run
+                ]
+            ]
+        ],
+        action : $patrol
+    ]
+]
+
+
+%%
+
+def sees_player(patroller):
+    from math import sqrt
+    player_x = patroller['player']['x']
+    player_y = patroller['player']['y']
+
+    patroller_x = patroller['x']
+    patroller_y = patroller['y']
+
+    if sqrt(patroller_x ** 2 - player_x** 2 +
+     patroller_y**2 - player_y**2) <= patroller['vision_radius']:
+        return SUCCESS
+
+    return FAILURE
+
+
+def activate_alarm(patroller):
+    print("ALARM ACTIVATED!!")
+    patroller['alarm_activated'] = True
+    return SUCCESS
+
+
+def player_dead(patroller):
+    if patroller['player']['hp'] == 0:
+        return SUCCESS
+    return FAILURE
+
+
+def fight_player(patroller):
+    patroller['player']['hp'] -= 10
+    return RUNNING
+
+
+def run(patroller):
+    patroller['x'] = patroller['x'] - 10
+    patroller['y'] = patroller['y'] - 10
+
+    print("Running away from player!")
+    return RUNNING
+
+
+def patrol(patroller):
+    patroller['x'] = patroller['x'] + 10
+    patroller['y'] = patroller['y'] + 10
+    return RUNNING
+
+
+def e1(patroller):
+    return patroller['guts'] / 10
+
+def e2(patroller):
+    return 1 - patroller['guts'] / 10
+\end{lstlisting}
 
 
 \end{appendices}

@@ -72,26 +72,25 @@ lexer = lex.lex()
 
 #lexer.input(
 #    """
-#    behavior : [ 
-#        memory sequence: [
-#            condition : $CONDITION2,
-#            parallel : 10 [
-#                action : $ACTION1,
-#                action : $ACTION2
-#            ]
-#        ],
-#        prob_selector : [
-#            $EXPRESSION1 -> sequence : [
-#            condition : $CONDITION1
+#    behavior : [
+#        selector : [
+#            memory sequence : [
+#                condition : $sees_player,
+#                action : $activate_alarm,
+#                memory prob_selector : [
+#                    $e1 -> action : $fight_player,
+#                    $e2 -> sequence : [
+#                        condition : $sees_player,
+#                        action : $run
+#                    ]
+#                ]
 #            ],
-#            $EXPRESSION2 -> sequence : [
-#                action: $action1
-#            ]
+#            action : $patrol
 #        ]
 #    ]
 #    """
 #)
-#
+##
 #while True:
 #    tok = lexer.token()
 #    if not tok:

@@ -1,9 +1,12 @@
 # -*- encoding: utf8 -*-
-STATE_READY = 0
-STATE_VISITING = 1
-STATE_FAILED = 2
-STATE_RUNNING = 3
-STATE_COMPLETE = 4
+READY   = 'READY'
+SUCCESS = 'SUCCESS'
+FAILURE = 'FAILURE'
+RUNNING = 'RUNNING'
+
+import json
+import numpy as np
+
 
 {CODE}
 
@@ -11,128 +14,186 @@ class Simulator:
 
 {TREE}
 
-    def __init__(self, entity):
-        self.nodes_state = {}
-        self.fill_parents(self.ROOT_NODE)
-        self.ROOT_NODE["parent"] = None
-        self.parent_node = None
-        self.current_node = None
-        self.counter = 0
-        self.current_state = STATE_READY
-        self.verbose = True
+    def __init__(self, tree, entity):
+        self.tree = tree
+        self.introduce_states(self.tree)
         self.entity = entity
 
-
-    def fill_parents(self, node): 
-        if not "children" in node:
-            return
+    def introduce_states(self, tree):
+        if 'state' not in tree:
+            tree['state'] = READY
         
-        for child_node in node["children"]:
-            self.fill_parents(child_node)
-            child_node["parent"] = node
-        
+        if tree['state'] != RUNNING:
+            tree['state'] = READY
 
-    def on_tick(self):
-        if self.current_node != None:
-            self.run_current_node()
-
-
-    def run_node_selector(self):
-        self.counter = 0
-        self.current_node = self.current_node["children"][self.counter]
-        self.print_verbose("[*]Going to Selector Children %s" % self.current_node["name"])
-        return STATE_READY
-
-
-    def run_node_executor(self):
-        try:
-            result = globals()[self.current_node["function"]](self.entity)
-            self.print_verbose("[*] Executed %s result: %d" % (self.current_node["function"], result))
-        except:
-            self.print_verbose("Error executing %s" % self.current_node["name"])
-        return result
-
-
-    def run_node_sequence(self):
-        self.parent_node = self.current_node
-        self.current_node = self.current_node["children"][0]
-        self.print_verbose("[*] Going to Sequence Children %s" % self.current_node["name"])
-        return STATE_READY
-
-    def get_success_next_node(self):
-        parent = self.current_node["parent"]
-        if parent == None:
-            return None, STATE_COMPLETE
-        if parent["type"] == "sequence":
-            if len(parent["children"]) == parent["children"].index(self.current_node) + 1:
-                # Done with sequence, lets go up
-                return parent, STATE_COMPLETE
-            self.counter = parent["children"].index(self.current_node) + 1
-            return parent["children"][self.counter], STATE_READY
-        elif parent["type"] == "selector":
-            self.counter = 0
-            return parent, STATE_COMPLETE
-
-
-    def get_failed_next_node(self):
-        parent = self.current_node["parent"]
-        if parent == None:
-            return None, STATE_FAILED
-        
-        if parent["type"] == "sequence":
-            self.counter = 0
-            return parent, STATE_FAILED
-        elif parent["type"] == "selector":
-            if len(parent["children"]) == parent["children"].index(self.current_node) + 1:
-                # Done with sequence, lets go up
-                return parent, STATE_FAILED
-            self.counter = parent["children"].index(self.current_node) + 1
-            return parent["children"][self.counter], STATE_READY
-
-
-    def run_current_node(self):
-        node_type = self.current_node["type"]
-        node_name = self.current_node["name"]
-        self.print_verbose("Current node: [name: %s type: %s]" % (node_name, node_type))
-        if self.current_state == STATE_READY:
-            if node_type == "selector":
-                self.current_state = self.run_node_selector()
-            elif node_type == "sequence":
-                self.current_state = self.run_node_sequence()
-            elif node_type == "condition" or node_type == "action":
-                self.current_state = self.run_node_executor()
-        elif self.current_state == STATE_COMPLETE:
-            # Done, lets go to the next one.
-            self.current_node, self.current_state = self.get_success_next_node()
-            if self.current_node == None:
-                self.print_verbose("Done!")
+            if tree['type'] == 'action' or tree['type'] == 'condition':
+                pass
             else:
-                self.print_verbose("Completed last stuff, let's proceed to node %s" % self.current_node["name"])
-        elif self.current_state == STATE_FAILED:
-            # Failed, lets go to the next one.
-            self.current_node, self.current_state = self.get_failed_next_node()
-            if self.current_node == None:
-                self.print_verbose("Done!")
-            else:
-                self.print_verbose("Failed last stuff, let's proceed to node %s" % self.current_node["name"])
+                for c in tree['children']:
+                    self.introduce_states(c)
 
 
-    def print_verbose(self, text):
-        if self.verbose:
-            print(text)
+    def tick(self):
+        self.introduce_states(self.tree)
+        self.tree['state'] = self.run(self.tree)
+        
 
 
-    def start(self):
-        self.current_node = self.ROOT_NODE
-        self.current_state = STATE_READY
+    def run(self, tree):
+        index = None
 
-if __name__ == "__main__":
-    entity = {"hp": 100}
-    sim = Simulator(entity)
-    sim.start()
-    for i in range(0, 100):
-        sim.on_tick()
+        if tree['type'] == 'action':
+            return self.run_action_node(tree)
 
-    print("Entity after behavior tree executing:")
-    print(entity)
+        elif tree['type'] == 'condition':
+            return self.run_condition_node(tree)
 
+        else:
+            if tree['state'] == RUNNING:
+                index = self.find_running_child_index(tree)
+
+            if tree['type'] == 'sequence':
+                return self.run_sequence_node(tree, index)
+
+            if tree['type'] == 'selector':
+                return self.run_selector_node(tree, index)
+
+            if tree['type'] == 'parallel':
+                return self.run_parallel_node(tree, int(tree['success_rate']))
+
+            if tree['type'] == 'prob_selector':
+                return self.run_prob_selector_node(tree, index)
+
+
+    def run_action_node(self, tree):
+        return globals()[tree['function']](self.entity)
+        
+
+
+    def run_condition_node(self, tree):
+        result = globals()[tree['function']](self.entity)
+        if result:
+            return SUCCESS
+        else:
+            return FAILURE
+
+    
+    def run_sequence_node(self, tree, child_index):
+        if child_index is None:
+            child_index = 0
+        
+        if not tree['memory']:
+            child_index = 0
+        
+        for c in tree['children'][child_index:]:
+            c['state'] = self.run(c)
+            if c['state'] != SUCCESS:
+                return c['state']
+        
+        return SUCCESS
+
+
+    def run_selector_node(self, tree, child_index):
+        if child_index is None:
+            child_index = 0
+
+        if not tree['memory']:
+            child_index = 0
+        
+        for c in tree['children'][child_index:]:
+            c['state'] = self.run(c)
+            if c['state'] != FAILURE:
+                return c['state']
+        
+        return FAILURE
+
+
+    def run_prob_selector_node(self, tree, child_index):
+        if tree['memory']:
+            if child_index is not None:
+                c = tree['children'][child_index]
+                c['state'] = self.run(c)
+                if c['state'] != FAILURE:
+                    return c['state']
+
+        executed_probs = []
+        for p in tree['probs']:
+            executed_probs.append(globals()[p['function']](self.entity))
+        
+        children_indexes = list(range(len(tree['children'])))
+        children_indexes = list(np.random.choice(children_indexes, len(children_indexes), 
+            replace = False, p = executed_probs))
+        
+        for i in children_indexes:
+            if tree['children'][i]['state'] != FAILURE:
+                tree['children'][i]['state'] = self.run(tree['children'][i])
+                if tree['children'][i]['state'] != FAILURE:
+                    return tree['children'][i]['state']
+        
+        return FAILURE
+          
+            
+            
+    def run_parallel_node(self, tree, M):
+        N = len(tree['children'])
+        success = 0
+        failure = 0
+        for c in tree['children']:
+            c['state'] = self.run(c)
+            if c['state'] == SUCCESS:
+                success += 1
+            if c['state'] == FAILURE:
+                failure += 1
+
+        if success >= M:
+            return SUCCESS
+        if failure > N - M:
+            return FAILURE
+        
+        return RUNNING
+
+
+    def run_inverter_node(self, tree):
+        child = tree['children'][0]
+
+        child['state'] = self.run(child)
+        if child['state'] == SUCCESS:
+            return FAILURE
+        
+        if child['state'] == FAILURE:
+            return SUCCESS
+
+        return RUNNING
+
+
+    def run_max_tries_node(self, tree):
+        
+        pass
+
+
+
+    def find_running_child_index(self, tree):
+        for i, c in enumerate(tree['children']):
+            if c['state'] == RUNNING:
+                return i
+
+
+    def clear_children_state(self, tree):
+        for c in tree['children']:
+            c['state'] = READY
+
+
+    def print_tree(self, tree):
+        print(json.dumps(tree, indent = 2))
+
+
+
+S = Simulator(ROOT_NODE, {'hp': 100})
+i = 2
+while i > 0:
+    S.tick()
+    #print(S.tree['state'])
+    S.print_tree(S.tree)
+    i -= 1
+
+    print(S.entity)

@@ -1,41 +1,80 @@
+# -*- encoding: utf8 -*-
+READY   = 'READY'
+SUCCESS = 'SUCCESS'
+FAILURE = 'FAILURE'
+RUNNING = 'RUNNING'
+
+import json
+import numpy as np
 
 
 
-def cond1(entity):
-    return True
 
-def cond2(entity):
-    return True
+def sees_player(patroller):
+    from math import sqrt
+    player_x = patroller['player']['x']
+    player_y = patroller['player']['y']
 
-def cond3(entity):
-    return True
+    patroller_x = patroller['x']
+    patroller_y = patroller['y']
+
+    if sqrt(patroller_x ** 2 - player_x** 2 + patroller_y**2 - player_y**2) <= patroller['vision_radius']:
+        return SUCCESS
+
+    return FAILURE
 
 
-def e1(entity):
-    return 0.5
+def activate_alarm(patroller):
+    print("ALARM ACTIVATED!!")
+    patroller['alarm_activated'] = True
+    return SUCCESS
 
-def e2(entity):
-    return 0.5
 
-def e3(entity):
-    return 0.5
+def player_dead(patroller):
+    if patroller['player']['hp'] == 0:
+        return SUCCESS
+    return FAILURE
 
-def e4(entity):
-    return 0.5
 
-def action1(entity):
+def fight_player(patroller):
+    patroller['player']['hp'] -= 10
     return RUNNING
 
-def action2(entity):
+
+def run(patroller):
+    patroller['x'] = patroller['x'] - 10
+    patroller['y'] = patroller['y'] - 10
+
+    print("Running away from player!")
     return RUNNING
 
-def action3(entity):
+
+def patrol(patroller):
+    patroller['x'] = patroller['x'] + 10
+    patroller['y'] = patroller['y'] + 10
     return RUNNING
+
+
+def e1(patroller):
+    return patroller['guts'] / 10
+
+def e2(patroller):
+    return 1 - patroller['guts'] / 10
+
+
+
+class Simulator:
 
     CONDITION0_NODE = {
         "name": "condition0",
         "type": "condition",
-        "function": "cond1",
+        "function": "sees_player",
+    }
+
+    ACTION0_NODE = {
+        "name": "action0",
+        "type": "action",
+        "function": "activate_alarm",
     }
 
     E1 = {
@@ -44,10 +83,33 @@ def action3(entity):
         "function": "e1",
     }
 
-    ACTION0_NODE = {
-        "name": "action0",
+    CONDITION1_NODE = {
+        "name": "condition1",
+        "type": "condition",
+        "function": "player_dead",
+    }
+    INVERTER0_NODE = {
+        "name": "inverter0",
+        "type": "inverter",
+        "children": [
+            CONDITION1_NODE,
+        ]
+    }
+
+    ACTION1_NODE = {
+        "name": "action1",
         "type": "action",
-        "function": "action3",
+        "function": "fight_player",
+    }
+
+    SEQUENCE0_NODE = {
+        "name": "sequence0",
+        "type": "sequence",
+        "memory": "False",
+        "children": [
+            INVERTER0_NODE,
+            ACTION1_NODE,
+        ]
     }
 
     E2 = {
@@ -56,91 +118,35 @@ def action3(entity):
         "function": "e2",
     }
 
-    E3 = {
-        "name": "e3",
-        "type": "expression",
-        "function": "e3",
-    }
-
-    CONDITION1_NODE = {
-        "name": "condition1",
-        "type": "condition",
-        "function": "cond1",
-    }
-
     CONDITION2_NODE = {
         "name": "condition2",
         "type": "condition",
-        "function": "cond1",
-    }
-
-    SELECTOR0_NODE = {
-        "name": "selector0",
-        "type": "selector",
-        "memory": "False",
-        "children": [
-            CONDITION1_NODE,
-            CONDITION2_NODE,
-        ]
-    }
-
-    E4 = {
-        "name": "e4",
-        "type": "expression",
-        "function": "e4",
-    }
-
-    ACTION1_NODE = {
-        "name": "action1",
-        "type": "action",
-        "function": "action2",
-    }
-    INVERTER0_NODE = {
-        "name": "inverter0",
-        "type": "inverter",
-        "children": [
-            ACTION1_NODE,
-        ]
+        "function": "sees_player",
     }
 
     ACTION2_NODE = {
         "name": "action2",
         "type": "action",
-        "function": "action3",
+        "function": "run",
     }
 
-    PARALLEL0_NODE = {
-        "name": "parallel0",
-        "type": "parallel",
-        "success_rate": "1",
+    SEQUENCE1_NODE = {
+        "name": "sequence1",
+        "type": "sequence",
         "memory": "False",
         "children": [
-            INVERTER0_NODE,
+            CONDITION2_NODE,
             ACTION2_NODE,
-        ]
-    }
-
-    PROB_SELECTOR1_NODE = {
-        "name": "prob_selector1",
-        "type": "prob_selector",
-        "memory": "True",
-        "children": [
-            SELECTOR0_NODE,
-            PARALLEL0_NODE,
-        ],
-        "probs": [
-            E3,
-            E4,
         ]
     }
 
     PROB_SELECTOR0_NODE = {
         "name": "prob_selector0",
         "type": "prob_selector",
-        "memory": "False",
+        "memory": "True",
         "children": [
-            ACTION0_NODE,
-            PROB_SELECTOR1_NODE,
+            SEQUENCE0_NODE,
+            SEQUENCE1_NODE,
         ],
         "probs": [
             E1,
@@ -148,14 +154,215 @@ def action3(entity):
         ]
     }
 
-    SEQUENCE0_NODE = {
-        "name": "sequence0",
+    SEQUENCE2_NODE = {
+        "name": "sequence2",
         "type": "sequence",
         "memory": "True",
         "children": [
             CONDITION0_NODE,
+            ACTION0_NODE,
             PROB_SELECTOR0_NODE,
         ]
     }
 
-    ROOT_NODE = SEQUENCE0_NODE
+    ACTION3_NODE = {
+        "name": "action3",
+        "type": "action",
+        "function": "patrol",
+    }
+
+    SELECTOR0_NODE = {
+        "name": "selector0",
+        "type": "selector",
+        "memory": "False",
+        "children": [
+            SEQUENCE2_NODE,
+            ACTION3_NODE,
+        ]
+    }
+
+    ROOT_NODE = SELECTOR0_NODE
+
+    def __init__(self, tree, entity):
+        self.tree = tree
+        self.introduce_states(self.tree)
+        self.entity = entity
+
+    def introduce_states(self, tree):
+        if 'state' not in tree:
+            tree['state'] = READY
+        
+        if tree['state'] != RUNNING:
+            tree['state'] = READY
+
+            if tree['type'] == 'action' or tree['type'] == 'condition':
+                pass
+            else:
+                for c in tree['children']:
+                    self.introduce_states(c)
+
+
+    def tick(self):
+        self.introduce_states(self.tree)
+        self.tree['state'] = self.run(self.tree)
+        
+
+
+    def run(self, tree):
+        index = None
+
+        if tree['type'] == 'action':
+            return self.run_action_node(tree)
+
+        elif tree['type'] == 'condition':
+            return self.run_condition_node(tree)
+
+        else:
+            if tree['state'] == RUNNING:
+                index = self.find_running_child_index(tree)
+
+            if tree['type'] == 'sequence':
+                return self.run_sequence_node(tree, index)
+
+            if tree['type'] == 'selector':
+                return self.run_selector_node(tree, index)
+
+            if tree['type'] == 'parallel':
+                return self.run_parallel_node(tree, int(tree['success_rate']))
+
+            if tree['type'] == 'prob_selector':
+                return self.run_prob_selector_node(tree, index)
+
+
+    def run_action_node(self, tree):
+        return globals()[tree['function']](self.entity)
+        
+
+
+    def run_condition_node(self, tree):
+        result = globals()[tree['function']](self.entity)
+        if result:
+            return SUCCESS
+        else:
+            return FAILURE
+
+    
+    def run_sequence_node(self, tree, child_index):
+        if child_index is None:
+            child_index = 0
+        
+        if not tree['memory']:
+            child_index = 0
+        
+        for c in tree['children'][child_index:]:
+            c['state'] = self.run(c)
+            if c['state'] != SUCCESS:
+                return c['state']
+        
+        return SUCCESS
+
+
+    def run_selector_node(self, tree, child_index):
+        if child_index is None:
+            child_index = 0
+
+        if not tree['memory']:
+            child_index = 0
+        
+        for c in tree['children'][child_index:]:
+            c['state'] = self.run(c)
+            if c['state'] != FAILURE:
+                return c['state']
+        
+        return FAILURE
+
+
+    def run_prob_selector_node(self, tree, child_index):
+        if tree['memory']:
+            if child_index is not None:
+                c = tree['children'][child_index]
+                c['state'] = self.run(c)
+                if c['state'] != FAILURE:
+                    return c['state']
+
+        executed_probs = []
+        for p in tree['probs']:
+            executed_probs.append(globals()[p['function']](self.entity))
+        
+        children_indexes = list(range(len(tree['children'])))
+        children_indexes = list(np.random.choice(children_indexes, len(children_indexes), 
+            replace = False, p = executed_probs))
+        
+        for i in children_indexes:
+            if tree['children'][i]['state'] != FAILURE:
+                tree['children'][i]['state'] = self.run(tree['children'][i])
+                if tree['children'][i]['state'] != FAILURE:
+                    return tree['children'][i]['state']
+        
+        return FAILURE
+          
+            
+            
+    def run_parallel_node(self, tree, M):
+        N = len(tree['children'])
+        success = 0
+        failure = 0
+        for c in tree['children']:
+            c['state'] = self.run(c)
+            if c['state'] == SUCCESS:
+                success += 1
+            if c['state'] == FAILURE:
+                failure += 1
+
+        if success >= M:
+            return SUCCESS
+        if failure > N - M:
+            return FAILURE
+        
+        return RUNNING
+
+
+    def run_inverter_node(self, tree):
+        child = tree['children'][0]
+
+        child['state'] = self.run(child)
+        if child['state'] == SUCCESS:
+            return FAILURE
+        
+        if child['state'] == FAILURE:
+            return SUCCESS
+
+        return RUNNING
+
+
+    def run_max_tries_node(self, tree):
+        
+        pass
+
+
+
+    def find_running_child_index(self, tree):
+        for i, c in enumerate(tree['children']):
+            if c['state'] == RUNNING:
+                return i
+
+
+    def clear_children_state(self, tree):
+        for c in tree['children']:
+            c['state'] = READY
+
+
+    def print_tree(self, tree):
+        print(json.dumps(tree, indent = 2))
+
+
+
+S = Simulator(ROOT_NODE, {'hp': 100})
+i = 2
+while i > 0:
+    S.tick()
+    #print(S.tree['state'])
+    S.print_tree(S.tree)
+    i -= 1
+
+    print(S.entity)

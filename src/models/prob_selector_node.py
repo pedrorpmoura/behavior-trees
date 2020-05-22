@@ -99,10 +99,11 @@ class ProbNode():
         text = indent * 4 * ' '
         #print(isinstance(self.node, Action))
         if isinstance(self.node, Action):
-            text += "[\\probnodeaction{$" + str(self.expression) + "$}{" + self.node.name + "}\n"
+            print(self.node.reference.replace("_", " "))
+            text += "[\\probnodeaction{$" + str(self.expression) + "$}{" + self.node.reference.replace("_", " ") + "}\n"
 
         elif isinstance(self.node, Condition):
-            text += "[\\probnodecondition{$" + str(self.expression) + "$}{" + self.node.name + "}\n"
+            text += "[\\probnodecondition{$" + str(self.expression) + "$}{" + self.node.reference.replace("_", " ") + "}\n"
 
         elif isinstance(self.node, Sequence):
             if not self.node.memory:

@@ -1,0 +1,76 @@
+behavior : [
+    selector : [
+        memory sequence : [
+            condition : $sees_player,
+            action : $activate_alarm,
+            memory prob_selector : [
+                $e1 -> sequence : [
+                    decorator : INVERTER [
+                        condition : $player_dead
+                    ],
+                    action : $fight_player
+                ],
+                $e2 -> sequence : [
+                    condition : $sees_player,
+                    action : $run
+                ]
+            ]
+        ],
+        action : $patrol
+    ]
+]
+
+
+%%
+
+def sees_player(patroller):
+    from math import sqrt
+    player_x = patroller['player']['x']
+    player_y = patroller['player']['y']
+
+    patroller_x = patroller['x']
+    patroller_y = patroller['y']
+
+    if sqrt(patroller_x ** 2 - player_x** 2 + patroller_y**2 - player_y**2) <= patroller['vision_radius']:
+        return SUCCESS
+
+    return FAILURE
+
+
+def activate_alarm(patroller):
+    print("ALARM ACTIVATED!!")
+    patroller['alarm_activated'] = True
+    return SUCCESS
+
+
+def player_dead(patroller):
+    if patroller['player']['hp'] == 0:
+        return SUCCESS
+    return FAILURE
+
+
+def fight_player(patroller):
+    patroller['player']['hp'] -= 10
+    return RUNNING
+
+
+def run(patroller):
+    patroller['x'] = patroller['x'] - 10
+    patroller['y'] = patroller['y'] - 10
+
+    print("Running away from player!")
+    return RUNNING
+
+
+def patrol(patroller):
+    patroller['x'] = patroller['x'] + 10
+    patroller['y'] = patroller['y'] + 10
+    return RUNNING
+
+
+def e1(patroller):
+    return patroller['guts'] / 10
+
+def e2(patroller):
+    return 1 - patroller['guts'] / 10
+

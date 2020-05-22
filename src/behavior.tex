@@ -9,24 +9,24 @@
 \begin{document}
 \begin{behavior}
     [\rootnode
-        [\memorysequence
-            [\condition{cond1}]
-            [\probselector
-                [\probnodeaction{$e1$}{action1}
-                ]
-                [\probnodememoryprobselector{$e2$}
-                    [\probnodeselector{$e3$}
-                        [\condition{cond2}]
-                        [\condition{cond3}]
-                    ]
-                    [\probnodeparallel{$e4$}{$1$}
+        [\selector
+            [\memorysequence
+                [\condition{sees player}]
+                [\action{activate alarm}]
+                [\memoryprobselector
+                    [\probnodesequence{$e1$}
                         [\inverter
-                            [\action{action2}]
+                            [\condition{player dead}]
                         ]
-                        [\action{action3}]
+                        [\action{fight player}]
+                    ]
+                    [\probnodesequence{$e2$}
+                        [\condition{sees player}]
+                        [\action{run}]
                     ]
                 ]
             ]
+            [\action{patrol}]
         ]
     ]
 \end{behavior}

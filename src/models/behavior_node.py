@@ -11,9 +11,20 @@ class Behavior:
     def set_code(self, code):
         self.code_str = code
         self.functions = {}
-        globals_generated = {}
-        exec(code, globals_generated)
+        RUNNING = 2
+        SUCCESS = 1
+        FAILURE = 0
+        globals_generated = {"RUNNING": 2, "SUCCESS": 1, "FAILURE": 0}
+        #print(globals_generated)
+        #print(1)
+        try:
+            exec(code, globals_generated)
+        except Exception as e:
+            import traceback
+            print(e)
+            traceback.print_exc()
         #print("Code: ")
+        
         for global_f, content in globals_generated.items():
             if global_f[0:2] == '__':
                 continue
