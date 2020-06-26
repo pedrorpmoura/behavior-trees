@@ -6,12 +6,20 @@ width = 512
 height = 512
 
 
-class Point():
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+class Player():
+
+    def __init__(self, position, map_dict, vision_level = 3):
+        self.position = position
+        self.map_dict = map_dict
+        self.vision_level = vision_level
+    
+
+def create_player(map_dict):
+    pass
 
 
+def draw_player(player):
+    pass
 
 def generate_wall(size, orientation, position):
     wall = []
@@ -108,8 +116,6 @@ def draw_map(map_dict, screen, N):
             color = (0,0,0)
         elif map_dict[(x,y)] == 2:
             color = (255,0,0)
-        elif map_dict[(x,y)] == 3:
-            color = (0,0,255)
         elif (x + y) % 2 == 0:
             color = (112,128,144)
         else:
@@ -132,6 +138,9 @@ def main():
     N = 16
     game_dict = create_map(N)
     draw_map(game_dict, screen, N)
+
+    #player = create_player()
+    #player.draw()
     
     running = True
     while running:
@@ -139,10 +148,11 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
+        draw_map(game_dict, screen, N)
+
+        #player = create_player()
+        #player.draw()
         pygame.display.update()
-
-
-
 
 
 if __name__ == "__main__":
