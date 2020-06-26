@@ -137,7 +137,7 @@ In the last case, the next tick will traverse the tree until it reaches the runn
 
 \subsection{Control Flow Nodes}
 Control flow nodes are structural nodes, that is, they don't have any impact in the state of the system. They only control the way the subsequent tree is traversed.
-In the classical formulation, there are 4 types of control flow nodes: \textbf{Sequence}, \textbf{Selector}, \textbf{Parallel} and \textbf{Decorator}.
+In the classical formulation, there are 4 types of control flow nodes: \textbf{Sequence}, \textbf{Selector}, \textbf{Parallel} and \textbf{Decorator} (according to \cite{ColOgr2018}).
 
 A sequence node (figure \ref{fig:sequence}) visits its children in order, starting with the first, and advancing for the next one if the previous succeeded.
 Returns:
@@ -435,12 +435,16 @@ Additionally, a variable can only be declared one time, to avoid ambiguity in th
 \subsection{Code generator}
 The compiler can generate two different outputs: a \LaTeX\ file, that provides a diagram for the BT specified; and a Python file, that contains the functions that implement the specified behavior.
 
-
+%% Cross-compiling 
+%% Mention templates
 
 \subsection{Implementation}
-All the project was made using Python.
+
+The project was made using Python.
 For the compiler, we used the PLY (Python Lex-Yacc) library, which is an implementation of the lex and yacc parsing tools for Python.
 As for the generator, only some standard libraries were used.
+
+%% TODO: Motivation
 
 Additionally, we created a \LaTeX\ library, \texttt{behaviortrees.sty}, to draw the specified trees. This library is used in the \LaTeX\ generator.
 

@@ -141,9 +141,9 @@ Each node, upon a tick call, returns one of the following three states to its pa
 In the last case, the next tick will traverse the tree until it reaches the running execution node, and will try again to run it.
 
 \subsection{Control Flow Nodes}
-Control flow nodes are structural nodes, that is, they don't have any impact in the state of the system. They only control the way the subsequent tree is traversed.
+Control flow nodes are structural nodes, that is, they do not have any impact in the state of the system. They only control the way the subsequent tree is traversed.
 In the classical formulation, there are 4 types of control flow nodes: \textbf{Sequence}, \textbf{Selector}, \textbf{Parallel} and \textbf{Decorator}.
-
+Even if not standard we use decorators as control flow nodes, according to \cite{ColOgr2018}.
 A sequence node (figure \ref{fig:sequence}) visits its children in order, starting with the first, and advancing for the next one if the previous succeeded.
 Returns:
 \begin{itemize}
@@ -182,7 +182,7 @@ Some examples of decorator nodes are:
 \end{enumerate}
 
 \subsection{Execution Nodes}
-Execution nodes are the simplest, yet the more powerful. They are the ones that have access to the state of the system, and can update it.
+Execution nodes are the simplest, yet the most powerful. They are the ones that have access to the state of the system, and can update it.
 There are two types of execution nodes: \textbf{Action} and \textbf{Condition}.
 
 
@@ -269,7 +269,7 @@ This node never returns \texttt{RUNNING}.
 
 % Memory
 \subsection{Control Flow Nodes with memory}
-Sometimes, when a node returns \texttt{RUNNING}, we want it to remember which nodes he already executed, so that the next tick doesn't execute them again.
+Sometimes, when a node returns \texttt{RUNNING}, we want it to remember which nodes he already executed, so that the next tick does not execute them again.
 We call this nodes with memory.
 And they are represented by adding a $\_^*$ to the symbols mentioned previously.
 This is only sintatic sugar because we can also represent these nodes with a non-memory BT, but that will not be discussed here.
@@ -456,10 +456,16 @@ A variable can only be accessed if it is declared, either in the \textit{definit
 (if it represents a control flow node), or in the \textit{code} section (execution node).
 Additionally, a variable can only be declared one time, to avoid ambiguity in the memory access by the processor.
 
+
+%% Dynamic and Static Semantics
+
 \subsection{Code generator}
 The compiler can generate two different outputs: 
 a \LaTeX\ file, that contains the \LaTeX\ commands to draw a diagram for the BT specified; 
 and a Python file, that contains the functions that implement the specified behavior.
+
+%% Cross-compiling 
+%% Mention templates
 
 \subsection{BT Simulator}
 In order to test the Python code generated and to help the BT specifier to debug the behavior he is willing
@@ -468,11 +474,16 @@ execution.\\
 This additional tool proved to be useful.
 
 \subsection{Implementation}
-All the project was develop using \texttt{Python}.\\
-To generate automatically  the compiler  from the tokens and grammar specifications, 
+
+%% Motivation
+
+The project was developed using \texttt{Python}.\\
+We chose Python as the language to develop this project due to our previous experience with this language and due to the its simplicity.
+To generate automatically the compiler from the tokens and grammar specifications, 
 we used the \texttt{PLY (Python Lex-Yacc)}\footnote{\url{https://www.dabeaz.com/ply/}} library, which is an implementation of the 
 \texttt{lex} and \texttt{yacc} lexer and parser generator tools for Python.\\
-To  implement the Code Generator module, we resorted to the well-known tree-traversal approach
+We chose to use PLY because we had prior experience with Lex-Yacc and due to the lack of time we had to do this project.
+To implement the Code Generator module, we resorted to the well-known tree-traversal approach.
 to produce the output visiting in the appropriate sequence the parse tree nodes;
  some standard libraries were used for that purpose.\\
 Additionally, we created a \LaTeX\ library, \texttt{behaviortrees.sty}, to draw the trees specified. 
@@ -486,7 +497,7 @@ In this section it will be presented an toy-example to illustrate how to specify
 it is intended  to have a \emph{guard that patrols a house}.
 The guard has the following behavior: while he is patrolling, if he sees the player, activates an alarm and then, 
 depending on the level of courage he has, decides (based on probabilities) whether he runs away or fights the player.
-In case of running away, he constantly checks if he still sees the player, returning to patrolling in case he doesn't. 
+In case of running away, he constantly checks if he still sees the player, returning to patrolling in case he does not. 
 If he still sees it, he keeps running.
 The same thing happens when he chooses to fight the player, only this time he checks if the player is already dead 
 or not.
@@ -527,7 +538,7 @@ Figure~\ref{fig:example} shows the tree diagram of this specification after comp
 \section{Conclusion}
 \label{sec:conclusion}
 
-As games industry is is growing significantly every day,  the need for a formal way to describe behaviors  
+As games industry is growing significantly every day, the need for a formal way to describe behaviors  
 is also increasing requiring more and more expressiveness keeping it easy to learn, to use and to understand.
 After some initial attempts not powerful enough, a new approach called Behavior Trees (BT) appeared.
 This paper describes a project in which we are working on, aimed at designing a DSL to write BT
@@ -542,7 +553,12 @@ In that context an example of a game  specification was presented and the \LaTeX
  generated to draw the BT was shown.
  
 Although not detailed or exemplified, the simulator developed to help on debugging the BT specified in
-\bht\ language was mention along the paper. 
+\bht\ language was mentioned along the paper. %%FIXME: WTH! We demand explanation!
+
+\subsection{Future Work}
+As future work we intend to allow to generate code for other programming languages, such as Java and C++ so that it can be widely used by the game development community.
+This should be a fairly standard due to our usage of templates on the \textbf{Code Generation} stage of our program.
+
 
 \bibliography{behavior_trees}
 
