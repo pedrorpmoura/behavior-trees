@@ -35,7 +35,7 @@ class Selector(ControlFlowNode):
             text += child.to_python_string(indent) + "\n"
             children_str += (indent + 2) * 4 * ' ' + "{}_NODE,\n".format(child.name.upper())
 
-        children_str += ((indent + 1)* 4 * ' ') + "]\n"
+        children_str += ((indent + 1) * 4 * ' ') + "]\n"
 
         text += indent * 4 * ' ' 
         text += "%s_NODE = {\n" % (self.name.upper())

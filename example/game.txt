@@ -1,0 +1,43 @@
+
+behavior : [
+    selector : [
+        sequence : $seq1,
+        action : $search_ball
+    ]
+]
+
+sequence seq1 : [
+    condition : $ball_found,
+    selector : [
+        sequence : [
+            condition : $ball_within_reach,
+            action : $grab_ball
+        ],
+        action : $approach_ball
+    ]
+]
+
+
+%%
+
+def ball_found(player):
+    return player.ball_found
+
+
+def ball_within_reach(player):
+    return player.ball_within_reach
+
+
+def grab_ball(player):
+    player.grab_ball()
+    return SUCCESS
+
+
+def approach_ball(player):
+    player.approach_ball()
+    return RUNNING
+
+
+def search_ball(player):
+    player.search_ball()
+    return RUNNING

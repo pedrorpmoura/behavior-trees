@@ -1,6 +1,10 @@
 import pygame
 import random
 import sys
+import math
+
+
+import out
 
 width = 512
 height = 512
@@ -17,15 +21,24 @@ DOWN = "down"
 
 
 def position_is_valid(p, board):
-    if p[0] < 1 or p[0] > board.size - 2 or p[1] < 1 or p[1] > board.size - 2:
+    if p[0] < 0 or p[0] > board.size - 1 or p[1] < 0 or p[1] > board.size - 1:
         return False
     
-    if board.structure[p] != FREE:
+    if board.structure[p] == WALL:
         return False
 
     return True
 
 
+def cross_product(a,b):
+    return a[0] * b[1] - a[1] * b[0]
+
+def dot_product(a,b):
+    return a[0] * b[0] + a[1] * b[1]
+
+
+def collinear_same_direction(a,b):
+    return cross_product(a,b) == 0 and dot_product(a,b) > 0
 
 class Board:
     
@@ -116,9 +129,7 @@ class Board:
 
 
 class Player:
-
     
-
     def __init__(self, board):
         self.board = board
     
@@ -128,7 +139,77 @@ class Player:
         self.position = random.choice(list(structure.keys()))
         while not position_is_valid(self.position, self.board):
             self.position = random.choice(list(structure.keys()))
+        
+        self.create_fov(self.board)
+        self.ball_found = self.ball_in_fov()
     
+
+    def create_fov(self, board, fov_distance = 3):
+        x = self.position[0]
+        y = self.position[1]
+        self.fov = set()
+        for (x0,y0), state in board.structure.items():
+            d = math.sqrt((x0 - x)**2 + (y0 - y)**2)
+            if d <= fov_distance and state != WALL and (x,y) != (x0,y0):
+                self.fov.add(((x0,y0), state))
+        
+        points_for_removal = set()
+        #for (x0, y0), state in self.fov:
+        #    if state == WALL:
+        #        a = (x0 - x, y0 - y)
+        #        da = math.sqrt(a[0]**2 + a[1]**2)
+#
+        #        for (x1,y1), state in self.fov:
+        #            if state == FREE or state == BALL:
+        #                b = (x1 - x, y1 - y)
+        #                db = math.sqrt(b[0]**2 + b[1]**2)
+        #                if collinear_same_direction(a,b) and db > da:
+        #                    points_for_removal.add(((x1,y1), state))
+        #                    
+        #                    #self.fov.remove(((x1,y1), state))
+        
+        self.fov = dict(self.fov.difference(points_for_removal))
+
+
+    
+
+    def ball_in_fov(self):
+        return BALL in self.fov.values()
+
+
+    def ball_is_within_reach(self):
+        x = self.position[0]
+        y = self.position[1]
+        for i in [-1,1]:
+            if position_is_valid((x + i, y), self.board) and self.board.structure[(x + i, y)] == BALL:
+                return True
+            
+            if position_is_valid((x, y + i), self.board) and self.board.structure[(x, y + i)] == BALL:
+                return True
+        
+        return False
+                    
+
+    def grab_ball(self):
+        return
+
+
+    def approach_ball(self):
+        return
+
+
+    def search_ball(self):
+        x = self.position[0]
+        y = self.position[1]
+
+        i = random.choice([1,-1])
+
+        if position_is_valid((x + i, y), self.board):
+            self.position = (x + i, y)
+
+        self.create_fov(self.board)
+        #self.ball_found = self.ball_in_fov()
+        #self.ball_within_reach = self.ball_is_within_reach()
 
     def process_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -144,22 +225,29 @@ class Player:
             elif event.key == pygame.K_DOWN:
                 print("pressed down key")
                 self.move_player(DOWN)
-        pass
 
 
     def move_player(self, move):
         x = self.position[0]
         y = self.position[1]
-        if move == UP:
+        if move == UP and position_is_valid((x, y-1), self.board):
             y = y - 1
-        elif move == DOWN:
+        elif move == DOWN and position_is_valid((x, y+1), self.board):
             y = y + 1
-        elif move == RIGHT:
+        elif move == RIGHT and position_is_valid((x+1, y), self.board):
             x = x + 1
-        elif move == LEFT:
+        elif move == LEFT and position_is_valid((x-1, y), self.board):
             x = x - 1
 
         self.position = (x,y)
+        self.create_fov(self.board)
+        self.ball_found = self.ball_in_fov()
+        if self.ball_found:
+            print("ball found")
+        
+        self.ball_within_reach = self.ball_is_within_reach()
+        if self.ball_within_reach:
+            print("ball within reach")
 
     def render(self, screen):
         n = width / self.board.size
@@ -169,10 +257,14 @@ class Player:
         y = self.position[1]
         pygame.draw.rect(screen, color, (x * n, y * n, n, n))
 
-    
-    
-           
-    
+
+        # draw fov
+        color = (0,255,0)
+        for (x0,y0) in list(self.fov.keys()):
+            rect = pygame.Surface((n, n))
+            rect.set_alpha(50)
+            rect.fill(color)
+            screen.blit(rect, (x0 * n, y0 * n))
 
 
 
@@ -218,13 +310,16 @@ def main():
 
     game = Game()
     game.setup()
+    S = out.Simulator(game.player)
 
     game.render(screen)
     
     while True:
         
         game.process_events()
-        game.update(clock, 30)
+
+        S.tick()
+        game.update(clock, 2)
         game.render(screen)
 
         pygame.display.update()

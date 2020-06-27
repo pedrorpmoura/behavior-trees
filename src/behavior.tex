@@ -10,23 +10,17 @@
 \begin{behavior}
     [\rootnode
         [\selector
-            [\memorysequence
-                [\condition{sees player}]
-                [\action{activate alarm}]
-                [\memoryprobselector
-                    [\probnodesequence{$e1$}
-                        [\inverter
-                            [\condition{player dead}]
-                        ]
-                        [\action{fight player}]
+            [\sequence
+                [\condition{ball found}]
+                [\selector
+                    [\sequence
+                        [\condition{ball within reach}]
+                        [\action{grab ball}]
                     ]
-                    [\probnodesequence{$e2$}
-                        [\condition{sees player}]
-                        [\action{run}]
-                    ]
+                    [\action{approach ball}]
                 ]
             ]
-            [\action{patrol}]
+            [\action{search ball}]
         ]
     ]
 \end{behavior}

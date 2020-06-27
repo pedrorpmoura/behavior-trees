@@ -28,7 +28,6 @@ class Sequence(ControlFlowNode):
         return text
 
     def to_python_string(self, indent):
-
         text = ""
         children_str = "[\n"
         for child in self.children:

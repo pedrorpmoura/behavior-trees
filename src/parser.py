@@ -76,7 +76,8 @@ def p_node_sequence2(p):
     '''
     node : SEQUENCE ':' VAR
     '''
-    p[0] = Sequence(p[3], [])
+    p[0] = Sequence("sequence" + str(current_indexes['sequence']), [], reference=p[3])
+    current_indexes['sequence'] += 1
 
 
 def p_node_memory_sequence1(p):
@@ -129,7 +130,8 @@ def p_node_memory_selector2(p):
     '''
     node : MEMORY SELECTOR ':' VAR
     '''
-    p[0] = Selector(p[4], [], memory = True)
+    p[0] = Selector("selector" + str(current_indexes['selector']), [], memory = True, reference=p[4])
+    current_indexes['selector'] += 1
 
 
 def p_node_prob_selector1(p):
@@ -336,16 +338,17 @@ def p_error(p):
 if __name__ == '__main__':
     parser = yacc.yacc()
     import sys
-    file = "slate.txt"
+    file = "../example/game.txt"
     with open(file, 'r') as f:
         s = f.read()
         behavior = parser.parse(s)
-        if len(sys.argv) == 0:
+
+        if len(sys.argv) <= 1:
+            print("yo")
             print("Usage: -l or -p")
             sys.exit(-1)
 
         if "-l" in sys.argv or "--latex" in sys.argv:
-            print("Latex:")
             with open('behavior.tex', 'w') as latex_file:
                 latex_file.write(behavior.to_latex_str())
 

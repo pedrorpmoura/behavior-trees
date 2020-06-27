@@ -107,8 +107,8 @@ class Simulator:
 
     ROOT_NODE = SELECTOR0_NODE
 
-    def __init__(self, tree, entity):
-        self.tree = tree
+    def __init__(self, entity):
+        self.tree = self.ROOT_NODE
         self.introduce_states(self.tree)
         self.entity = entity
 
@@ -281,12 +281,12 @@ class Simulator:
 
 
 
-S = Simulator(ROOT_NODE, {'hp': 100})
-i = 2
-while i > 0:
-    S.tick()
-    #print(S.tree['state'])
-    S.print_tree(S.tree)
-    i -= 1
-
-    print(S.entity)
+#S = Simulator(ROOT_NODE, {'hp': 100})
+#i = 2
+#while i > 0:
+#    S.tick()
+#    #print(S.tree['state'])
+#    S.print_tree(S.tree)
+#    i -= 1
+#
+#    print(S.entity)
