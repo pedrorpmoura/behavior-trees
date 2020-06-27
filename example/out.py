@@ -11,24 +11,29 @@ import numpy as np
 
 
 def ball_found(player):
+    print("SIMULATOR: Checking if ball is found")
     return player.ball_found
 
 
 def ball_within_reach(player):
+    print("SIMULATOR: Ball was found... checking if it's within reach")
     return player.ball_within_reach
 
 
 def grab_ball(player):
+    print("SIMULATOR: Ball is within reach... Grabbing ball")
     player.grab_ball()
     return SUCCESS
 
 
 def approach_ball(player):
+    print("SIMULATOR: Ball was found but not within reach, approaching")
     player.approach_ball()
     return RUNNING
 
 
 def search_ball(player):
+    print("SIMULATOR: ball is not found... searching")
     player.search_ball()
     return RUNNING
 
@@ -56,7 +61,7 @@ class Simulator:
     SEQUENCE1_NODE = {
         "name": "sequence1",
         "type": "sequence",
-        "memory": "False",
+        "memory": "True",
         "children": [
             CONDITION1_NODE,
             ACTION1_NODE,
@@ -175,7 +180,7 @@ class Simulator:
         if child_index is None:
             child_index = 0
         
-        if not tree['memory']:
+        if tree['memory'] == "False":
             child_index = 0
         
         for c in tree['children'][child_index:]:
@@ -190,7 +195,7 @@ class Simulator:
         if child_index is None:
             child_index = 0
 
-        if not tree['memory']:
+        if tree['memory'] == "False":
             child_index = 0
         
         for c in tree['children'][child_index:]:
@@ -202,7 +207,7 @@ class Simulator:
 
 
     def run_prob_selector_node(self, tree, child_index):
-        if tree['memory']:
+        if tree['memory'] == "True":
             if child_index is not None:
                 c = tree['children'][child_index]
                 c['state'] = self.run(c)

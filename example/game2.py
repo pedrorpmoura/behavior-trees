@@ -20,11 +20,17 @@ UP = "up"
 DOWN = "down"
 
 
+def position_inside_borders(p, board):
+    if p[0] < 0 or p[0] > board.size - 1 or p[1] < 0 or p[1] > board.size - 1:
+        return False
+    
+    return True
+
 def position_is_valid(p, board):
     if p[0] < 0 or p[0] > board.size - 1 or p[1] < 0 or p[1] > board.size - 1:
         return False
     
-    if board.structure[p] == WALL:
+    if board.structure[p] != FREE:
         return False
 
     return True
@@ -44,7 +50,7 @@ class Board:
     
     def __init__(self, size):
         self.size = size
-        self.structure = { (x,y): FREE for x in range(size) for y in range(size) } 
+        self.structure = { (x,y): FREE for x in range(size) for y in range(size) }
     
 
     def setup(self):
@@ -122,8 +128,7 @@ class Board:
 
             pygame.draw.rect(screen, color, (x * n, y * n, n, n))
     
-        
-        
+
 
 
 
@@ -141,10 +146,12 @@ class Player:
             self.position = random.choice(list(structure.keys()))
         
         self.create_fov(self.board)
+        self.shortest_path = self.find_shortest_path(self.position, self.board.ball)
         self.ball_found = self.ball_in_fov()
-    
+        self.ball_grabbed = False
+        self.ball_within_reach = self.ball_is_within_reach()    
 
-    def create_fov(self, board, fov_distance = 3):
+    def create_fov(self, board, fov_distance = 8):
         x = self.position[0]
         y = self.position[1]
         self.fov = set()
@@ -156,7 +163,7 @@ class Player:
         points_for_removal = set()
         #for (x0, y0), state in self.fov:
         #    if state == WALL:
-        #        a = (x0 - x, y0 - y)
+        #        a = (x0 - x, y0 - ycr)
         #        da = math.sqrt(a[0]**2 + a[1]**2)
 #
         #        for (x1,y1), state in self.fov:
@@ -169,33 +176,97 @@ class Player:
         #                    #self.fov.remove(((x1,y1), state))
         
         self.fov = dict(self.fov.difference(points_for_removal))
+        self.shortest_path = self.find_shortest_path(self.position, self.board.ball)
+        print(self.find_shortest_path(self.position, self.board.ball))
 
-
-    
 
     def ball_in_fov(self):
-        return BALL in self.fov.values()
+        return len(self.shortest_path) > 1
 
 
     def ball_is_within_reach(self):
         x = self.position[0]
         y = self.position[1]
         for i in [-1,1]:
-            if position_is_valid((x + i, y), self.board) and self.board.structure[(x + i, y)] == BALL:
+            if position_inside_borders((x + i, y), self.board) and self.board.structure[(x + i, y)] == BALL:
                 return True
             
-            if position_is_valid((x, y + i), self.board) and self.board.structure[(x, y + i)] == BALL:
+            if position_inside_borders((x, y + i), self.board) and self.board.structure[(x, y + i)] == BALL:
                 return True
         
         return False
                     
 
     def grab_ball(self):
-        return
+        if self.ball_within_reach:
+            self.ball_grabbed = True
+            self.board.structure[self.board.ball] = FREE
+            print("Ball grabbed")
+
+
+    def find_adjacents(self, position, d):
+        adjacents = set()
+
+        x,y = position
+        if (x+1,y) in d:
+            adjacents.add((x+1,y))
+
+        if (x-1,y) in d:
+            adjacents.add((x-1,y))
+
+        if (x,y+1) in d:
+            adjacents.add((x,y+1))
+
+        if (x,y-1) in d:
+            adjacents.add((x,y-1))
+
+        return adjacents
+    
+    def get_adjacency_list(self, d):
+        adj = {}
+        for p in d:
+            adj[p] = self.find_adjacents(p, d)
+    
+        return adj
+
+    def bfs(self, position, adj):
+        parent = {}
+        discovered = [] 
+        queue = []
+        discovered.append(position)
+        queue.append(position) 
+        while queue:
+            c = queue.pop(0) 
+            for n in adj[c]:
+                if n not in discovered: 
+                    discovered.append(n) 
+                    parent[n] = c 
+                    queue.append(n)
+            
+        return parent
+    
+
+    def find_shortest_path(self, src, dest):
+
+        aux = self.fov
+        aux[self.position] = PLAYER
+        adj = self.get_adjacency_list(aux)
+        path = []
+        if dest in adj:
+            parent = self.bfs(src, adj)
+            
+            path.append(dest)
+            while dest in parent:
+                dest = parent[dest]
+                path.insert(0, dest)
+
+        return path
 
 
     def approach_ball(self):
-        return
+        self.position = self.shortest_path.pop(0)
+        self.ball_within_reach = self.ball_is_within_reach()
+        
 
 
     def search_ball(self):
@@ -203,13 +274,22 @@ class Player:
         y = self.position[1]
 
         i = random.choice([1,-1])
+        j = random.randint(0,3)
 
-        if position_is_valid((x + i, y), self.board):
-            self.position = (x + i, y)
+        if j == 0:
+            if position_is_valid((x + i, y), self.board):
+                self.position = (x + i, y)
+        else:
+            if position_is_valid((x, y + i), self.board):
+                self.position = (x, y + i)
 
         self.create_fov(self.board)
-        #self.ball_found = self.ball_in_fov()
-        #self.ball_within_reach = self.ball_is_within_reach()
+        self.shortest_path = self.find_shortest_path(self.position, self.board.ball)
+        self.ball_found = self.ball_in_fov()
+        if self.ball_found:
+            self.fov = {}
+        self.ball_within_reach = self.ball_is_within_reach()
+        
 
     def process_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -225,6 +305,10 @@ class Player:
             elif event.key == pygame.K_DOWN:
                 print("pressed down key")
                 self.move_player(DOWN)
+            elif event.key == pygame.K_SPACE:
+                print("pressed space key")
+                if not self.ball_grabbed:
+                    self.grab_ball()
 
 
     def move_player(self, move):
@@ -241,6 +325,7 @@ class Player:
 
         self.position = (x,y)
         self.create_fov(self.board)
+        self.shortest_path = self.find_shortest_path(self.position, self.board.ball)
         self.ball_found = self.ball_in_fov()
         if self.ball_found:
             print("ball found")
@@ -249,18 +334,30 @@ class Player:
         if self.ball_within_reach:
             print("ball within reach")
 
+
+
     def render(self, screen):
         n = width / self.board.size
 
         color = (0,0,255)
         x = self.position[0]
         y = self.position[1]
+
         pygame.draw.rect(screen, color, (x * n, y * n, n, n))
+        if self.ball_grabbed:
+            pygame.draw.rect(screen, (255,0,0), (x * n + (n/4), y*n + (n/4) ,n/2, n/2))
 
 
         # draw fov
         color = (0,255,0)
         for (x0,y0) in list(self.fov.keys()):
+            rect = pygame.Surface((n, n))
+            rect.set_alpha(50)
+            rect.fill(color)
+            screen.blit(rect, (x0 * n, y0 * n))
+        
+        for (x0,y0) in self.shortest_path:
+            color = (255, 0, 0)
             rect = pygame.Surface((n, n))
             rect.set_alpha(50)
             rect.fill(color)

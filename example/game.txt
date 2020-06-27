@@ -1,7 +1,7 @@
 
 behavior : [
     selector : [
-        sequence : $seq1,
+        memory sequence : $seq1,
         action : $search_ball
     ]
 ]

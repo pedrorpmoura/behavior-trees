@@ -138,7 +138,7 @@ class Simulator:
         if child_index is None:
             child_index = 0
         
-        if not tree['memory']:
+        if tree['memory'] == "False":
             child_index = 0
         
         for c in tree['children'][child_index:]:
@@ -153,7 +153,7 @@ class Simulator:
         if child_index is None:
             child_index = 0
 
-        if not tree['memory']:
+        if tree['memory'] == "False":
             child_index = 0
         
         for c in tree['children'][child_index:]:
@@ -165,7 +165,7 @@ class Simulator:
 
 
     def run_prob_selector_node(self, tree, child_index):
-        if tree['memory']:
+        if tree['memory'] == "True":
             if child_index is not None:
                 c = tree['children'][child_index]
                 c['state'] = self.run(c)
