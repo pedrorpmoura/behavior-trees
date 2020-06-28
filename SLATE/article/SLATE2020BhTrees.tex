@@ -464,28 +464,34 @@ The compiler can generate two different outputs:
 a \LaTeX\ file, that contains the \LaTeX\ commands to draw a diagram for the BT specified; 
 and a Python file, that contains the functions that implement the specified behavior.
 
+
+The output Python file is built using a \textbf{Template} file which contains markers that the \textbf{Code Generator} will fill with the processed data. 
+This file also contains the class \textbf{Simulator} which is capable of executing the processed BT.
+
+Due to the lack of time available, we've only been able to generate Python code, but we hope to be able to compile into different languages in the future.
+
 %% Cross-compiling 
+
 %% Mention templates
 
 \subsection{BT Simulator}
 In order to test the Python code generated and to help the BT specifier to debug the behavior he is willing
 to describe, we also developed an interpreter that imports the Python behavior file and simulates its
-execution.\\
-This additional tool proved to be useful.
+execution.
+This additional tool proved to be useful. 
 
 \subsection{Implementation}
 
-%% Motivation
 
-The project was developed using \texttt{Python}.\\
-We chose Python as the language to develop this project due to our previous experience with this language and due to the its simplicity.
+The project was developed using \texttt{Python}.
+We chose this language due to our previous experience with it, and also due to its simplicity.
+
 To generate automatically the compiler from the tokens and grammar specifications, 
-we used the \texttt{PLY (Python Lex-Yacc)}\footnote{\url{https://www.dabeaz.com/ply/}} library, which is an implementation of the 
-\texttt{lex} and \texttt{yacc} lexer and parser generator tools for Python.\\
+we used the \texttt{PLY (Python Lex-Yacc)}\footnote{\url{https://www.dabeaz.com/ply/}} library, which is an implementation of the \texttt{lex} and \texttt{yacc} lexer and parser generator tools for Python.
 We chose to use PLY because we had prior experience with Lex-Yacc and due to the lack of time we had to do this project.
-To implement the Code Generator module, we resorted to the well-known tree-traversal approach.
-to produce the output visiting in the appropriate sequence the parse tree nodes;
- some standard libraries were used for that purpose.\\
+To implement the \textbf{Code Generator} module, we resorted to the well-known tree-traversal approach, that upon visiting every node of the parsed tree, produces the corresponding output.
+For that purpose, some standard libraries were used.
+
 Additionally, we created a \LaTeX\ library, \texttt{behaviortrees.sty}, to draw the trees specified. 
 This library is used in the \LaTeX\ generator.
 
@@ -556,7 +562,7 @@ Although not detailed or exemplified, the simulator developed to help on debuggi
 \bht\ language was mentioned along the paper. %%FIXME: WTH! We demand explanation!
 
 \subsection{Future Work}
-As future work we intend to allow to generate code for other programming languages, such as Java and C++ so that it can be widely used by the game development community.
+As future work we intend to implement the generate of code for other programming languages, such as Java and C++ so that it can be widely used by the game development community.
 This should be a fairly standard due to our usage of templates on the \textbf{Code Generation} stage of our program.
 
 

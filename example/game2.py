@@ -151,7 +151,7 @@ class Player:
         self.ball_grabbed = False
         self.ball_within_reach = self.ball_is_within_reach()    
 
-    def create_fov(self, board, fov_distance = 8):
+    def create_fov(self, board, fov_distance = 4):
         x = self.position[0]
         y = self.position[1]
         self.fov = set()

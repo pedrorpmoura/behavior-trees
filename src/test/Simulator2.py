@@ -8,66 +8,6 @@ import numpy as np
 
 
 
-
-def full_hp(entity):
-    return entity['hp'] == 100
-
-def sub_hp(entity):
-    entity['hp'] -= 10
-    return SUCCESS
-
-def add_hp(entity):
-    entity['hp'] += 10
-    return SUCCESS
-
-
-FULL_HP_NODE = {
-    "name": "full_hp",
-    "type": "condition",
-    "function": "full_hp",
-}
-
-SUB_HP_NODE = {
-    "name": "sub_hp",
-    "type": "action",
-    "function": "sub_hp",
-}
-
-SEQUENCE0_NODE = {
-    "name": "sequence0",
-    "type": "sequence",
-    "memory": "True",
-    "children": [
-        FULL_HP_NODE,
-        SUB_HP_NODE,
-    ]
-}
-
-ADD_HP_NODE = {
-    "name": "add_hp",
-    "type": "action",
-    "function": "add_hp",
-}
-INVERTER0_NODE = {
-    "name": "inverter0",
-    "type": "inverter",
-    "children": [
-        ADD_HP_NODE,
-    ]
-}
-
-SELECTOR0_NODE = {
-    "name": "selector0",
-    "type": "selector",
-    "memory": "False",
-    "children": [
-        SEQUENCE0_NODE,
-        INVERTER0_NODE,
-    ]
-}
-
-ROOT_NODE = SELECTOR0_NODE
-
 class Simulator:
 
     def __init__(self, tree, entity):
@@ -242,14 +182,3 @@ class Simulator:
     def print_tree(self, tree):
         print(json.dumps(tree, indent = 2))
 
-
-
-S = Simulator(ROOT_NODE, {'hp': 100})
-i = 2
-while i > 0:
-    S.tick()
-    #print(S.tree['state'])
-    S.print_tree(S.tree)
-    i -= 1
-
-    print(S.entity)
