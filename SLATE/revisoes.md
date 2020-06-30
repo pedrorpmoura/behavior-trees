@@ -18,9 +18,9 @@
 
 <u>Why lex and yacc was used?</u>  <---  FEITO(Linha 484)
 
-<u>What is the advantage of using lex-yacc respect of ANTLR?</u>
+<u>What is the advantage of using lex-yacc respect of ANTLR?</u> (FEITO)
 
-<u>The concepts of attribute grammars are better supported in lex-yacc?</u> 
+<u>The concepts of attribute grammars are better supported in lex-yacc?</u> (FEITO)
 
 - Consideramos ambas, mas optamos por lex yacc pq tinhamos mais experiência, e o tempo era reduzido
 - Eficiência do código gerado
@@ -63,13 +63,13 @@ Ou:
 
 
 
-<u>Try not to use "don't" but "do not".</u> <--- FEITO
+<u>Try not to use "don't" but "do not".</u> <-- FEITO
 
 - Corrigir 
 
 
 
-<u>Why not to generate other languages? How much that costs?</u> <--- FEITO(LINHA 558)
+<u>Why not to generate other languages? How much that costs?</u> <-- FEITO(LINHA 558)
 
 - Referenciar em trabalho futuro
 

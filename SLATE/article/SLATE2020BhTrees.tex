@@ -484,11 +484,13 @@ This additional tool proved to be useful.
 
 
 The project was developed using \texttt{Python}.
-We chose this language due to our previous experience with it, and also due to its simplicity.
+We chose this language due to our previous experience with it, but also due to its simplicity, flexibility and its cutting edge technology; it is also relevant to be a reflective language. 
 
-To generate automatically the compiler from the tokens and grammar specifications, 
+To automatically generate the compiler from the tokens and grammar specifications, 
 we used the \texttt{PLY (Python Lex-Yacc)}\footnote{\url{https://www.dabeaz.com/ply/}} library, which is an implementation of the \texttt{lex} and \texttt{yacc} lexer and parser generator tools for Python.
-We chose to use PLY because we had prior experience with Lex-Yacc and due to the lack of time we had to do this project.
+We chose to use PLY because we had prior experience with Lex-Yacc which enabled us to save time to implement the project.
+Moreover, we realized that the specification is lighter than an equivalent using attribute grammars and because the code produced by those generators is really efficient.
+
 To implement the \textbf{Code Generator} module, we resorted to the well-known tree-traversal approach, that upon visiting every node of the parsed tree, produces the corresponding output.
 For that purpose, some standard libraries were used.
 
@@ -507,6 +509,7 @@ In case of running away, he constantly checks if he still sees the player, retur
 If he still sees it, he keeps running.
 The same thing happens when he chooses to fight the player, only this time he checks if the player is already dead 
 or not.
+
 
 \textbf{Game specification:}
 The complete specification in \bht\ for the behavior described above can be seen in 
@@ -541,6 +544,105 @@ Figure~\ref{fig:example} shows the tree diagram of this specification after comp
     \label{fig:example}
 \end{figure}
 
+\section{Case Study}
+In order to test our tool, we designed a small game that consists of an entity finding and grabbing a ball in a generated map.
+This entity has a range of vision that it is used to search the ball.
+When the entity finds it, it approaches the ball and, if it is within reach, grabs it.
+
+The following code is an example of a specification for this behavior, and Figure \ref{fig:case_study_bt} depicts the specification's generated tree.
+\begin{lstlisting}
+behavior : [
+    selector : [
+        memory sequence : $seq1,
+        action : $search_ball
+    ]
+]
+
+sequence seq1 : [
+    condition : $ball_found,
+    selector : [
+        sequence : [
+            condition : $ball_within_reach,
+            action : $grab_ball
+        ],
+        action : $approach_ball
+    ]
+]
+
+
+%%
+
+def ball_found(player):
+    return player.ball_found
+
+
+def ball_within_reach(player):
+    return player.ball_within_reach
+
+
+def grab_ball(player):
+    player.grab_ball()
+    return SUCCESS
+
+
+def approach_ball(player):
+    player.approach_ball()
+    return RUNNING
+
+
+def search_ball(player):
+    player.search_ball()
+    return RUNNING
+\end{lstlisting}
+
+\begin{figure}
+    \centering
+    \begin{behavior}
+        [\rootnode
+            [\selector
+                [\memorysequence
+                    [\condition{ball found}]
+                    [\selector
+                        [\sequence
+                            [\condition{ball within reach}]
+                            [\action{grab ball}]
+                        ]
+                        [\action{approach ball}]
+                    ]
+                ]
+                [\action{search ball}]
+            ]
+        ]
+    \end{behavior}
+    \caption{Case study BT.}
+    \label{fig:case_study_bt}
+\end{figure}
+
+As we can see in Figure \ref{fig:case_study_bt}, the entity has 3 actions: search for the ball (Figure \ref{fig:searching}), approach the ball (Figure \ref{fig:approaching}), and grab the ball (Figure \ref{fig:grabbing}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=6cm]{Searching.png}
+    \caption{Searching for the ball.}
+    \label{fig:searching}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=6cm]{Approaching.png}
+    \caption{Approaching the ball.}
+    \label{fig:approaching}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=6cm]{Grabbing.png}
+    \caption{Grabbing the ball.}
+    \label{fig:grabbing}
+\end{figure}
+
+
 \section{Conclusion}
 \label{sec:conclusion}
 
@@ -559,11 +661,11 @@ In that context an example of a game  specification was presented and the \LaTeX
  generated to draw the BT was shown.
  
 Although not detailed or exemplified, the simulator developed to help on debugging the BT specified in
-\bht\ language was mentioned along the paper. %%FIXME: WTH! We demand explanation!
+\bht\ language was mentioned along the paper. 
 
 \subsection{Future Work}
-As future work we intend to implement the generate of code for other programming languages, such as Java and C++ so that it can be widely used by the game development community.
-This should be a fairly standard due to our usage of templates on the \textbf{Code Generation} stage of our program.
+As future work we intend to implement the generation of code for other programming languages, such as Java and C++ so that it can be widely used by the game development community.
+This should be a fairly standard procedure due to our usage of templates on the \textbf{Code Generation} stage of our program.
 
 
 \bibliography{behavior_trees}
@@ -606,86 +708,86 @@ defined in terms of regular expressions (REs)  as utilized in our compiler.
     \label{tab:tokens}
 \end{table}
 
-\section{Example Specification}
-\label{appendix:example_specification}
-This appendix lists the \texttt{TGame} full specification that is an example
-of a game formal description in \bht.
-\begin{lstlisting}
-behavior : [
-    selector : [
-        memory sequence : [
-            condition : $sees_player,
-            action : $activate_alarm,
-            memory prob_selector : [
-                $e1 -> sequence : [
-                    decorator : INVERTER [
-                        condition : $player_dead
-                    ],
-                    action : $fight_player
-                ],
-                $e2 -> sequence : [
-                    condition : $sees_player,
-                    action : $run
-                ]
-            ]
-        ],
-        action : $patrol
-    ]
-]
-
-%%
-def sees_player(patroller):
-    from math import sqrt
-    player_x = patroller['player']['x']
-    player_y = patroller['player']['y']
-
-    patroller_x = patroller['x']
-    patroller_y = patroller['y']
-
-    if sqrt(patroller_x ** 2 - player_x** 2 +
-     patroller_y**2 - player_y**2) <= patroller['vision_radius']:
-        return SUCCESS
-
-    return FAILURE
-
-
-def activate_alarm(patroller):
-    print("ALARM ACTIVATED!!")
-    patroller['alarm_activated'] = True
-    return SUCCESS
-
-
-def player_dead(patroller):
-    if patroller['player']['hp'] == 0:
-        return SUCCESS
-    return FAILURE
-
-
-def fight_player(patroller):
-    patroller['player']['hp'] -= 10
-    return RUNNING
-
-
-def run(patroller):
-    patroller['x'] = patroller['x'] - 10
-    patroller['y'] = patroller['y'] - 10
-
-    print("Running away from player!")
-    return RUNNING
-
-
-def patrol(patroller):
-    patroller['x'] = patroller['x'] + 10
-    patroller['y'] = patroller['y'] + 10
-    return RUNNING
-
-
-def e1(patroller):
-    return patroller['guts'] / 10
-
-def e2(patroller):
-    return 1 - patroller['guts'] / 10
-\end{lstlisting}
+%\section{Example Specification}
+%\label{appendix:example_specification}
+%This appendix lists the \texttt{TGame} full specification that is an example
+%of a game formal description in \bht.
+%\begin{lstlisting}
+%behavior : [
+%    selector : [
+%        memory sequence : [
+%            condition : $sees_player,
+%            action : $activate_alarm,
+%            memory prob_selector : [
+%                $e1 -> sequence : [
+%                    decorator : INVERTER [
+%                        condition : $player_dead
+%                    ],
+%                    action : $fight_player
+%                ],
+%                $e2 -> sequence : [
+%                    condition : $sees_player,
+%                    action : $run
+%                ]
+%            ]
+%        ],
+%        action : $patrol
+%    ]
+%]
+%
+%%%
+%def sees_player(patroller):
+%    from math import sqrt
+%    player_x = patroller['player']['x']
+%    player_y = patroller['player']['y']
+%
+%    patroller_x = patroller['x']
+%    patroller_y = patroller['y']
+%
+%    if sqrt(patroller_x ** 2 - player_x** 2 +
+%     patroller_y**2 - player_y**2) <= patroller['vision_radius']:
+%        return SUCCESS
+%
+%    return FAILURE
+%
+%
+%def activate_alarm(patroller):
+%    print("ALARM ACTIVATED!!")
+%    patroller['alarm_activated'] = True
+%    return SUCCESS
+%
+%
+%def player_dead(patroller):
+%    if patroller['player']['hp'] == 0:
+%        return SUCCESS
+%    return FAILURE
+%
+%
+%def fight_player(patroller):
+%    patroller['player']['hp'] -= 10
+%    return RUNNING
+%
+%
+%def run(patroller):
+%    patroller['x'] = patroller['x'] - 10
+%    patroller['y'] = patroller['y'] - 10
+%
+%    print("Running away from player!")
+%    return RUNNING
+%
+%
+%def patrol(patroller):
+%    patroller['x'] = patroller['x'] + 10
+%    patroller['y'] = patroller['y'] + 10
+%    return RUNNING
+%
+%
+%def e1(patroller):
+%    return patroller['guts'] / 10
+%
+%def e2(patroller):
+%    return 1 - patroller['guts'] / 10
+%\end{lstlisting}
 
 
 \end{appendices}

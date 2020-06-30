@@ -82,7 +82,7 @@ class Simulator:
     SEQUENCE0_NODE = {
         "name": "sequence0",
         "type": "sequence",
-        "memory": "False",
+        "memory": "True",
         "children": [
             CONDITION0_NODE,
             SELECTOR1_NODE,
@@ -107,8 +107,8 @@ class Simulator:
 
     ROOT_NODE = SELECTOR0_NODE
 
-    def __init__(self, tree, entity):
-        self.tree = tree
+    def __init__(self, entity):
+        self.tree = ROOT_NODE
         self.introduce_states(self.tree)
         self.entity = entity
 
@@ -279,14 +279,3 @@ class Simulator:
     def print_tree(self, tree):
         print(json.dumps(tree, indent = 2))
 
-
-
-S = Simulator(ROOT_NODE, {'hp': 100})
-i = 2
-while i > 0:
-    S.tick()
-    #print(S.tree['state'])
-    S.print_tree(S.tree)
-    i -= 1
-
-    print(S.entity)

@@ -274,7 +274,7 @@ class Player:
         y = self.position[1]
 
         i = random.choice([1,-1])
-        j = random.randint(0,3)
+        j = random.randint(0,1)
 
         if j == 0:
             if position_is_valid((x + i, y), self.board):
@@ -370,19 +370,22 @@ class Game:
     
     def __init__(self):
         self.board = Board(16)
-        self.player = Player(self.board)
-        pass 
+        #self.player1 = Player(self.board)
+        self.player2 = Player(self.board)
+         
 
     def setup(self):
         self.board.setup()
-        self.player.setup()
+        #self.player1.setup()
+        self.player2.setup()
 
     def process_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit(0)
             else:
-                self.player.process_event(event)
+                self.player2.process_event(event)
+                
         
 
     def update(self, clock, time):
@@ -391,7 +394,8 @@ class Game:
 
     def render(self, screen):
         self.board.render(screen)
-        self.player.render(screen)
+        #self.player1.render(screen)
+        self.player2.render(screen)
 
 
 
@@ -407,7 +411,7 @@ def main():
 
     game = Game()
     game.setup()
-    S = out.Simulator(game.player)
+    #S = out.Simulator(game.player1)
 
     game.render(screen)
     
@@ -415,7 +419,7 @@ def main():
         
         game.process_events()
 
-        S.tick()
+        #S.tick()
         game.update(clock, 2)
         game.render(screen)
 
