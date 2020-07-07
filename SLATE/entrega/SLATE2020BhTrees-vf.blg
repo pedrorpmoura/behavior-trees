@@ -9,41 +9,36 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: behavior_trees.bib
 Warning--entry type for "Cuadrado2018" isn't style-file defined
 --line 23 of file behavior_trees.bib
-Warning--entry type for "Simpson2014" isn't style-file defined
---line 37 of file behavior_trees.bib
-Warning--entry type for "UnrealEngine" isn't style-file defined
---line 55 of file behavior_trees.bib
-Warning--empty publisher in MilFunge2009
 You've used 5 entries,
             2849 wiz_defined-function locations,
-            647 strings with 5599 characters,
-and the built_in function-call counts, 1660 in all, are:
-= -- 154
+            648 strings with 5625 characters,
+and the built_in function-call counts, 1668 in all, are:
+= -- 157
 > -- 52
 < -- 0
 + -- 19
 - -- 14
-* -- 62
-:= -- 257
+* -- 60
+:= -- 259
 add.period$ -- 16
 call.type$ -- 5
 change.case$ -- 20
 chr.to.int$ -- 0
-cite$ -- 6
+cite$ -- 5
 duplicate$ -- 45
-empty$ -- 178
+empty$ -- 179
 format.name$ -- 14
-if$ -- 437
+if$ -- 441
 int.to.chr$ -- 0
 int.to.str$ -- 5
 missing$ -- 4
 newline$ -- 29
 num.names$ -- 10
-pop$ -- 64
+pop$ -- 63
 preamble$ -- 1
 purify$ -- 17
 quote$ -- 0
-skip$ -- 131
+skip$ -- 133
 stack$ -- 0
 substring$ -- 25
 swap$ -- 9
@@ -51,8 +46,8 @@ text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 16
-warning$ -- 1
+warning$ -- 0
 while$ -- 10
 width$ -- 6
-write$ -- 53
-(There were 4 warnings)
+write$ -- 54
+(There was 1 warning)

@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex SLATE2020BhTrees-vf"] 1594132751 "SLATE2020BhTrees-vf.aux" "SLATE2020BhTrees-vf.bbl" "SLATE2020BhTrees-vf" 1594132903
+["bibtex SLATE2020BhTrees-vf"] 1594141238 "SLATE2020BhTrees-vf.aux" "SLATE2020BhTrees-vf.bbl" "SLATE2020BhTrees-vf" 1594141242
   "/usr/local/texlive/2019/texmf-dist/bibtex/bst/urlbst/plainurl.bst" 1311291550 31050 ffdaefb09013f5fd4b31e485c13933c1 ""
-  "SLATE2020BhTrees-vf.aux" 1594132842 7847 9217b9f832bb9a555006a4cc362e7860 "pdflatex"
-  "behavior_trees.bib" 1594132591 1786 3e34d6c105eb0a6b1b7b5c13688b33c2 ""
+  "SLATE2020BhTrees-vf.aux" 1594141242 7847 9217b9f832bb9a555006a4cc362e7860 "pdflatex"
+  "behavior_trees.bib" 1594141151 1821 20e415586fcae356bb8b82354f56dfa9 ""
   (generated)
-  "SLATE2020BhTrees-vf.bbl"
   "SLATE2020BhTrees-vf.blg"
-["pdflatex"] 1594132768 "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.tex" "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.pdf" "SLATE2020BhTrees-vf" 1594132903
-  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.aux" 1594132842 7847 9217b9f832bb9a555006a4cc362e7860 ""
-  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.tex" 1594132903 34262 b2c5530982f45372b759e35ff04b058b ""
-  "/dev/null" 1594132902 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "SLATE2020BhTrees-vf.bbl"
+["pdflatex"] 1594141238 "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.tex" "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.pdf" "SLATE2020BhTrees-vf" 1594141242
+  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.aux" 1594141242 7847 9217b9f832bb9a555006a4cc362e7860 ""
+  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.tex" 1594141232 34262 b2c5530982f45372b759e35ff04b058b ""
+  "/dev/null" 1594141241 0 d41d8cd98f00b204e9800998ecf8427e ""
   "/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc" 1254269338 2375 baa924870cfb487815765f9094cf3728 ""
   "/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc" 1202520719 2405 5dcf2c1b967ee25cc46c58cd52244aed ""
   "/usr/local/texlive/2019/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc" 1202520719 2840 216e6e45ad352e2456e1149f28885bee ""
@@ -297,10 +297,10 @@
   "/usr/local/texlive/2019/texmf.cnf" 1557341546 577 d150fef99ac436ad1156e86b0892f6ef ""
   "Approaching.png" 1593534678 58375 b89a4ccb074fe6ac271ff0c887102565 ""
   "Grabbing.png" 1593534698 57788 e7c3cf377d9ad0bc95bc640901b0baa7 ""
-  "SLATE2020BhTrees-vf.aux" 1594132842 7847 9217b9f832bb9a555006a4cc362e7860 "pdflatex"
-  "SLATE2020BhTrees-vf.bbl" 1594132751 856 875f8bd76afe69fc16ed6e23c69d15ed "bibtex SLATE2020BhTrees-vf"
-  "SLATE2020BhTrees-vf.out" 1594132842 1195 5bdadf947660fbe96f8d2450235d1ef7 "pdflatex"
-  "SLATE2020BhTrees-vf.tex" 1594132903 34262 b2c5530982f45372b759e35ff04b058b ""
+  "SLATE2020BhTrees-vf.aux" 1594141242 7847 9217b9f832bb9a555006a4cc362e7860 "pdflatex"
+  "SLATE2020BhTrees-vf.bbl" 1594141238 884 49704f5f23e81ee7282eb18389556485 "bibtex SLATE2020BhTrees-vf"
+  "SLATE2020BhTrees-vf.out" 1594141242 1195 5bdadf947660fbe96f8d2450235d1ef7 "pdflatex"
+  "SLATE2020BhTrees-vf.tex" 1594141232 34262 b2c5530982f45372b759e35ff04b058b ""
   "Searching.png" 1593534619 57112 6cf213ab307847238c01351681d254ea ""
   "architecture.png" 1590077929 35964 348f7263e5430440548e5e35df0537af ""
   "behaviortrees.sty" 1590072098 4848 bb5b51ed63fd3e86c98470c462232285 ""
@@ -308,10 +308,10 @@
   "oasics-logo-bw.pdf" 1588247661 407686 81e511bae81cd1cfc5d95ded52c12a90 ""
   "oasics-v2019.cls" 1588247661 38462 f0d02e719a44f01870af7e63435aae5f ""
   (generated)
-  "SLATE2020BhTrees-vf.vtc"
-  "SLATE2020BhTrees-vf.log"
-  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.log"
   "SLATE2020BhTrees-vf.out"
+  "SLATE2020BhTrees-vf.log"
+  "SLATE2020BhTrees-vf.aux"
   "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.pdf"
   "SLATE2020BhTrees-vf.pdf"
-  "SLATE2020BhTrees-vf.aux"
+  "SLATE2020BhTrees-vf.vtc"
+  "/Users/pedrorpmoura/Documents/GitHub/behavior-trees/SLATE/entrega/SLATE2020BhTrees-vf.log"
